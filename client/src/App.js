@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 // views
 import Home from './views/Home'
 import Login from './views/Login'
+import Register from './views/Register'
 
 // components
 import Header from './shared/header/Header'
@@ -19,6 +20,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/login' component={Login} />
+          <Route path='/register' component={Register} />
         </Switch>
       </Router>
     </>

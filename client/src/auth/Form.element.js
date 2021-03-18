@@ -16,7 +16,7 @@ export const Form = styled.div`
   border-radius: 10px;
   flex-direction: column;
   background-color: var(--wht);
-  box-shadow: 0px 15px 15px 00px #eeeeee;
+  box-shadow: 0px 15px 15px 00px #e1e1e1;
 
   @media (max-width: 768px) {
     width: 90%;

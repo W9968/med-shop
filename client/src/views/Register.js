@@ -1,21 +1,21 @@
 import React from 'react'
 
 // components
-import SignIn from '../auth/SignIn'
+import SignUp from '../auth/SignUp'
 // styles
 import styled from 'styled-components'
 
-const Login = () => {
+const Register = () => {
   return (
     <>
       <Wrapper>
-        <SignIn />
+        <SignUp />
       </Wrapper>
     </>
   )
 }
 
-export default Login
+export default Register
 
 const Wrapper = styled.div`
   top: 0;

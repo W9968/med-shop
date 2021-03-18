@@ -1,4 +1,5 @@
 import React from 'react'
+// import useApi from '../hooks/useApi'
 
 const Home = () => {
   /*
@@ -8,8 +9,7 @@ const Home = () => {
       await useApi.get('/api/user').then((res) => console.log(res.data))
     }
     currentUser()
-  }, [])
-  */
+  }, []) */
 
   return <>home</>
 }
