@@ -4,8 +4,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 // views
 import Home from './views/Home'
-import Login from './views/Login'
-import Register from './views/Register'
+import Login from './views/auth/Login'
+import Register from './views/auth/Register'
+import NotFound from './views/NotFound'
+import Dashboard from './views/Dashboard'
 
 // components
 import Header from './shared/header/Header'
@@ -21,6 +23,8 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
+          <Route path='/dashboard' component={Dashboard} />
+          <Route path='*' component={NotFound} />
         </Switch>
       </Router>
     </>

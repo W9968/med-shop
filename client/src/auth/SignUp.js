@@ -5,7 +5,7 @@ import useApi from '../hooks/useApi'
 import { NavLink } from 'react-router-dom'
 import TextHero from '../shared/hero/TextHero'
 // styles
-import { Wrapper, Form, InputGroup, Input, Button } from './Form.element'
+import { Wrapper, Form, InputGroup, Input, Button, Parag } from './Form.element'
 
 const SignUp = () => {
   const name = useRef()
@@ -55,6 +55,12 @@ const SignUp = () => {
           </InputGroup>
           <InputGroup>
             <Button onClick={handleRegister}>sign Up</Button>
+          </InputGroup>
+          <InputGroup>
+            <Parag level={5}>
+              you already have account ?{' '}
+              <NavLink to='/login'>login here</NavLink>
+            </Parag>
           </InputGroup>
         </Form>
       </Wrapper>

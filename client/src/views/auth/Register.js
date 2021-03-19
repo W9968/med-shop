@@ -1,7 +1,7 @@
 import React from 'react'
 
 // components
-import SignUp from '../auth/SignUp'
+import SignUp from '../../auth/SignUp'
 // styles
 import styled from 'styled-components'
 

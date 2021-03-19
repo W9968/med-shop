@@ -5,11 +5,11 @@ import useApi from '../hooks/useApi'
 import { NavLink } from 'react-router-dom'
 import TextHero from '../shared/hero/TextHero'
 // styles
-import { Wrapper, Form, InputGroup, Input, Button } from './Form.element'
+import { Wrapper, Form, InputGroup, Input, Button, Parag } from './Form.element'
 
 const SignIn = () => {
-  const email = useRef()
   const pass = useRef()
+  const email = useRef()
 
   let handleLogin = async () => {
     await useApi.get('/sanctum/csrf-cookie')
@@ -21,7 +21,6 @@ const SignIn = () => {
       .then((response) => {
         console.log(response.data)
       })
-
     useApi.get('/api/user').then((res) => console.log(res.data))
   }
 
@@ -33,13 +32,27 @@ const SignIn = () => {
         </NavLink>
         <Form>
           <InputGroup>
-            <Input autoComplete='no' placeholder='email' ref={email} />
+            <Input
+              type='email'
+              autoComplete='no'
+              placeholder='email'
+              ref={email}
+            />
           </InputGroup>
           <InputGroup>
-            <Input placeholder='password' ref={pass} />
+            <Input type='password' placeholder='password' ref={pass} />
           </InputGroup>
           <InputGroup>
             <Button onClick={handleLogin}>sign in</Button>
+          </InputGroup>
+          <InputGroup>
+            <Parag level={5}>
+              forgot your password ? <NavLink to='/'>reset here</NavLink>
+            </Parag>
+            <Parag level={5}>
+              you don't have account ?{' '}
+              <NavLink to='/register'>create here</NavLink>
+            </Parag>
           </InputGroup>
         </Form>
       </Wrapper>

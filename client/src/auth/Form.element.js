@@ -25,6 +25,7 @@ export const Form = styled.div`
 
 export const InputGroup = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin: 1rem 0rem;
 `
@@ -54,4 +55,10 @@ export const Button = styled.button`
     cursor: pointer;
     background-color: var(--hov);
   }
+`
+
+export const Parag = styled.p`
+  margin: 0;
+  font-weight: 500;
+  text-align: center;
 `
