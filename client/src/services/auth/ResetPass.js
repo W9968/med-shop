@@ -1,9 +1,9 @@
 import React, { useRef } from 'react'
 
 //components
-import useApi from '../hooks/useApi'
+import useApi from '../../hooks/useApi'
 import { NavLink } from 'react-router-dom'
-import TextHero from '../shared/hero/TextHero'
+import TextHero from '../../shared/hero/TextHero'
 
 //styles
 import {
@@ -13,7 +13,7 @@ import {
   Input,
   Button,
   Parag,
-} from '../styles/Form.element'
+} from '../../styles/Form.element'
 
 const ResetPass = () => {
   const email = useRef()

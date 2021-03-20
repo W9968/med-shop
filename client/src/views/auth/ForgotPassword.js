@@ -1,7 +1,7 @@
 import React from 'react'
 
 //components
-import ResetPass from '../../auth/ResetPass'
+import ResetPass from '../../services/auth/ResetPass'
 //styles
 import { Wrapper } from '../../styles/Auth.element'
 

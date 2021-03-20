@@ -1,7 +1,7 @@
 import React from 'react'
 
 // components
-import SignIn from '../../auth/SignIn'
+import SignIn from '../../services/auth/SignIn'
 // styles
 import { Wrapper } from '../../styles/Auth.element'
 
