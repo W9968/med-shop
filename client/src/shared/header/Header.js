@@ -1,6 +1,7 @@
 import React from 'react'
 
 //imports
+import useApi from '../../hooks/useApi'
 import { NavLink } from 'react-router-dom'
 
 const Header = () => {
@@ -13,6 +14,13 @@ const Header = () => {
       <NavLink to='/register'>register</NavLink>
       <span> | </span>
       <NavLink to='/dashboard'>dash</NavLink>
+      <span> | </span>
+      <button
+        onClick={async () => {
+          await useApi.post('/logout')
+        }}>
+        log out
+      </button>
     </div>
   )
 }
