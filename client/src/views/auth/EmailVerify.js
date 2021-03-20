@@ -1,18 +1,16 @@
 import React from 'react'
 
-// components
-import SignUp from '../../auth/SignUp'
-// styles
+//styles
 import { Wrapper } from '../../styles/Auth.element'
 
-const Register = () => {
+const EmailVerify = () => {
   return (
     <>
       <Wrapper>
-        <SignUp />
+        <Container>please verfiy your email to procceed </Container>
       </Wrapper>
     </>
   )
 }
 
-export default Register
+export default EmailVerify

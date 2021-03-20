@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Home from './views/Home'
 import Login from './views/auth/Login'
 import Register from './views/auth/Register'
+import ForgotPassword from './views/auth/ForgotPassword'
 import NotFound from './views/NotFound'
 import Dashboard from './views/Dashboard'
 
@@ -23,6 +24,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
+          <Route path='/reset' component={ForgotPassword} />
           <Route path='/dashboard' component={Dashboard} />
           <Route path='*' component={NotFound} />
         </Switch>

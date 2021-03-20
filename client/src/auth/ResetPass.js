@@ -4,7 +4,8 @@ import React, { useRef } from 'react'
 import useApi from '../hooks/useApi'
 import { NavLink } from 'react-router-dom'
 import TextHero from '../shared/hero/TextHero'
-// styles
+
+//styles
 import {
   Wrapper,
   Form,
@@ -14,24 +15,21 @@ import {
   Parag,
 } from '../styles/Form.element'
 
-const SignUp = () => {
-  const name = useRef()
+const ResetPass = () => {
   const email = useRef()
-  const pass = useRef()
 
-  let handleRegister = async () => {
+  const handleReset = async () => {
     await useApi.get('/sanctum/csrf-cookie')
     await useApi
-      .post('/register', {
-        name: name.current.value,
+      .post('/password/email', {
         email: email.current.value,
-        password: pass.current.value,
       })
-      .then((response) => {
-        console.log(response.data)
+      .then((res) => {
+        console.log(res.data, res.status, res.headers)
       })
-
-    useApi.get('/api/user').then((res) => console.log(res.data))
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
@@ -42,12 +40,9 @@ const SignUp = () => {
         </NavLink>
         <Form>
           <InputGroup>
-            <Input
-              type='text'
-              autoComplete='no'
-              placeholder='name'
-              ref={name}
-            />
+            <Parag level={5}>
+              type your email in order to recieve the reset password link
+            </Parag>
           </InputGroup>
           <InputGroup>
             <Input
@@ -58,16 +53,7 @@ const SignUp = () => {
             />
           </InputGroup>
           <InputGroup>
-            <Input type='password' placeholder='password' ref={pass} />
-          </InputGroup>
-          <InputGroup>
-            <Button onClick={handleRegister}>sign Up</Button>
-          </InputGroup>
-          <InputGroup>
-            <Parag level={5}>
-              you already have account ?{' '}
-              <NavLink to='/login'>login here</NavLink>
-            </Parag>
+            <Button onClick={handleReset}>reset password</Button>
           </InputGroup>
         </Form>
       </Wrapper>
@@ -75,4 +61,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default ResetPass

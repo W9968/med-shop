@@ -3,7 +3,7 @@ import React from 'react'
 // components
 import SignIn from '../../auth/SignIn'
 // styles
-import styled from 'styled-components'
+import { Wrapper } from '../../styles/Auth.element'
 
 const Login = () => {
   return (
@@ -16,12 +16,3 @@ const Login = () => {
 }
 
 export default Login
-
-const Wrapper = styled.div`
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100vh;
-  position: absolute;
-  background-color: var(--wht);
-`
