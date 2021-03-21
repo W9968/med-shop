@@ -10,7 +10,7 @@ const Home = () => {
     <>
       <p>home</p>
       {console.log(currentUser)}
-      {currentUser === '' ? <p>error</p> : <p>{currentUser.name}</p>}
+      {currentUser === null ? <p>error</p> : <p>{currentUser.name}</p>}
     </>
   )
 }

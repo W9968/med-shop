@@ -9,7 +9,7 @@ export function useAuth() {
 
 export default function AuthProvider({ children }) {
   /* * set states * */
-  const [currentUser, setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState(null)
   /* * sign up * */
   const Register = async (userName, userEmail, userPassword) => {
     return await useApi
@@ -91,7 +91,7 @@ export default function AuthProvider({ children }) {
             response.headers,
             response.status
           )
-          setCurrentUser('')
+          setCurrentUser(null)
         })
       })
       .catch((err) => {
@@ -101,7 +101,7 @@ export default function AuthProvider({ children }) {
 
   /* * pull connected user * */
   useEffect(() => {
-    if (currentUser !== '') {
+    if (currentUser !== null) {
       useApi.get('/api/user').then((res) => {
         setCurrentUser(res.data)
       })
