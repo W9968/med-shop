@@ -2,7 +2,8 @@ import React, { useRef } from 'react'
 
 //components
 import useApi from '../../hooks/useApi'
-import { NavLink, useHistory } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import { NavLink } from 'react-router-dom'
 import TextHero from '../../shared/hero/TextHero'
 // styles
 import {
@@ -15,29 +16,19 @@ import {
 } from '../../styles/Form.element'
 
 const SignIn = () => {
-  const pass = useRef()
   const email = useRef()
-  const history = useHistory()
+  const pass = useRef()
 
-  let handleLogin = async () => {
-    await useApi.get('/sanctum/csrf-cookie')
-    await useApi
-      .post('/login', {
-        email: email.current.value,
-        password: pass.current.value,
-        //remember_token: 'sfkhsdkfhjd'
-      })
-      .then((response) => {
-        console.log(response.data)
-      })
-    //get user
-    useApi
-      .get('/api/user')
-      .then((res) =>
-        res.data.role === 1 ? history.push('/dashboard') : history.push('/')
-      )
+  const { Login, currentUser, setCurrentUser } = useAuth()
 
-    //user.role === 1 ? history.push('/dashboard') : history.push('/')
+  let handleLogin = async (e) => {
+    e.preventDefault()
+    await Login(email.current.value, pass.current.value)
+
+    await useApi.get('/api/user').then((response) => {
+      setCurrentUser(response.data)
+    })
+    console.log('in:', currentUser)
   }
 
   return (

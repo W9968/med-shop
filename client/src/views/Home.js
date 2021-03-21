@@ -1,17 +1,18 @@
 import React from 'react'
-// import useApi from '../hooks/useApi'
+
+// imports
+import { useAuth } from '../services/context/AuthContext'
 
 const Home = () => {
-  /*
-  useEffect(() => {
-    const currentUser = async () => {
-      await useApi.get('/sanctum/csrf-cookie')
-      await useApi.get('/api/user').then((res) => console.log(res.data))
-    }
-    currentUser()
-  }, []) */
+  const { currentUser } = useAuth()
 
-  return <>home</>
+  return (
+    <>
+      <p>home</p>
+      {console.log(currentUser)}
+      {currentUser === '' ? <p>error</p> : <p>{currentUser.name}</p>}
+    </>
+  )
 }
 
 export default Home

@@ -1,26 +1,23 @@
 import React from 'react'
 
 //imports
-import useApi from '../../hooks/useApi'
+import { useAuth } from '../../services/context/AuthContext'
 import { NavLink } from 'react-router-dom'
+import Logo from './Logo'
+import UserIcon from './UserIcon'
 
 const Header = () => {
+  const { Logout } = useAuth()
+
   return (
     <div>
-      <NavLink to='/'>home</NavLink>
+      <Logo logo='Med Shop' />
       <span> | </span>
-      <NavLink to='/login'>login</NavLink>
-      <span> | </span>
-      <NavLink to='/register'>register</NavLink>
+      <UserIcon />
       <span> | </span>
       <NavLink to='/dashboard'>dash</NavLink>
       <span> | </span>
-      <button
-        onClick={async () => {
-          await useApi.post('/logout')
-        }}>
-        log out
-      </button>
+      <button onClick={Logout}>log out</button>
     </div>
   )
 }

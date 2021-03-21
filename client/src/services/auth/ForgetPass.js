@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
 
 //components
-import useApi from '../../hooks/useApi'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import TextHero from '../../shared/hero/TextHero'
 
 //styles
@@ -17,19 +17,13 @@ import {
 
 const ResetPass = () => {
   const email = useRef()
+  const { EmailReset } = useAuth()
 
-  const handleReset = async () => {
-    await useApi.get('/sanctum/csrf-cookie')
-    await useApi
-      .post('/password/email', {
-        email: email.current.value,
-      })
-      .then((res) => {
-        console.log(res.data, res.status, res.headers)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+  const handleResetEmail = async (e) => {
+    e.preventDefault()
+    await EmailReset(email.current.value)
+    // still no completed
+    // we need to push to a new route where we can update password
   }
 
   return (
@@ -53,7 +47,7 @@ const ResetPass = () => {
             />
           </InputGroup>
           <InputGroup>
-            <Button onClick={handleReset}>reset password</Button>
+            <Button onClick={handleResetEmail}>reset password</Button>
           </InputGroup>
         </Form>
       </Wrapper>

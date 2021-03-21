@@ -3,6 +3,7 @@ import React, { useRef } from 'react'
 //components
 import useApi from '../../hooks/useApi'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import TextHero from '../../shared/hero/TextHero'
 // styles
 import {
@@ -19,19 +20,16 @@ const SignUp = () => {
   const email = useRef()
   const pass = useRef()
 
-  let handleRegister = async () => {
-    await useApi.get('/sanctum/csrf-cookie')
-    await useApi
-      .post('/register', {
-        name: name.current.value,
-        email: email.current.value,
-        password: pass.current.value,
-      })
-      .then((response) => {
-        console.log(response.data)
-      })
+  const { Register, currentUser, setCurrentUser } = useAuth()
 
-    useApi.get('/api/user').then((res) => console.log(res.data))
+  const handleRegister = async (e) => {
+    e.preventDefault()
+    await Register(name.current.value, email.current.value, pass.current.value)
+    await useApi.get('/api/user').then((response) => {
+      setCurrentUser(response.data)
+    })
+
+    console.log('up', currentUser)
   }
 
   return (

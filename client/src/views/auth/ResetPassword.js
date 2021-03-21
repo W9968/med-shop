@@ -1,18 +1,18 @@
 import React from 'react'
 
 //components
-import ForgetPass from '../../services/auth/ForgetPass'
+import NewPass from '../../services/auth/NewPass'
 //styles
 import { Wrapper } from '../../styles/Auth.element'
 
-const ForgotPassword = () => {
+const ResetPassword = () => {
   return (
     <>
       <Wrapper>
-        <ForgetPass />
+        <NewPass />
       </Wrapper>
     </>
   )
 }
 
-export default ForgotPassword
+export default ResetPassword
