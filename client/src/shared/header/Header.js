@@ -1,24 +1,18 @@
 import React from 'react'
 
 //imports
-import { useAuth } from '../../services/context/AuthContext'
-import { NavLink } from 'react-router-dom'
 import Logo from './Logo'
 import UserIcon from './UserIcon'
+//styles
+import { Wrapper } from '../../styles/Header.element'
 
 const Header = () => {
-  const { Logout } = useAuth()
-
   return (
-    <div>
+    <Wrapper>
       <Logo logo='Med Shop' />
-      <span> | </span>
+
       <UserIcon />
-      <span> | </span>
-      <NavLink to='/dashboard'>dash</NavLink>
-      <span> | </span>
-      <button onClick={Logout}>log out</button>
-    </div>
+    </Wrapper>
   )
 }
 

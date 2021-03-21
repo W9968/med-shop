@@ -28,9 +28,10 @@ const SignIn = () => {
       .get('/api/user')
       .then((response) => {
         setCurrentUser(response.data)
-        console.log('in:', currentUser)
+        console.log('in')
       })
       .catch(() => console.log('no log'))
+    console.log(currentUser)
   }
 
   return (

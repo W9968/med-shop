@@ -3,11 +3,21 @@ import React from 'react'
 //imports
 import { useAuth } from '../../services/context/AuthContext'
 //styles
-import { LogginIcon, LoggoutIcon } from '../../styles/Header.element'
+import { Links, LogginIcon, LoggoutIcon } from '../../styles/Header.element'
 
 const UserIcon = () => {
-  const { currentUser } = useAuth()
-  return <>{currentUser !== '' ? <LoggoutIcon /> : <LogginIcon />}</>
+  const { currentUser, Logout } = useAuth()
+  return (
+    <>
+      {currentUser !== '' ? (
+        <LoggoutIcon onClick={Logout} />
+      ) : (
+        <Links to='/login'>
+          <LogginIcon />
+        </Links>
+      )}
+    </>
+  )
 }
 
 export default UserIcon

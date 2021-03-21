@@ -101,16 +101,14 @@ export default function AuthProvider({ children }) {
 
   /* * pull connected user * */
   useEffect(() => {
-    if (currentUser !== '') {
-      useApi
-        .get('/api/user')
-        .then((res) => {
-          setCurrentUser(res.data)
-        })
-        .catch(() => {
-          console.log('no')
-        })
-    }
+    useApi
+      .get('/api/user')
+      .then((res) => {
+        setCurrentUser(res.data)
+      })
+      .catch(() => {
+        console.log('no')
+      })
   }, []) // eslint-disable-line
 
   const value = {

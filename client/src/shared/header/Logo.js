@@ -1,12 +1,12 @@
 import React from 'react'
 
 //styles
-import { LogoLink } from '../../styles/Header.element'
+import { Links } from '../../styles/Header.element'
 
 const Logo = ({ logo }) => {
   return (
     <>
-      <LogoLink to='/'>{logo}</LogoLink>
+      <Links to='/'>{logo}</Links>
     </>
   )
 }
