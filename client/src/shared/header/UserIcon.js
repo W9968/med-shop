@@ -7,7 +7,7 @@ import { LogginIcon, LoggoutIcon } from '../../styles/Header.element'
 
 const UserIcon = () => {
   const { currentUser } = useAuth()
-  return <>{currentUser !== null ? <LoggoutIcon /> : <LogginIcon />}</>
+  return <>{currentUser !== '' ? <LoggoutIcon /> : <LogginIcon />}</>
 }
 
 export default UserIcon

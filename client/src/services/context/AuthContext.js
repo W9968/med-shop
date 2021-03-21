@@ -9,7 +9,7 @@ export function useAuth() {
 
 export default function AuthProvider({ children }) {
   /* * set states * */
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState('')
   /* * sign up * */
   const Register = async (userName, userEmail, userPassword) => {
     return await useApi
@@ -91,7 +91,7 @@ export default function AuthProvider({ children }) {
             response.headers,
             response.status
           )
-          setCurrentUser(null)
+          setCurrentUser('')
         })
       })
       .catch((err) => {
@@ -101,10 +101,15 @@ export default function AuthProvider({ children }) {
 
   /* * pull connected user * */
   useEffect(() => {
-    if (currentUser !== null) {
-      useApi.get('/api/user').then((res) => {
-        setCurrentUser(res.data)
-      })
+    if (currentUser !== '') {
+      useApi
+        .get('/api/user')
+        .then((res) => {
+          setCurrentUser(res.data)
+        })
+        .catch(() => {
+          console.log('no')
+        })
     }
   }, []) // eslint-disable-line
 

@@ -25,9 +25,14 @@ const SignUp = () => {
   const handleRegister = async (e) => {
     e.preventDefault()
     await Register(name.current.value, email.current.value, pass.current.value)
-    await useApi.get('/api/user').then((response) => {
-      setCurrentUser(response.data)
-    })
+    await useApi
+      .get('/api/user')
+      .then((response) => {
+        setCurrentUser(response.data)
+      })
+      .catch(() => {
+        console.log('no register')
+      })
 
     console.log('up', currentUser)
   }

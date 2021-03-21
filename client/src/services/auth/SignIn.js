@@ -24,11 +24,13 @@ const SignIn = () => {
   let handleLogin = async (e) => {
     e.preventDefault()
     await Login(email.current.value, pass.current.value)
-
-    await useApi.get('/api/user').then((response) => {
-      setCurrentUser(response.data)
-    })
-    console.log('in:', currentUser)
+    await useApi
+      .get('/api/user')
+      .then((response) => {
+        setCurrentUser(response.data)
+        console.log('in:', currentUser)
+      })
+      .catch(() => console.log('no log'))
   }
 
   return (

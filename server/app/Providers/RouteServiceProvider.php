@@ -39,8 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () {
             Route::prefix('api')
-                //->middleware('api') changed to web to retrive the logged in user info
-                ->middleware('web')
+                ->middleware('web') //changed to web instead of api
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
