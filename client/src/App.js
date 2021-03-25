@@ -16,6 +16,7 @@ import Header from './shared/header/Header'
 import { GlobalStyle } from './hooks/useGlobalStyle'
 import AuthProvider from './services/context/AuthContext'
 import PrivateRoute from './services/routes/PrivateRoute'
+import ProtectedRoute from './services/routes/ProtectedRoute'
 
 function App() {
   return (
@@ -26,8 +27,8 @@ function App() {
           <Header />
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route path='/login' component={Login} />
-            <Route path='/register' component={Register} />
+            <ProtectedRoute path='/login' component={Login} />
+            <ProtectedRoute path='/register' component={Register} />
             <Route path='/reset' component={ForgotPassword} />
             <Route path='/resetpassword' component={ResetPassword} />
             <PrivateRoute path='/dashboard' component={Dashboard} />

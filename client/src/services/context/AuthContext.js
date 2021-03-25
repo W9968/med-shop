@@ -54,7 +54,7 @@ export default function AuthProvider({ children }) {
           })
           .then((response) => {
             if (response.status === 204) {
-              setLogged(true)
+              getLoggedInfo()
             }
           })
       })
@@ -110,8 +110,8 @@ export default function AuthProvider({ children }) {
           setCurrentUser(response.data)
           setLogged(true)
           _storeKeys('loggedIn', true)
-          setLoading(false)
         }
+        setLoading(false)
       })
       .catch(() => {
         _storeKeys('loggedIn', false)
