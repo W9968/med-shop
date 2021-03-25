@@ -24,7 +24,7 @@ const SignIn = () => {
   let handleLogin = async (e) => {
     e.preventDefault()
     await Login(email.current.value, pass.current.value)
-    console.log(logged)
+
     if (logged) {
       history.push('/')
     }
