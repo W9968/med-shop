@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
-import { AiOutlineUser, AiOutlineLogout } from 'react-icons/ai'
+import { AiOutlineUser, AiOutlineMenu } from 'react-icons/ai'
 
 export const Wrapper = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ export const LogginIcon = styled(AiOutlineUser)`
   cursor: pointer;
   font-size: 24px;
 `
-export const LoggoutIcon = styled(AiOutlineLogout)`
+export const MenuIcon = styled(AiOutlineMenu)`
   cursor: pointer;
   font-size: 24px;
 `
