@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 
 //components
-import useApi from '../../hooks/useApi'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import TextHero from '../../shared/hero/TextHero'
@@ -20,21 +19,11 @@ const SignUp = () => {
   const email = useRef()
   const pass = useRef()
 
-  const { Register, currentUser, setCurrentUser } = useAuth()
+  const { Register } = useAuth()
 
   const handleRegister = async (e) => {
     e.preventDefault()
     await Register(name.current.value, email.current.value, pass.current.value)
-    await useApi
-      .get('/api/user')
-      .then((response) => {
-        setCurrentUser(response.data)
-      })
-      .catch(() => {
-        console.log('no register')
-      })
-
-    console.log('up', currentUser)
   }
 
   return (

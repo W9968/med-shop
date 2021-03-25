@@ -54,7 +54,7 @@ export default function AuthProvider({ children }) {
           })
           .then((response) => {
             if (response.status === 204) {
-              getLoggedInfo()
+              setLogged(true)
             }
           })
       })

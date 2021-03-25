@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 
 //components
 import { useAuth } from '../context/AuthContext'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import TextHero from '../../shared/hero/TextHero'
 // styles
 import {
@@ -17,12 +17,17 @@ import {
 const SignIn = () => {
   const email = useRef()
   const pass = useRef()
+  const history = useHistory()
 
-  const { Login } = useAuth()
+  const { Login, logged } = useAuth()
 
   let handleLogin = async (e) => {
     e.preventDefault()
     await Login(email.current.value, pass.current.value)
+    console.log(logged)
+    if (logged) {
+      history.push('/')
+    }
   }
 
   return (
