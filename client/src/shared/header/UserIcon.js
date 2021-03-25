@@ -6,10 +6,11 @@ import { useAuth } from '../../services/context/AuthContext'
 import { Links, LogginIcon, LoggoutIcon } from '../../styles/Header.element'
 
 const UserIcon = () => {
-  const { currentUser, Logout } = useAuth()
+  const { logged, Logout } = useAuth()
+
   return (
     <>
-      {currentUser !== '' ? (
+      {logged ? (
         <LoggoutIcon onClick={Logout} />
       ) : (
         <Links to='/login'>

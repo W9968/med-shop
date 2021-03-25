@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useLayoutEffect, useState } from 'react'
+import { _storeKeys, _loadKeys } from '../../hooks/useAsyncStorage'
 import useApi from '../../hooks/useApi'
 
 const AuthContext = React.createContext()
@@ -9,7 +10,12 @@ export function useAuth() {
 
 export default function AuthProvider({ children }) {
   /* * set states * */
-  const [currentUser, setCurrentUser] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [logged, setLogged] = useState(
+    _loadKeys('loggedIn') === 'true' || false
+  )
+  const [currentUser, setCurrentUser] = useState()
+
   /* * sign up * */
   const Register = async (userName, userEmail, userPassword) => {
     return await useApi
@@ -34,6 +40,7 @@ export default function AuthProvider({ children }) {
         console.log('there was error with your coockies')
       })
   }
+
   /* * login * */
   const Login = async (userEmail, userPassword) => {
     return await useApi
@@ -46,18 +53,16 @@ export default function AuthProvider({ children }) {
             //remember_token: 'sfkhsdkfhjd'
           })
           .then((response) => {
-            console.log(
-              'login',
-              response.data,
-              response.headers,
-              response.status
-            )
+            if (response.status === 204) {
+              getLoggedInfo()
+            }
           })
       })
       .catch((err) => {
         console.log('there was error with your coockies')
       })
   }
+
   /* * send reset email * */
   const EmailReset = async (userEmail) => {
     return await useApi
@@ -78,6 +83,7 @@ export default function AuthProvider({ children }) {
         console.log('there was error with your coockies')
       })
   }
+
   /* * send reset pass * */
   /* * logout * */
   const Logout = async () => {
@@ -85,13 +91,10 @@ export default function AuthProvider({ children }) {
       .get('/sanctum/csrf-cookie')
       .then((res) => {
         useApi.post('/logout').then((response) => {
-          console.log(
-            'logout',
-            response.data,
-            response.headers,
-            response.status
-          )
-          setCurrentUser('')
+          if (response.status === 204) {
+            setLogged(false)
+            _storeKeys('loggedIn', false)
+          }
         })
       })
       .catch((err) => {
@@ -99,16 +102,26 @@ export default function AuthProvider({ children }) {
       })
   }
 
-  /* * pull connected user * */
-  useEffect(() => {
+  const getLoggedInfo = () => {
     useApi
       .get('/api/user')
-      .then((res) => {
-        setCurrentUser(res.data)
+      .then((response) => {
+        if (response.status === 200) {
+          setCurrentUser(response.data)
+          setLogged(true)
+          _storeKeys('loggedIn', true)
+          setLoading(false)
+        }
       })
       .catch(() => {
-        console.log('no')
+        _storeKeys('loggedIn', false)
+        setLoading(false)
+        setLogged(false)
       })
+  }
+
+  useLayoutEffect(() => {
+    getLoggedInfo()
   }, []) // eslint-disable-line
 
   const value = {
@@ -118,6 +131,11 @@ export default function AuthProvider({ children }) {
     currentUser,
     setCurrentUser,
     Logout,
+    logged,
   }
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  )
 }

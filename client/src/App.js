@@ -15,12 +15,13 @@ import Dashboard from './views/Dashboard'
 import Header from './shared/header/Header'
 import { GlobalStyle } from './hooks/useGlobalStyle'
 import AuthProvider from './services/context/AuthContext'
+import PrivateRoute from './services/routes/PrivateRoute'
 
 function App() {
   return (
     <>
-      <GlobalStyle />
       <AuthProvider>
+        <GlobalStyle />
         <Router>
           <Header />
           <Switch>
@@ -29,7 +30,7 @@ function App() {
             <Route path='/register' component={Register} />
             <Route path='/reset' component={ForgotPassword} />
             <Route path='/resetpassword' component={ResetPassword} />
-            <Route path='/dashboard' component={Dashboard} />
+            <PrivateRoute path='/dashboard' component={Dashboard} />
             <Route path='*' component={NotFound} />
           </Switch>
         </Router>

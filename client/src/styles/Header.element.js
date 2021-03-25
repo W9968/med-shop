@@ -22,8 +22,10 @@ export const Links = styled(NavLink)`
 `
 
 export const LogginIcon = styled(AiOutlineUser)`
+  cursor: pointer;
   font-size: 24px;
 `
 export const LoggoutIcon = styled(AiOutlineLogout)`
+  cursor: pointer;
   font-size: 24px;
 `

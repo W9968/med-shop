@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 
 //components
-import useApi from '../../hooks/useApi'
 import { useAuth } from '../context/AuthContext'
 import { NavLink } from 'react-router-dom'
 import TextHero from '../../shared/hero/TextHero'
@@ -19,19 +18,11 @@ const SignIn = () => {
   const email = useRef()
   const pass = useRef()
 
-  const { Login, currentUser, setCurrentUser } = useAuth()
+  const { Login } = useAuth()
 
   let handleLogin = async (e) => {
     e.preventDefault()
     await Login(email.current.value, pass.current.value)
-    await useApi
-      .get('/api/user')
-      .then((response) => {
-        setCurrentUser(response.data)
-        console.log('in')
-      })
-      .catch(() => console.log('no log'))
-    console.log(currentUser)
   }
 
   return (
