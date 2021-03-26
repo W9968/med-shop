@@ -1,18 +1,35 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+
+//import
+import { useHistory } from 'react-router-dom'
 
 //styled
-import styled from 'styled-components'
+import {
+  Wrapper,
+  Container,
+  Div,
+  Image,
+  Heading,
+  Parag,
+  Button,
+} from '../styles/NotFound.element'
 
 const NotFound = () => {
+  const history = useHistory()
+
   return (
     <>
       <Wrapper>
         <Container>
-          <div>not found</div>
-          <div>
-            <NavLink to='/'>go home</NavLink>
-          </div>
+          <Div>
+            <Image src='/assets/carts.svg' />
+            <Heading level={1}>Oh no!</Heading>
+            <Parag>
+              We'are usually trying to provide you with everything, but we could
+              not find what are you looking for.
+            </Parag>
+            <Button onClick={() => history.goBack()}>go back</Button>
+          </Div>
         </Container>
       </Wrapper>
     </>
@@ -20,22 +37,3 @@ const NotFound = () => {
 }
 
 export default NotFound
-
-const Wrapper = styled.div`
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100vh;
-  position: absolute;
-  background-color: var(--wht);
-`
-
-const Container = styled.div`
-  display: flex;
-  max-width: 100%;
-  min-height: 100vh;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  background-color: var(--wht);
-`
