@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 
 //imports
 import { useHistory } from 'react-router'
@@ -10,7 +10,7 @@ import { LogginIcon, MenuIcon } from '../../styles/Header.element'
 
 const UserIcon = () => {
   const history = useHistory()
-  const parentRef = useRef()
+
   const { logged, Logout, currentUser } = useAuth()
 
   const menu = (
@@ -38,7 +38,11 @@ const UserIcon = () => {
   return (
     <>
       {logged ? (
-        <Dropdown refs={parentRef} overlay={menu} trigger={['hover']}>
+        <Dropdown
+          arrow
+          placement='bottomCenter'
+          overlay={menu}
+          trigger={['click']}>
           <MenuIcon onClick={(e) => e.preventDefault()} />
         </Dropdown>
       ) : (

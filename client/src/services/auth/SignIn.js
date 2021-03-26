@@ -21,7 +21,7 @@ const SignIn = () => {
 
   const { Login, logged } = useAuth()
 
-  let handleLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
     await Login(email.current.value, pass.current.value)
 
@@ -48,7 +48,6 @@ const SignIn = () => {
           <InputGroup>
             <Input type='password' placeholder='password' ref={pass} />
           </InputGroup>
-          <InputGroup>keep me signed in</InputGroup>
           <InputGroup>
             <Button onClick={handleLogin}>sign in</Button>
           </InputGroup>

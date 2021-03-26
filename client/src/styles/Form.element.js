@@ -13,7 +13,9 @@ export const Form = styled.div`
   width: 500px;
   display: flex;
   padding: 15px;
+  margin: 1rem 0rem;
   border-radius: 10px;
+  padding-top: 1.5rem;
   flex-direction: column;
   background-color: var(--wht);
   box-shadow: 0px 15px 15px 00px #e1e1e1;
@@ -25,17 +27,17 @@ export const Form = styled.div`
 
 export const InputGroup = styled.div`
   display: flex;
+  margin: 1rem 0rem;
   flex-direction: column;
   justify-content: center;
-  margin: 1rem 0rem;
 `
 
 export const Input = styled.input`
   border: none;
   width: 100%;
   outline: none;
+  padding: 1rem 1rem;
   border-radius: 10px;
-  padding: 0.8rem 1rem;
   background-color: var(--bgd);
 `
 

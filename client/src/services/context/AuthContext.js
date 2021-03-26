@@ -85,6 +85,28 @@ export default function AuthProvider({ children }) {
   }
 
   /* * send reset pass * */
+  const PasswordReset = async (token, email, password) => {
+    return await useApi
+      .get('/sanctum/csrf-cookie')
+      .then((res) => {
+        useApi
+          .post('/password/reset', {
+            email: email,
+            password: password,
+            token: token,
+          })
+          .then((res) => {
+            getLoggedInfo()
+          })
+          .catch((res) => {
+            console.log(res)
+          })
+      })
+      .catch((err) => {
+        console.log('there was an error with your coockies')
+      })
+  }
+
   /* * logout * */
   const Logout = async () => {
     return await useApi
@@ -128,6 +150,7 @@ export default function AuthProvider({ children }) {
     Register,
     Login,
     EmailReset,
+    PasswordReset,
     currentUser,
     setCurrentUser,
     Logout,
