@@ -19,6 +19,7 @@ export const StyledHeader = styled.div`
   padding: 0.5rem 1rem;
   justify-content: flex-end;
   background-color: var(--wht);
+  box-shadow: 0px 10px 10px 00px #e1e1e1;
 `
 
 export const List = styled.ul`

@@ -33,7 +33,16 @@ const HeaderBar = () => {
                 hi,&nbsp;
                 <span className='name'>{logged && currentUser.name}</span>
               </MenuButton>
-              <MenuList width={300} right={0}>
+              <MenuList
+                style={{
+                  borderTop: 'none',
+                  borderLeft: 'none',
+                  borderRight: 'none',
+                  borderBottom: 'none',
+                  borderRadius: '10px',
+                }}
+                width={300}
+                right={0}>
                 <Space style={{ marginBottom: '1rem' }}>
                   <img src='/assets/bg-1.jpg' />
                   <div className='overlay' />
@@ -45,8 +54,6 @@ const HeaderBar = () => {
                   </Div>
                 </Space>
 
-                <MenuItem>go home</MenuItem>
-                <MenuDivider />
                 <Space>
                   <Button onClick={Logout}>sign out</Button>
                 </Space>
