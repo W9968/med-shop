@@ -1,17 +1,19 @@
 import React from 'react'
+import { Switch } from 'react-router-dom'
+import PrivateRoute from '../../services/routes/PrivateRoute'
 import { StyledContent } from '../../styles/Dashboard.element'
-import { Typography } from 'antd'
-const { Title } = Typography
+//component
+import DashParent from '../admin/DashParent'
+import Order from '../admin/Order'
 
-const Content = () => {
+const Content = ({ route }) => {
   return (
     <>
       <StyledContent>
-        <Title level={1}>hello</Title>
-        <Title level={2}>hello</Title>
-        <Title level={3}>hello</Title>
-        <Title level={4}>hello</Title>
-        <Title level={5}>hello</Title>
+        <Switch>
+          <PrivateRoute exact path={route} component={DashParent} />
+          <PrivateRoute path={`${route}/order`} component={Order} />
+        </Switch>
       </StyledContent>
     </>
   )

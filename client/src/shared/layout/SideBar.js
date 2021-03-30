@@ -22,11 +22,7 @@ const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false)
 
   const items = [
-    {
-      key: 1,
-      name: 'order',
-      icon: <ShoppingCartOutlined />,
-    },
+    { key: 1, name: 'order' },
     { key: 2, name: 'inovice' },
     { key: 3, name: 'credit' },
     { key: 4, name: 'delivery' },
