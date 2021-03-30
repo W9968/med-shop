@@ -22,7 +22,9 @@ const UserIcon = () => {
       )}
 
       <Menu.Divider />
-      <Menu.Item key='0'>Profile</Menu.Item>
+      <Menu.Item key='0' onClick={() => history.push('/profile')}>
+        Profile
+      </Menu.Item>
       {logged && currentUser.role === 1 && (
         <Menu.Item key='1' onClick={() => history.push('/dashboard')}>
           Dashboard

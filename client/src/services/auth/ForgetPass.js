@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 
 //components
 import { NavLink } from 'react-router-dom'
@@ -14,16 +14,19 @@ import {
   Button,
   Parag,
 } from '../../styles/Form.element'
+import { Alert, AlertIcon } from '@chakra-ui/alert'
 
 const ResetPass = () => {
-  const email = useRef()
-  const { EmailReset } = useAuth()
+  const [email, setEmail] = useState()
+  const [loading, setLoading] = useState(false)
+  const { EmailReset, message } = useAuth()
 
   const handleResetEmail = async (e) => {
     e.preventDefault()
-    await EmailReset(email.current.value)
-    // still no completed
-    // we need to push to a new route where we can update password
+
+    setLoading(true)
+    await EmailReset(email)
+    setLoading(false)
   }
 
   return (
@@ -34,20 +37,30 @@ const ResetPass = () => {
         </NavLink>
         <Form>
           <InputGroup>
-            <Parag level={5}>
-              type your email in order to recieve the reset password link
-            </Parag>
+            {message !== null ? (
+              <Alert status={message[1]}>
+                <AlertIcon />
+                {message[0]}
+              </Alert>
+            ) : (
+              <Parag level={5}>
+                type your email in order to recieve the reset password link
+              </Parag>
+            )}
           </InputGroup>
           <InputGroup>
             <Input
               type='email'
               autoComplete='no'
               placeholder='email'
-              ref={email}
+              required
+              onChange={(e) => setEmail(e.target.value)}
             />
           </InputGroup>
           <InputGroup>
-            <Button onClick={handleResetEmail}>reset password</Button>
+            <Button onClick={handleResetEmail} disabled={loading}>
+              Send Link
+            </Button>
           </InputGroup>
         </Form>
       </Wrapper>

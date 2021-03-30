@@ -1,5 +1,6 @@
 import React, { useContext, useLayoutEffect, useState } from 'react'
 import { _storeKeys, _loadKeys } from '../../hooks/useAsyncStorage'
+import { useToast } from '@chakra-ui/react'
 import useApi from '../../hooks/useApi'
 
 const AuthContext = React.createContext()
@@ -10,6 +11,8 @@ export function useAuth() {
 
 export default function AuthProvider({ children }) {
   /* * set states * */
+  const toast = useToast()
+  const [message, setMessage] = useState(null)
   const [loading, setLoading] = useState(true)
   const [logged, setLogged] = useState(
     _loadKeys('loggedIn') === 'true' || false
@@ -28,12 +31,19 @@ export default function AuthProvider({ children }) {
             password: userPassword,
           })
           .then((response) => {
-            console.log(
-              'signed',
-              response.data,
-              response.headers,
-              response.status
-            )
+            if (response.status === 201) {
+              getLoggedInfo()
+              showToast(
+                'Account Created',
+                'your account has been created',
+                'success'
+              )
+              showToast(
+                'Verify Account',
+                'an email will be sent to you to verify your account',
+                'warning'
+              )
+            }
           })
       })
       .catch((err) => {
@@ -55,8 +65,16 @@ export default function AuthProvider({ children }) {
           .then((response) => {
             if (response.status === 204) {
               getLoggedInfo()
+              showToast(
+                'Sign In',
+                'you are logged in to you account successfully',
+                'success'
+              )
             }
           })
+          .catch((e) =>
+            showToast('Sign In', 'please verfiy your email/password', 'error')
+          )
       })
       .catch((err) => {
         console.log('there was error with your coockies')
@@ -72,11 +90,31 @@ export default function AuthProvider({ children }) {
           .post('/password/email', {
             email: userEmail,
           })
-          .then((res) => {
-            console.log(res.data, res.status, res.headers)
+          .then((response) => {
+            if (response.status === 200) {
+              setMessage(['Email was sent to you', 'success'])
+            }
           })
           .catch((err) => {
-            console.log(err)
+            setMessage(['please verfy your email', 'error'])
+          })
+      })
+      .catch((err) => {
+        console.log('there was error with your coockies')
+      })
+  }
+
+  /* * resent email * */
+  const ResendEmail = async () => {
+    return await useApi
+      .get('/sanctum/csrf-cookie')
+      .then((res) => {
+        useApi
+          .get('/email/resend', {
+            email: currentUser.email,
+          })
+          .then((response) => {
+            console.log(response.statusText)
           })
       })
       .catch((err) => {
@@ -116,6 +154,7 @@ export default function AuthProvider({ children }) {
           if (response.status === 204) {
             setLogged(false)
             _storeKeys('loggedIn', false)
+            showToast('Log out', 'your are no longer connected', 'info')
           }
         })
       })
@@ -139,7 +178,19 @@ export default function AuthProvider({ children }) {
         _storeKeys('loggedIn', false)
         setLoading(false)
         setLogged(false)
+        console.clear()
       })
+  }
+
+  const showToast = (title, content, status) => {
+    return toast({
+      title: title,
+      description: content,
+      status: status,
+      duration: 3000,
+      position: 'bottom-right',
+      isClosable: true,
+    })
   }
 
   useLayoutEffect(() => {
@@ -150,11 +201,13 @@ export default function AuthProvider({ children }) {
     Register,
     Login,
     EmailReset,
+    ResendEmail,
     PasswordReset,
     currentUser,
     setCurrentUser,
     Logout,
     logged,
+    message,
   }
   return (
     <AuthContext.Provider value={value}>

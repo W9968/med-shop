@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 //components
 import { useAuth } from '../context/AuthContext'
@@ -13,21 +13,28 @@ import {
   Button,
   Parag,
 } from '../../styles/Form.element'
+//chakra ui component
+//import { Alert, AlertIcon } from '@chakra-ui/alert'
 
 const SignIn = () => {
   const email = useRef()
   const pass = useRef()
   const history = useHistory()
 
+  const [loading, setLoading] = useState(false)
   const { Login, logged } = useAuth()
 
   const handleLogin = async (e) => {
     e.preventDefault()
+
+    setLoading(true)
     await Login(email.current.value, pass.current.value)
 
     if (logged) {
       history.push('/')
     }
+
+    setLoading(false)
   }
 
   return (
@@ -36,20 +43,21 @@ const SignIn = () => {
         <NavLink to='/'>
           <TextHero text='medespoir shop' />
         </NavLink>
-        <Form>
+        <Form onSubmit={handleLogin}>
           <InputGroup>
             <Input
               type='email'
               autoComplete='no'
               placeholder='email'
               ref={email}
+              required
             />
           </InputGroup>
           <InputGroup>
             <Input type='password' placeholder='password' ref={pass} />
           </InputGroup>
           <InputGroup>
-            <Button onClick={handleLogin}>sign in</Button>
+            <Button disabled={loading}>sign in</Button>
           </InputGroup>
 
           <InputGroup>

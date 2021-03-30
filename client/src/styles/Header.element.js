@@ -1,12 +1,6 @@
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
-import {
-  AiOutlineUser,
-  AiOutlineMenu,
-  AiOutlineSearch,
-  AiOutlineHeart,
-  AiOutlineShoppingCart,
-} from 'react-icons/ai'
+import { BiUser, BiMenu, BiSearch, BiHeart, BiCart } from 'react-icons/bi'
 
 export const Wrapper = styled.div`
   display: flex;
@@ -14,7 +8,7 @@ export const Wrapper = styled.div`
   color: var(--bgd);
   align-items: center;
   justify-content: space-between;
-  background-color: var(--txt);
+  background-color: var(--nab);
 `
 
 export const Links = styled(NavLink)`
@@ -37,30 +31,33 @@ export const List = styled.ul`
   justify-content: space-between;
 `
 export const Items = styled.li`
-  padding: 0px;
-  margin: 0rem 5px;
+  padding: 5px 5px;
+  border-radius: 50%;
+  &:hover {
+    background-color: var(--hov);
+  }
 `
 
-export const LogginIcon = styled(AiOutlineUser)`
+export const LogginIcon = styled(BiUser)`
   cursor: pointer;
-  font-size: 24px;
+  font-size: 1.5rem;
 `
-export const MenuIcon = styled(AiOutlineMenu)`
+export const MenuIcon = styled(BiMenu)`
   cursor: pointer;
-  font-size: 24px;
-`
-
-export const SearchIcon = styled(AiOutlineSearch)`
-  cursor: pointer;
-  font-size: 24px;
+  font-size: 1.5rem;
 `
 
-export const HeartIcon = styled(AiOutlineHeart)`
+export const SearchIcon = styled(BiSearch)`
   cursor: pointer;
-  font-size: 24px;
+  font-size: 1.5rem;
 `
 
-export const CartIcon = styled(AiOutlineShoppingCart)`
+export const HeartIcon = styled(BiHeart)`
   cursor: pointer;
-  font-size: 24px;
+  font-size: 1.5rem;
+`
+
+export const CartIcon = styled(BiCart)`
+  cursor: pointer;
+  font-size: 1.5rem;
 `

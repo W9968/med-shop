@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 
 //components
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import TextHero from '../../shared/hero/TextHero'
 
@@ -26,15 +26,19 @@ const ResetPass = () => {
     setToken(regex[0].split('=')[1])
     setEmail(regex[1].split('=')[1].slice(0, -1))
   }, []) // eslint-disable-line
-  const { PasswordReset } = useAuth()
-
+  const { PasswordReset, logged } = useAuth()
+  const history = useHistory()
   const pass = useRef()
   const confirmPass = useRef()
 
   const handleResetPassword = async () => {
     console.log(typeof token)
     console.log(typeof email)
-    return await PasswordReset(token, email, pass.current.value)
+    await PasswordReset(token, email, pass.current.value)
+
+    if (logged) {
+      history.push('/')
+    }
   }
 
   return (

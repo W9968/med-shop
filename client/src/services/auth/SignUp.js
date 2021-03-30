@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 
 //components
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import TextHero from '../../shared/hero/TextHero'
 // styles
@@ -19,11 +19,15 @@ const SignUp = () => {
   const email = useRef()
   const pass = useRef()
 
-  const { Register } = useAuth()
+  const history = useHistory()
+  const { Register, logged } = useAuth()
 
   const handleRegister = async (e) => {
     e.preventDefault()
     await Register(name.current.value, email.current.value, pass.current.value)
+    if (logged) {
+      history.push('/')
+    }
   }
 
   return (

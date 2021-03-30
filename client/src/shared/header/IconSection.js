@@ -1,9 +1,8 @@
 import React from 'react'
 
 //imports
-import UserIcon from './UserIcon'
+import UserIcon from './Menu'
 //stlyes
-import { Row } from 'antd'
 import {
   List,
   Items,
@@ -15,22 +14,20 @@ import {
 const IconSection = () => {
   return (
     <>
-      <Row>
-        <List>
-          <Items>
-            <SearchIcon />
-          </Items>
-          <Items>
-            <HeartIcon />
-          </Items>
-          <Items>
-            <UserIcon />
-          </Items>
-          <Items>
-            <CartIcon />
-          </Items>
-        </List>
-      </Row>
+      <List>
+        <Items>
+          <SearchIcon />
+        </Items>
+        <Items>
+          <HeartIcon />
+        </Items>
+        <Items>
+          <UserIcon />
+        </Items>
+        <Items>
+          <CartIcon />
+        </Items>
+      </List>
     </>
   )
 }
