@@ -12,11 +12,11 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     :root{
-        --nab: #1e1e2d;
+        --nab: #1c263d;
         --txt: #232323;
         --bgd: #f5f5f5;
         --wht: #ffffff;
-        --hov: #424242;
+        --hov: #495163;
     }
 
     ::-moz-selection {

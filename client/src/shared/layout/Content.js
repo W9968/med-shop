@@ -2,9 +2,11 @@ import React from 'react'
 import { Switch } from 'react-router-dom'
 import PrivateRoute from '../../services/routes/PrivateRoute'
 import { StyledContent } from '../../styles/Dashboard.element'
+
 //component
-import DashParent from '../admin/DashParent'
-import Order from '../admin/Order'
+import DashParent from '../../views/dashboard/DashParent'
+import Order from '../../views/dashboard/Order'
+import Blog from '../../views/dashboard/Blog'
 
 const Content = ({ route }) => {
   return (
@@ -13,6 +15,7 @@ const Content = ({ route }) => {
         <Switch>
           <PrivateRoute exact path={route} component={DashParent} />
           <PrivateRoute path={`${route}/order`} component={Order} />
+          <PrivateRoute path={`${route}/blog`} component={Blog} />
         </Switch>
       </StyledContent>
     </>

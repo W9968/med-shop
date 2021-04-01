@@ -15,7 +15,7 @@ const Dashboard = () => {
     <>
       <Wrapper>
         <Layout style={{ minHeight: '100vh' }}>
-          <SideBar />
+          <SideBar parent={url} />
           <Layout>
             <HeaderBar />
             <Content route={path} />

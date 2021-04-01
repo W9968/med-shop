@@ -8,13 +8,7 @@ import {
   Div,
   Button,
 } from '../../styles/Dashboard.element'
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-} from '@chakra-ui/menu'
+import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 
 const HeaderBar = () => {
   const { logged, currentUser, Logout } = useAuth()
@@ -44,7 +38,7 @@ const HeaderBar = () => {
                 width={300}
                 right={0}>
                 <Space style={{ marginBottom: '1rem' }}>
-                  <img src='/assets/bg-1.jpg' />
+                  <img src='/assets/bg-1.jpg' alt='bg' />
                   <div className='overlay' />
                   <Div>
                     <p className='name svg'>{currentUser.name[0]}</p>

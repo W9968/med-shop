@@ -110,7 +110,7 @@ export default function AuthProvider({ children }) {
       .get('/sanctum/csrf-cookie')
       .then((res) => {
         useApi
-          .get('/email/resend', {
+          .post('api/email/resend', {
             email: currentUser.email,
           })
           .then((response) => {

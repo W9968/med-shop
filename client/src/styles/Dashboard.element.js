@@ -109,6 +109,15 @@ export const StyledContent = styled(Content)`
 
 // side bar //
 export const StyledSider = styled(Sider)`
+  .ant-layout-sider-children,
+  .ant-menu {
+    background-color: var(--nab) !important;
+  }
+
+  .ant-menu-sub {
+    background-color: #273146 !important;
+  }
+
   .anticon {
     font-size: 1.2rem;
   }
@@ -116,8 +125,15 @@ export const StyledSider = styled(Sider)`
   .ant-menu-item {
     text-transform: capitalize;
   }
-  .ant-menu-item-selected {
-    background-color: #3699ff !important;
+
+  .ant-menu-submenu:hover,
+  .ant-menu-item:hover {
+    background-color: var(--hov) !important;
+  }
+
+  .ant-menu-item-selected,
+  a:active {
+    background-color: #5868f0 !important;
   }
 `
 
