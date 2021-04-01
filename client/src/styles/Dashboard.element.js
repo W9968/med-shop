@@ -100,10 +100,8 @@ export const Button = styled.button`
 // content
 export const StyledContent = styled(Content)`
   height: 80vh;
-  padding: 1.5rem;
-  margin: 1.5rem 1rem;
   overflow-y: auto;
-  background-color: var(--wht);
+  margin: 1.5rem 1rem;
 `
 // content //
 

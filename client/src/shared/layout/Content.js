@@ -7,6 +7,7 @@ import { StyledContent } from '../../styles/Dashboard.element'
 import DashParent from '../../views/dashboard/DashParent'
 import Order from '../../views/dashboard/Order'
 import Blog from '../../views/dashboard/Blog'
+import Customer from '../../views/dashboard/Customer'
 
 const Content = ({ route }) => {
   return (
@@ -16,6 +17,7 @@ const Content = ({ route }) => {
           <PrivateRoute exact path={route} component={DashParent} />
           <PrivateRoute path={`${route}/order`} component={Order} />
           <PrivateRoute path={`${route}/blog`} component={Blog} />
+          <PrivateRoute path={`${route}/customer`} component={Customer} />
         </Switch>
       </StyledContent>
     </>

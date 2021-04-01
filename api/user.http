@@ -1,0 +1,23 @@
+GET http://localhost:8000/api/customer HTTP/1.1
+
+###
+
+POST http://localhost:8000/api/customer HTTP/1.1
+Content-Type: application/json
+
+{
+    "name" : "xxx",
+    "email": "xx@gmail.com",
+    "password": "wqaxszcde"
+}
+
+###
+
+PUT http://localhost:8000/api/customer/25 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name" : "ena",
+    "email": "ena@hotmail.com",
+    "password": "wqaxszcde"
+}

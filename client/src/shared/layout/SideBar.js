@@ -85,11 +85,8 @@ const SideBar = ({ parent }) => {
               })}
           </SubMenu>
           {/* catalog sub end */}
-          <Menu.Item key={11} icon={<UserOutlined />}>
-            Customer
-          </Menu.Item>
-          <Menu.Item key={`${parent}/blog`} icon={<FileOutlined />}>
-            <NavLink to={`${parent}/blog`}>blog</NavLink>
+          <Menu.Item key={`${parent}/customer`} icon={<UserOutlined />}>
+            <NavLink to={`${parent}/customer`}>Customer</NavLink>
           </Menu.Item>
           {/* cutsomer service */}
           <SubMenu
@@ -97,6 +94,9 @@ const SideBar = ({ parent }) => {
             icon={<CustomerServiceOutlined />}
             title='Customer service'></SubMenu>
           {/* cutsomer service end */}
+          <Menu.Item key={`${parent}/blog`} icon={<FileOutlined />}>
+            <NavLink to={`${parent}/blog`}>blog</NavLink>
+          </Menu.Item>
         </Menu>
       </StyledSider>
     </>

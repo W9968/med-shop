@@ -1,7 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+import {
+  Wrapper,
+  StyledRow,
+  StyledCol,
+} from '../../styles/dash-style/Blog.element'
 
 const Blog = () => {
-  return <>hello world this is a blog post</>
+  return (
+    <>
+      <Wrapper>
+        <StyledRow>new blog</StyledRow>
+      </Wrapper>
+    </>
+  )
 }
 
 export default Blog
