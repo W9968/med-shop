@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BlogController;
 use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -17,9 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/blogs', [BlogController::class, 'index']);
+Route::post('/blogs', [BlogController::class, 'store']);
+Route::delete('/blogs/{id}', [BlogController::class, 'destroy']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Auth::routes(['verify' => true]);
+//Auth::routes(['verify' => true]);
 

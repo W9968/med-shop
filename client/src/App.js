@@ -17,6 +17,7 @@ import Profile from './views/profile/Profile'
 import Header from './shared/header/Header'
 import { GlobalStyle } from './hooks/useGlobalStyle'
 import AuthProvider from './services/context/AuthContext'
+import CrudProvider from './services/context/CrudContext'
 import PrivateRoute from './services/routes/PrivateRoute'
 import ProtectedRoute from './services/routes/ProtectedRoute'
 import ControlledRoute from './services/routes/ControlledRoute'
@@ -36,7 +37,9 @@ function App() {
               <ControlledRoute path='/profile' component={Profile} />
               <Route path='/reset' component={ForgotPassword} />
               <Route path='/resetpassword' component={ResetPassword} />
-              <PrivateRoute path='/dashboard' component={Dashboard} />
+              <CrudProvider>
+                <PrivateRoute path='/dashboard' component={Dashboard} />
+              </CrudProvider>
               <Route path='*' component={NotFound} />
             </Switch>
           </Router>

@@ -60,7 +60,7 @@ export default function AuthProvider({ children }) {
           .post('/login', {
             email: userEmail,
             password: userPassword,
-            //remember_token: 'sfkhsdkfhjd'
+            remember: true,
           })
           .then((response) => {
             if (response.status === 204) {

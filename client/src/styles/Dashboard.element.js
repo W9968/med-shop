@@ -99,9 +99,9 @@ export const Button = styled.button`
 
 // content
 export const StyledContent = styled(Content)`
-  height: 80vh;
+  height: 70vh;
   overflow-y: auto;
-  margin: 1.5rem 1rem;
+  margin: 2rem 1rem;
 `
 // content //
 

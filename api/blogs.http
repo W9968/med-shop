@@ -1,0 +1,16 @@
+GET http://localhost:8000/api/blogs HTTP/1.1
+
+
+###
+
+POST http://localhost:8000/api/blogs HTTP/1.1
+Content-Type: application/json 
+
+{
+    "title" : "xhgfxx",
+    "content": "sdtghfsdfsdfsm",
+}
+
+###
+
+DELETE  http://localhost:8000/api/blogs/174 HTTP/1.1 

@@ -19,8 +19,8 @@ const HeaderBar = () => {
           {/* drop down */}
           <Item>
             <Menu
-              placement='bottom-end'
               isLazy
+              placement='bottom-end'
               preventOverflow={true}
               arrowPadding={111}>
               <MenuButton>
