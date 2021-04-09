@@ -69,4 +69,9 @@ class BlogController extends Controller
     {
         return Blog::destroy($id);
     }
+
+    public function turncate()
+    {
+        return Blog::query()->delete();
+    }
 }

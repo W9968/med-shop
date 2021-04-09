@@ -16,6 +16,7 @@ export const Wrapper = styled.div`
   .tableWrap {
     display: block;
     max-width: 100%;
+    overflow-x: auto;
   }
 
   table {

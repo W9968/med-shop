@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   justify-content: center;
 `
 
-export const Form = styled.form`
+export const Form = styled.div`
   width: 500px;
   display: flex;
   padding: 15px;

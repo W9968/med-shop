@@ -21,10 +21,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/blogs', [BlogController::class, 'index']);
 Route::post('/blogs', [BlogController::class, 'store']);
 Route::delete('/blogs/{id}', [BlogController::class, 'destroy']);
+Route::delete('/blogs', [BlogController::class,'turncate']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Auth::routes(['verify' => true]);
+Auth::routes(['verify' => true]);
 

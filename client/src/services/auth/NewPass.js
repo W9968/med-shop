@@ -21,24 +21,29 @@ const ResetPass = () => {
   //pull credentials from url
   const [token, setToken] = useState('')
   const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     const regex = url.split('?')[1].split('&')
     setToken(regex[0].split('=')[1])
     setEmail(regex[1].split('=')[1].slice(0, -1))
   }, []) // eslint-disable-line
   const { PasswordReset, logged } = useAuth()
-  const history = useHistory()
+
   const pass = useRef()
   const confirmPass = useRef()
+  const history = useHistory()
 
-  const handleResetPassword = async () => {
-    console.log(typeof token)
-    console.log(typeof email)
+  const handleResetPassword = async (e) => {
+    e.preventDefault()
+
+    setLoading(true)
     await PasswordReset(token, email, pass.current.value)
 
     if (logged) {
       history.push('/')
     }
+    setLoading(false)
   }
 
   return (
@@ -76,7 +81,9 @@ const ResetPass = () => {
             />
           </InputGroup>
           <InputGroup>
-            <Button onClick={handleResetPassword}>reset password</Button>
+            <Button disabled={loading} onClick={handleResetPassword}>
+              reset password
+            </Button>
           </InputGroup>
         </Form>
       </Wrapper>

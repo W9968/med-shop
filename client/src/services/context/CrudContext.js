@@ -20,6 +20,9 @@ export default function CrudProvider({ children }) {
 
   const storeData = async (route, req) => {
     return await useApi.post(`/api/${route}`, req)
+    // .then((res) => {
+    //   getData(`${route}`)
+    // })
   }
 
   const editData = () => {}
@@ -30,11 +33,18 @@ export default function CrudProvider({ children }) {
     })
   }
 
+  const destroy = async (route) => {
+    return await useApi.delete(`/api/${route}`).then((res) => {
+      getData(`${route}`)
+    })
+  }
+
   const value = {
     getData,
     storeData,
     editData,
     deleteData,
+    destroy,
     data,
   }
 

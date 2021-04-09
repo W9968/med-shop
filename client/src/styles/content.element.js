@@ -26,5 +26,5 @@ export const Text = styled(Title)`
   padding: 0px;
   letter-spacing: 1px;
   margin: 0px !important;
-  text-transform: capitalize;
+  font-weight: 600 !important;
 `
