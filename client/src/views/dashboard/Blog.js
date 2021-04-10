@@ -1,45 +1,22 @@
-import React, { useEffect, useMemo } from 'react'
-import { useCrud } from '../../services/context/CrudContext'
-import DataTable from '../../shared/admin/DataTable'
-import CardHeader from '../../shared/hero/CardHeader'
-import BlogForm from '../../shared/admin/BlogForm'
+import React from 'react'
 import { Wrapper, StyledRow } from '../../styles/content.element'
+import CardHeader from '../../shared/hero/CardHeader'
+import CrudRoute from '../../services/routes/CrudRoute'
+import { useRouteMatch } from 'react-router-dom'
 
 const Blog = () => {
-  const { getData, data, destroy } = useCrud()
-
-  useEffect(() => {
-    getData('blogs')
-  }, []) // eslint-disable-line
-
-  const column = useMemo(
-    () => [
-      { Header: 'id', accessor: 'id' },
-      { Header: 'title', accessor: 'title' },
-      { Header: 'content', accessor: 'content' },
-    ],
-    []
-  )
+  const { path, url } = useRouteMatch()
 
   return (
     <>
       <Wrapper>
         <CardHeader
-          title='Blog list'
-          buttonUri='new blog'
-          children={<BlogForm />}
+          title='POST'
+          buttonUri='Add new post'
+          pathname={`${url}/add`}
         />
         <StyledRow>
-          <DataTable path='blogs' columns={column} data={data} />
-        </StyledRow>
-        <StyledRow>
-          <button
-            onClick={() => {
-              destroy('blogs')
-            }}>
-            {' '}
-            destroy{' '}
-          </button>
+          <CrudRoute action={path} api='post' />
         </StyledRow>
       </Wrapper>
     </>

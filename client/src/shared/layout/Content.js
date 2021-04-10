@@ -16,7 +16,7 @@ const Content = ({ route }) => {
         <Switch>
           <PrivateRoute exact path={route} component={DashParent} />
           <PrivateRoute path={`${route}/order`} component={Order} />
-          <PrivateRoute path={`${route}/blog`} component={Blog} />
+          <PrivateRoute path={`${route}/post`} component={Blog} />
           <PrivateRoute path={`${route}/customer`} component={Customer} />
         </Switch>
       </StyledContent>

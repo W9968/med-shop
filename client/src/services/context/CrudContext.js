@@ -19,10 +19,9 @@ export default function CrudProvider({ children }) {
   }
 
   const storeData = async (route, req) => {
-    return await useApi.post(`/api/${route}`, req)
-    // .then((res) => {
-    //   getData(`${route}`)
-    // })
+    return await useApi.post(`/api/${route}`, req).then((res) => {
+      getData(`${route}`)
+    })
   }
 
   const editData = () => {}

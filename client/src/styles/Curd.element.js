@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { Modal } from 'antd'
+import { NavLink } from 'react-router-dom'
 
-export const AddButton = styled.button`
+export const AddButton = styled(NavLink)`
   border: none;
   outline: none;
   color: var(--wht);
@@ -14,37 +14,7 @@ export const AddButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    background-color: var(--hov);
-  }
-`
-
-export const StyledModal = styled(Modal)`
-  .ant-modal-content {
-    width: 700px;
-    border-radius: 15px;
-  }
-
-  .ant-modal-header {
-    border-radius: 15px 15px 0px 0px;
-  }
-
-  .ant-btn {
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--bgd);
-
-    :hover {
-      color: #5868f0;
-    }
-  }
-
-  .ant-btn-primary {
-    background-color: #5868f0;
-
-    :hover {
-      color: var(--bgd);
-      background-color: var(--nab);
-    }
+    color: var(--wht);
+    background-color: var(--nab);
   }
 `

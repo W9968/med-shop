@@ -1,12 +1,22 @@
 import React, { useState } from 'react'
 import MDEditor from '@uiw/react-md-editor'
 import { InputGroup, Input } from '../../styles/Form.element'
+import { AddButton } from '../../styles/Curd.element'
+import { StyledRow } from '../../styles/content.element'
+import { useCrud } from '../../services/context/CrudContext'
 
 const BlogForm = () => {
   const [value, setValue] = useState('')
   const [title, setTitle] = useState('')
+  const { storeData } = useCrud()
 
-  console.log(value, title)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    storeData('blogs', {
+      title: title,
+      content: value,
+    })
+  }
 
   return (
     <>
@@ -26,6 +36,9 @@ const BlogForm = () => {
           defaultValue={value}
         />
       </InputGroup>
+      <StyledRow style={{ justifyContent: 'flex-end' }}>
+        <AddButton onClick={handleSubmit}>upload</AddButton>
+      </StyledRow>
     </>
   )
 }

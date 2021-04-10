@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/blogs', [BlogController::class, 'index']);
-Route::post('/blogs', [BlogController::class, 'store']);
-Route::delete('/blogs/{id}', [BlogController::class, 'destroy']);
-Route::delete('/blogs', [BlogController::class,'turncate']);
+Route::get('/post', [BlogController::class, 'index']);
+Route::post('/post', [BlogController::class, 'store']);
+Route::delete('/post/{id}', [BlogController::class, 'destroy']);
+Route::delete('/post', [BlogController::class,'turncate']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -94,8 +94,8 @@ const SideBar = ({ parent }) => {
             icon={<CustomerServiceOutlined />}
             title='Customer service'></SubMenu>
           {/* cutsomer service end */}
-          <Menu.Item key={`${parent}/blog`} icon={<FileOutlined />}>
-            <NavLink to={`${parent}/blog`}>blog</NavLink>
+          <Menu.Item key={`${parent}/post`} icon={<FileOutlined />}>
+            <NavLink to={`${parent}/post`}>posts</NavLink>
           </Menu.Item>
         </Menu>
       </StyledSider>

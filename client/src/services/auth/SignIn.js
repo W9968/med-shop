@@ -43,7 +43,7 @@ const SignIn = () => {
         <NavLink to='/'>
           <TextHero text='medespoir shop' />
         </NavLink>
-        <Form onSubmit={handleLogin}>
+        <Form>
           <InputGroup>
             <Input
               type='email'
@@ -57,7 +57,9 @@ const SignIn = () => {
             <Input type='password' placeholder='password' ref={pass} />
           </InputGroup>
           <InputGroup>
-            <Button disabled={loading}>sign in</Button>
+            <Button onClick={handleLogin} disabled={loading}>
+              sign in
+            </Button>
           </InputGroup>
 
           <InputGroup>
