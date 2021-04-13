@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Row, Typography } from 'antd'
+import { Spinner } from '@chakra-ui/spinner'
 
 const { Title } = Typography
 
@@ -27,4 +28,9 @@ export const Text = styled(Title)`
   letter-spacing: 1px;
   margin: 0px !important;
   font-weight: 600 !important;
+`
+
+export const Spin = styled(Spinner)`
+  position: absolute;
+  text-align: center;
 `

@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/post', [BlogController::class, 'index']);
+Route::get('/post/{id}', [BlogController::class, 'show']);
 Route::post('/post', [BlogController::class, 'store']);
 Route::delete('/post/{id}', [BlogController::class, 'destroy']);
 Route::delete('/post', [BlogController::class,'turncate']);

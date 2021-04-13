@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     :root{
-        --nab: #1c263d;
+        --nab: #1e1e2d;
         --txt: #232323;
         --bgd: #f5f5f5;
         --wht: #ffffff;
@@ -30,12 +30,14 @@ export const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar {
     width: 5px;
   }
+
+
   ::-webkit-scrollbar-track {
     background: rgba(0,0,0,1);
   }
   ::-webkit-scrollbar-thumb {
     background: #FF4136;
-    border-radius: 10%;
+
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #CA0011;

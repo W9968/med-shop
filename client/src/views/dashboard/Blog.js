@@ -1,23 +1,35 @@
-import React from 'react'
-import { Wrapper, StyledRow } from '../../styles/content.element'
+import React, { useMemo, useEffect } from 'react'
+import { useCrud } from '../../services/context/CrudContext'
+import DataTable from '../../shared/admin/DataTable'
 import CardHeader from '../../shared/hero/CardHeader'
-import CrudRoute from '../../services/routes/CrudRoute'
-import { useRouteMatch } from 'react-router-dom'
+import { Wrapper, Spin } from '../../styles/content.element'
 
 const Blog = () => {
-  const { path, url } = useRouteMatch()
+  const { getData, data, loading } = useCrud()
+
+  const column = useMemo(
+    () => [
+      { Header: 'id', accessor: 'id' },
+      { Header: 'title', accessor: 'title' },
+      { Header: 'content', accessor: 'content' },
+      { Header: 'Time', accessor: 'created_at' },
+    ],
+    []
+  )
+
+  useEffect(() => {
+    getData('post')
+  }, []) // eslint-disable-line
 
   return (
     <>
       <Wrapper>
-        <CardHeader
-          title='POST'
-          buttonUri='Add new post'
-          pathname={`${url}/add`}
-        />
-        <StyledRow>
-          <CrudRoute action={path} api='post' />
-        </StyledRow>
+        <CardHeader title='Post List' />
+        {loading ? (
+          <Spin />
+        ) : (
+          <DataTable path='post' columns={column} data={data} />
+        )}
       </Wrapper>
     </>
   )

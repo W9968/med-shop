@@ -9,11 +9,13 @@ export function useCrud() {
 
 export default function CrudProvider({ children }) {
   const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const getData = async (route) => {
     return await useApi.get(`/api/${route}`).then((res) => {
       if (res.status === 200) {
         setData(res.data)
+        setLoading(false)
       }
     })
   }
@@ -24,7 +26,15 @@ export default function CrudProvider({ children }) {
     })
   }
 
-  const editData = () => {}
+  const editData = async (route, key, req) => {
+    return await useApi.put(`/api/${route}/${key}`, req).then((res) => {
+      getData(`${route}`)
+    })
+  }
+
+  const showData = async (route, key) => {
+    return await useApi.get(`/api/${route}/${key}`)
+  }
 
   const deleteData = async (route, key) => {
     return await useApi.delete(`/api/${route}/${key}`).then((res) => {
@@ -43,8 +53,10 @@ export default function CrudProvider({ children }) {
     storeData,
     editData,
     deleteData,
+    showData,
     destroy,
     data,
+    loading,
   }
 
   return <CrudContext.Provider value={value}>{children}</CrudContext.Provider>

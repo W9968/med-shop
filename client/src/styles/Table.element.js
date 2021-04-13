@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { AiFillDelete, AiOutlineEdit } from 'react-icons/ai'
+import { AiFillDelete, AiOutlineEdit, AiOutlineEye } from 'react-icons/ai'
 import {
   BiChevronRight,
   BiChevronLeft,
@@ -11,7 +11,15 @@ export const Wrapper = styled.div`
   width: 100%;
   display: flex;
   padding: 1rem;
+  position: relative;
   flex-direction: column;
+
+  .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
   .tableWrap {
     display: block;
@@ -19,43 +27,6 @@ export const Wrapper = styled.div`
     overflow-x: auto;
   }
 
-  table {
-    width: 100%;
-    border-spacing: 0;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    thead {
-      color: var(--nab);
-      letter-spacing: 1px;
-      font-size: 1rem;
-      text-transform: capitalize;
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid var(--bgd);
-      /* The secret sauce */
-      /* Each cell should grow equally */
-      width: 1%;
-      /* But "collapsed" cells should be as small as possible */
-      &.collapse {
-        width: 0.0000000001%;
-
-        :last-child {
-          border-right: 0;
-        }
-      }
-    }
-  }
   .pagination {
     display: flex;
     align-items: center;
@@ -99,11 +70,27 @@ export const Wrapper = styled.div`
   }
 `
 
+export const ViewIcon = styled(AiOutlineEye)`
+  padding: 10px;
+  color: #5868f0;
+  cursor: pointer;
+  border-radius: 5px;
+  width: calc(1.35em + 1.1rem + 2px);
+  height: calc(1.35em + 1.1rem + 2px);
+  background-color: var(--bgd);
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    color: var(--bgd);
+    background-color: #5868f0;
+  }
+`
+
 export const DeleteIcon = styled(AiFillDelete)`
   padding: 10px;
   color: #f64e60;
   cursor: pointer;
-  margin-right: 5px;
+  margin-left: 5px;
   border-radius: 5px;
   width: calc(1.35em + 1.1rem + 2px);
   height: calc(1.35em + 1.1rem + 2px);
@@ -117,10 +104,10 @@ export const DeleteIcon = styled(AiFillDelete)`
 `
 
 export const EditIcon = styled(AiOutlineEdit)`
-  margin-left: 5px;
   padding: 10px;
   color: #5868f0;
   cursor: pointer;
+  margin-left: 5px;
   border-radius: 5px;
   width: calc(1.35em + 1.1rem + 2px);
   height: calc(1.35em + 1.1rem + 2px);
@@ -144,4 +131,11 @@ export const NextArrow = styled(BiChevronRight)`
 `
 export const PrevArrow = styled(BiChevronLeft)`
   font-size: 1.5rem;
+`
+
+export const Input = styled.input`
+  width: 250px;
+  padding: 5px 10px;
+  outline: none;
+  border: 1px solid #e1e1e1;
 `
