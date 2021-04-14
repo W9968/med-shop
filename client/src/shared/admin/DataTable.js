@@ -8,8 +8,9 @@ import {
   NextPageArrow,
   NextArrow,
   PrevArrow,
-  ViewIcon,
   Input,
+  UpArrow,
+  DownArrow,
 } from '../../styles/Table.element'
 import {
   useTable,
@@ -22,7 +23,7 @@ import {
 import { Table, Thead, Tbody, Tr, Th, Td, TableCaption } from '@chakra-ui/react'
 
 // global filter
-function GlobalFilter({ globalFilter, setGlobalFilter }) {
+function GlobalFilter({ globalFilter, setGlobalFilter, field }) {
   const [value, setValue] = useState(globalFilter)
   const onChange = useAsyncDebounce((value) => {
     setGlobalFilter(value || undefined)
@@ -35,7 +36,7 @@ function GlobalFilter({ globalFilter, setGlobalFilter }) {
         setValue(e.target.value)
         onChange(e.target.value)
       }}
-      placeholder='search'
+      placeholder={`Search All ${field} fields`}
     />
   )
 }
@@ -57,15 +58,14 @@ const DataTable = ({ columns, data, path }) => {
     nextPage,
     previousPage,
     setPageSize,
+    state: { pageIndex, pageSize },
+    // filtering
     state,
     setGlobalFilter,
-    state: { pageIndex, pageSize },
-    // page filter
   } = useTable(
     {
       columns,
       data,
-
       initialState: { pageIndex: 0 },
     },
     useGlobalFilter,
@@ -77,7 +77,7 @@ const DataTable = ({ columns, data, path }) => {
         // Let's make a column for selection
         ...columns,
         {
-          id: 'destroy',
+          id: 'action',
 
           Header: 'Action',
 
@@ -87,7 +87,6 @@ const DataTable = ({ columns, data, path }) => {
                 display: 'flex',
                 flexDirection: 'row',
               }}>
-              <ViewIcon />
               <DeleteIcon onClick={() => deleteData(path, row.values.id)} />
               <EditIcon />
             </span>
@@ -102,6 +101,7 @@ const DataTable = ({ columns, data, path }) => {
       <Wrapper>
         {' '}
         <GlobalFilter
+          field={data.length}
           globalFilter={state.globalFilter}
           setGlobalFilter={setGlobalFilter}
         />
@@ -111,8 +111,29 @@ const DataTable = ({ columns, data, path }) => {
               {headerGroups.map((headerGroup) => (
                 <Tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
-                    <Th {...column.getHeaderProps()}>
-                      {column.render('Header')}
+                    <Th
+                      padding='12px 0px'
+                      {...column.getHeaderProps(column.getSortByToggleProps())}>
+                      <pre
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row ',
+                          alignItems: 'center',
+                          justifyContent: 'stretch',
+                        }}>
+                        <span>{column.render('Header')}</span>
+                        <span>
+                          {column.isSorted ? (
+                            column.isSortedDesc ? (
+                              <UpArrow />
+                            ) : (
+                              <DownArrow />
+                            )
+                          ) : (
+                            ''
+                          )}
+                        </span>
+                      </pre>
                     </Th>
                   ))}
                 </Tr>
@@ -126,7 +147,7 @@ const DataTable = ({ columns, data, path }) => {
                     {row.cells.map((cell) => {
                       return (
                         <Td
-                          style={{ padding: '10px' }}
+                          style={{ padding: '9.75px 0px' }}
                           {...cell.getCellProps()}>
                           {cell.render('Cell')}
                         </Td>
@@ -136,68 +157,66 @@ const DataTable = ({ columns, data, path }) => {
                 )
               })}
             </Tbody>
-            <TableCaption>
-              {/* Pagination */}
-              <div className='pagination'>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <button
-                    onClick={() => gotoPage(0)}
-                    disabled={!canPreviousPage}
-                    className='arrows'>
-                    {' '}
-                    <PreviousPageArrow />
-                  </button>
-                  <button
-                    onClick={() => previousPage()}
-                    disabled={!canPreviousPage}
-                    className='arrows'>
-                    <PrevArrow />
-                  </button>
-                  <p style={{ margin: '0rem 0.3rem', fontWeight: '900' }}>
-                    {pageIndex + 1} - {pageOptions.length}
-                  </p>
-                  <button
-                    onClick={() => nextPage()}
-                    disabled={!canNextPage}
-                    className='arrows'>
-                    <NextArrow />
-                  </button>
-                  <button
-                    onClick={() => gotoPage(pageCount - 1)}
-                    disabled={!canNextPage}
-                    className='arrows'>
-                    <NextPageArrow />
-                  </button>
-                </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  showing
-                  <select
-                    className='selection'
-                    value={pageSize}
-                    onChange={(e) => {
-                      setPageSize(Number(e.target.value))
-                    }}>
-                    {[10, 20, 30, 40, 50].map((pageSize) => (
-                      <option key={pageSize} value={pageSize}>
-                        {pageSize}
-                      </option>
-                    ))}
-                  </select>
-                  out of {data.length}
-                </div>
-              </div>
-            </TableCaption>
           </Table>
+        </div>
+        {/* Pagination */}
+        <div className='pagination'>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <button
+              onClick={() => gotoPage(0)}
+              disabled={!canPreviousPage}
+              className='arrows'>
+              {' '}
+              <PreviousPageArrow />
+            </button>
+            <button
+              onClick={() => previousPage()}
+              disabled={!canPreviousPage}
+              className='arrows'>
+              <PrevArrow />
+            </button>
+            <p style={{ margin: '0rem 0.3rem', fontWeight: '900' }}>
+              {pageIndex + 1} - {pageOptions.length}
+            </p>
+            <button
+              onClick={() => nextPage()}
+              disabled={!canNextPage}
+              className='arrows'>
+              <NextArrow />
+            </button>
+            <button
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+              className='arrows'>
+              <NextPageArrow />
+            </button>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            showing
+            <select
+              className='selection'
+              value={pageSize}
+              onChange={(e) => {
+                setPageSize(Number(e.target.value))
+              }}>
+              {[10, 20, 30, 40, 50].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  {pageSize}
+                </option>
+              ))}
+            </select>
+            out of {data.length}
+          </div>
         </div>
       </Wrapper>
     </>

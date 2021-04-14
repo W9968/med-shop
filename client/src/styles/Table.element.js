@@ -1,10 +1,12 @@
 import styled from 'styled-components'
-import { AiFillDelete, AiOutlineEdit, AiOutlineEye } from 'react-icons/ai'
+import { AiFillDelete, AiOutlineEdit } from 'react-icons/ai'
 import {
   BiChevronRight,
   BiChevronLeft,
   BiChevronsLeft,
   BiChevronsRight,
+  BiChevronUp,
+  BiChevronDown,
 } from 'react-icons/bi'
 
 export const Wrapper = styled.div`
@@ -70,27 +72,10 @@ export const Wrapper = styled.div`
   }
 `
 
-export const ViewIcon = styled(AiOutlineEye)`
-  padding: 10px;
-  color: #5868f0;
-  cursor: pointer;
-  border-radius: 5px;
-  width: calc(1.35em + 1.1rem + 2px);
-  height: calc(1.35em + 1.1rem + 2px);
-  background-color: var(--bgd);
-  transition: 0.3s ease-in-out;
-
-  &:hover {
-    color: var(--bgd);
-    background-color: #5868f0;
-  }
-`
-
 export const DeleteIcon = styled(AiFillDelete)`
   padding: 10px;
   color: #f64e60;
   cursor: pointer;
-  margin-left: 5px;
   border-radius: 5px;
   width: calc(1.35em + 1.1rem + 2px);
   height: calc(1.35em + 1.1rem + 2px);
@@ -133,9 +118,14 @@ export const PrevArrow = styled(BiChevronLeft)`
   font-size: 1.5rem;
 `
 
+export const UpArrow = styled(BiChevronUp)``
+export const DownArrow = styled(BiChevronDown)``
+
 export const Input = styled.input`
   width: 250px;
-  padding: 5px 10px;
   outline: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
   border: 1px solid #e1e1e1;
 `

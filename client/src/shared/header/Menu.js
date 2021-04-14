@@ -1,5 +1,4 @@
 import React from 'react'
-
 //imports
 import { useHistory } from 'react-router'
 import { useAuth } from '../../services/context/AuthContext'
@@ -10,7 +9,6 @@ import { LogginIcon, MenuIcon } from '../../styles/Header.element'
 
 const UserIcon = () => {
   const history = useHistory()
-
   const { logged, Logout, currentUser } = useAuth()
 
   const menu = (
@@ -45,7 +43,7 @@ const UserIcon = () => {
           placement='bottomCenter'
           overlay={menu}
           trigger={['click']}>
-          <MenuIcon onClick={(e) => e.preventDefault()} />
+          <MenuIcon />
         </Dropdown>
       ) : (
         <LogginIcon onClick={() => history.push('/login')} />

@@ -5,13 +5,26 @@ import { Spinner } from '@chakra-ui/spinner'
 const { Title } = Typography
 
 export const Wrapper = styled.div`
-  width: 70%;
-  min-height: 100%;
+  display: flex;
+  width: 1366px;
   margin: 0rem auto;
   padding: 0rem 1rem;
   border-radius: 15px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   background-color: var(--wht);
   filter: drop-shadow(0px 10px 10px 00px #e1e1e1);
+
+  @media (max-width: 1200px) {
+    width: 992px;
+  }
+  @media (max-width: 992px) {
+    width: 720px;
+  }
+  @media (max-width: 768px) {
+    width: 95%;
+  }
 `
 
 export const StyledRow = styled(Row)`
@@ -31,6 +44,5 @@ export const Text = styled(Title)`
 `
 
 export const Spin = styled(Spinner)`
-  position: absolute;
-  text-align: center;
+  margin: auto auto;
 `

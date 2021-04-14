@@ -14,6 +14,10 @@ export const Wrapper = styled.div`
 `
 // header //
 export const StyledHeader = styled.div`
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  position: fixed;
   display: flex;
   flex-direction: row;
   padding: 0.5rem 1rem;
@@ -99,14 +103,24 @@ export const Button = styled.button`
 
 // content
 export const StyledContent = styled(Content)`
-  height: 70vh;
+  display: flex;
   overflow-y: auto;
-  margin: 2rem 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 5rem 1rem 1rem 1rem;
 `
 // content //
 
 // side bar //
 export const StyledSider = styled(Sider)`
+  z-index: 2;
+
+  .ant-layout-sider-children {
+    width: inherit;
+    position: fixed;
+  }
+
   .ant-layout-sider-children,
   .ant-menu {
     background-color: var(--nab) !important;

@@ -6,15 +6,15 @@ export const AddButton = styled(NavLink)`
   outline: none;
   color: var(--wht);
   border-radius: 5px;
-  padding: 10px 1rem;
+  padding: 8px 1rem;
   letter-spacing: 1px;
-  background-color: #5868f0;
+  background-color: #3699ff;
   text-transform: capitalize;
   transition: 0.3s ease-in-out;
 
   &:hover {
     cursor: pointer;
     color: var(--wht);
-    background-color: var(--nab);
+    background-color: var(--hov);
   }
 `

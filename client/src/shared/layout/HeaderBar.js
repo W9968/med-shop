@@ -1,5 +1,7 @@
 import React from 'react'
+import { Breadcrumb } from 'antd'
 import { useAuth } from '../../services/context/AuthContext'
+import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 import {
   StyledHeader,
   List,
@@ -8,10 +10,10 @@ import {
   Div,
   Button,
 } from '../../styles/Dashboard.element'
-import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 
 const HeaderBar = () => {
   const { logged, currentUser, Logout } = useAuth()
+
   return (
     <>
       <StyledHeader>
@@ -55,6 +57,22 @@ const HeaderBar = () => {
             </Menu>
           </Item>
           {/* drop down end */}
+          {/* bread crumb */}
+          <Item>
+            <Breadcrumb>
+              {window.location.pathname
+                .slice(1)
+                .split('/')
+                .map((paths, key) => {
+                  return (
+                    <Breadcrumb.Item key={key}>
+                      <span>{paths}</span>
+                    </Breadcrumb.Item>
+                  )
+                })}
+            </Breadcrumb>
+          </Item>
+          {/* bread crumb end */}
         </List>
       </StyledHeader>
     </>
