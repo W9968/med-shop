@@ -76,6 +76,7 @@ export const DeleteIcon = styled(AiFillDelete)`
   padding: 10px;
   color: #f64e60;
   cursor: pointer;
+  margin-left: 5px;
   border-radius: 5px;
   width: calc(1.35em + 1.1rem + 2px);
   height: calc(1.35em + 1.1rem + 2px);
@@ -89,10 +90,10 @@ export const DeleteIcon = styled(AiFillDelete)`
 `
 
 export const EditIcon = styled(AiOutlineEdit)`
+  margin: 0;
   padding: 10px;
   color: #5868f0;
   cursor: pointer;
-  margin-left: 5px;
   border-radius: 5px;
   width: calc(1.35em + 1.1rem + 2px);
   height: calc(1.35em + 1.1rem + 2px);

@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import useApi from '../../hooks/useApi'
+import { message } from 'antd'
 
 const CrudContext = React.createContext()
 
@@ -21,9 +22,15 @@ export default function CrudProvider({ children }) {
   }
 
   const storeData = async (route, req) => {
-    return await useApi.post(`/api/${route}`, req).then((res) => {
-      getData(`${route}`)
-    })
+    return await useApi
+      .post(`/api/${route}`, req)
+      .then((res) => {
+        setLoading(false)
+        getData(`${route}`)
+      })
+      .catch((err) => {
+        message.error('data did not submitted', 2)
+      })
   }
 
   const editData = async (route, key, req) => {

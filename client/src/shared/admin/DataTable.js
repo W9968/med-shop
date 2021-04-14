@@ -20,7 +20,7 @@ import {
   useGlobalFilter,
   useAsyncDebounce,
 } from 'react-table'
-import { Table, Thead, Tbody, Tr, Th, Td, TableCaption } from '@chakra-ui/react'
+import { Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react'
 
 // global filter
 function GlobalFilter({ globalFilter, setGlobalFilter, field }) {
@@ -87,8 +87,8 @@ const DataTable = ({ columns, data, path }) => {
                 display: 'flex',
                 flexDirection: 'row',
               }}>
-              <DeleteIcon onClick={() => deleteData(path, row.values.id)} />
               <EditIcon />
+              <DeleteIcon onClick={() => deleteData(path, row.values.id)} />
             </span>
           ),
         },
@@ -209,7 +209,7 @@ const DataTable = ({ columns, data, path }) => {
               onChange={(e) => {
                 setPageSize(Number(e.target.value))
               }}>
-              {[10, 20, 30, 40, 50].map((pageSize) => (
+              {[8, 10, 12, 20].map((pageSize) => (
                 <option key={pageSize} value={pageSize}>
                   {pageSize}
                 </option>
