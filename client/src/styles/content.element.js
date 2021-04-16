@@ -6,7 +6,7 @@ const { Title } = Typography
 
 export const Wrapper = styled.div`
   display: flex;
-  width: 1366px;
+  width: 1104px;
   margin: 0rem auto;
   padding: 0rem 1rem;
   border-radius: 15px;
@@ -17,10 +17,10 @@ export const Wrapper = styled.div`
   filter: drop-shadow(0px 10px 10px 00px #e1e1e1);
 
   @media (max-width: 1200px) {
-    width: 992px;
+    width: 100%;
   }
   @media (max-width: 992px) {
-    width: 720px;
+    width: 100%;
   }
   @media (max-width: 768px) {
     width: 95%;

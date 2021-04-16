@@ -1,5 +1,6 @@
 import React from 'react'
 import { Breadcrumb } from 'antd'
+import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../services/context/AuthContext'
 import { Menu, MenuButton, MenuList } from '@chakra-ui/menu'
 import {
@@ -12,6 +13,7 @@ import {
 } from '../../styles/Dashboard.element'
 
 const HeaderBar = () => {
+  const history = useHistory()
   const { logged, currentUser, Logout } = useAuth()
 
   return (
@@ -49,8 +51,8 @@ const HeaderBar = () => {
                     </p>
                   </Div>
                 </Space>
-
                 <Space>
+                  <Button onClick={() => history.push('/')}>go home</Button>
                   <Button onClick={Logout}>sign out</Button>
                 </Space>
               </MenuList>

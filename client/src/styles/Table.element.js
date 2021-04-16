@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { AiFillDelete, AiOutlineEdit } from 'react-icons/ai'
+import { FcGenericSortingDesc } from 'react-icons/fc'
 import {
   BiChevronRight,
   BiChevronLeft,
@@ -118,9 +119,15 @@ export const NextArrow = styled(BiChevronRight)`
 export const PrevArrow = styled(BiChevronLeft)`
   font-size: 1.5rem;
 `
-
-export const UpArrow = styled(BiChevronUp)``
-export const DownArrow = styled(BiChevronDown)``
+export const SortIcon = styled(FcGenericSortingDesc)`
+  margin: 0px 15px;
+`
+export const UpArrow = styled(BiChevronUp)`
+  margin: 0px 15px;
+`
+export const DownArrow = styled(BiChevronDown)`
+  margin: 0px 15px;
+`
 
 export const Input = styled.input`
   width: 250px;

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import useApi from '../../hooks/useApi'
-import { message } from 'antd'
+import { useToast } from '@chakra-ui/toast'
+import { useHistory } from 'react-router-dom'
 
 const CrudContext = React.createContext()
 
@@ -9,49 +10,59 @@ export function useCrud() {
 }
 
 export default function CrudProvider({ children }) {
+  const toast = useToast()
+  const history = useHistory()
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
 
   const getData = async (route) => {
-    return await useApi.get(`/api/${route}`).then((res) => {
+    await useApi.get(`/api/${route}`).then((res) => {
       if (res.status === 200) {
         setData(res.data)
-        setLoading(false)
       }
+      setLoading(false)
     })
   }
 
-  const storeData = async (route, req) => {
-    return await useApi
+  const storeData = async (path, route, req) => {
+    await useApi
       .post(`/api/${route}`, req)
       .then((res) => {
-        setLoading(false)
-        getData(`${route}`)
+        if (res.status === 201) {
+          history.push(path)
+        }
       })
-      .catch((err) => {
-        message.error('data did not submitted', 2)
+      .catch(() => {
+        showToast('Error', 'Something went wrong with out server', 'error')
       })
   }
 
   const editData = async (route, key, req) => {
-    return await useApi.put(`/api/${route}/${key}`, req).then((res) => {
+    await useApi.put(`/api/${route}/${key}`, req).then((res) => {
       getData(`${route}`)
     })
   }
 
   const showData = async (route, key) => {
-    return await useApi.get(`/api/${route}/${key}`)
+    await useApi.get(`/api/${route}/${key}`)
   }
 
   const deleteData = async (route, key) => {
-    return await useApi.delete(`/api/${route}/${key}`).then((res) => {
-      getData(`${route}`)
-    })
+    await useApi.delete(`/api/${route}/${key}`)
   }
 
   const destroy = async (route) => {
-    return await useApi.delete(`/api/${route}`).then((res) => {
-      getData(`${route}`)
+    await useApi.delete(`/api/${route}`)
+  }
+
+  const showToast = (title, content, status) => {
+    return toast({
+      title: title,
+      description: content,
+      status: status,
+      duration: 3000,
+      position: 'bottom-right',
+      isClosable: true,
     })
   }
 

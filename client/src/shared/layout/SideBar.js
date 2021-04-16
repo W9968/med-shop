@@ -20,7 +20,7 @@ import {
 
 const SideBar = ({ parent }) => {
   const { SubMenu } = Menu
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(true)
 
   const items = [
     { key: 1, select: '/dashboard/order', name: 'order', path: 'order' },

@@ -15,7 +15,6 @@ const Blog = () => {
     () => [
       { Header: 'id', accessor: 'id' },
       { Header: 'title', accessor: 'title' },
-      { Header: 'content', accessor: 'content' },
       { Header: 'Time', accessor: 'created_at' },
     ],
     []
@@ -23,7 +22,7 @@ const Blog = () => {
 
   useEffect(() => {
     getData('post')
-  }, []) // eslint-disable-line
+  }, [data]) // eslint-disable-line
 
   return (
     <>

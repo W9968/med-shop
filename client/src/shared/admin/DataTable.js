@@ -11,6 +11,7 @@ import {
   Input,
   UpArrow,
   DownArrow,
+  SortIcon,
 } from '../../styles/Table.element'
 import {
   useTable,
@@ -43,6 +44,7 @@ function GlobalFilter({ globalFilter, setGlobalFilter, field }) {
 
 const DataTable = ({ columns, data, path }) => {
   const { deleteData } = useCrud()
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -66,7 +68,8 @@ const DataTable = ({ columns, data, path }) => {
     {
       columns,
       data,
-      initialState: { pageIndex: 0 },
+      initialState: { pageIndex: 0, sortBy: [{ id: 'id', desc: true }] },
+      autoResetPage: false,
     },
     useGlobalFilter,
     useSortBy,
@@ -99,7 +102,6 @@ const DataTable = ({ columns, data, path }) => {
   return (
     <>
       <Wrapper>
-        {' '}
         <GlobalFilter
           field={data.length}
           globalFilter={state.globalFilter}
@@ -130,7 +132,7 @@ const DataTable = ({ columns, data, path }) => {
                               <DownArrow />
                             )
                           ) : (
-                            ''
+                            <SortIcon />
                           )}
                         </span>
                       </pre>
@@ -171,7 +173,6 @@ const DataTable = ({ columns, data, path }) => {
               onClick={() => gotoPage(0)}
               disabled={!canPreviousPage}
               className='arrows'>
-              {' '}
               <PreviousPageArrow />
             </button>
             <button

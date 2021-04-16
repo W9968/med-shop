@@ -31,7 +31,11 @@ const BlogForm = ({ initVal1, initVal2 }) => {
             style={{ resize: 'none' }}
           />
         </InputGroup>
-        <Add path='post' req={{ title: title, content: markDown }} />
+        <Add
+          push={'/dashboard/post'}
+          path='post'
+          req={{ title: title, content: markDown }}
+        />
       </Div>
     </>
   )

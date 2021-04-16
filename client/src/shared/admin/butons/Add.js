@@ -4,15 +4,12 @@ import { useCrud } from '../../../services/context/CrudContext'
 import { Spin } from '../../../styles/content.element'
 import { InputGroup, Button, CancelButton } from '../../../styles/Curd.element'
 
-const Add = ({ path, req }) => {
+const Add = ({ push, path, req }) => {
   const history = useHistory()
-  const { storeData, loading } = useCrud()
+  const { storeData } = useCrud()
 
   const handleStore = () => {
-    storeData(path, req)
-    if (loading === false) {
-      history.push('/dashboard/post')
-    }
+    storeData(push, path, req)
   }
 
   return (
@@ -28,7 +25,7 @@ const Add = ({ path, req }) => {
           cancel
         </CancelButton>
         <Button onClick={handleStore}>
-          {loading ? <Spin /> : <span>Post this</span>}
+          {process ? <span>Post this</span> : <Spin />}
         </Button>
       </InputGroup>
     </>
