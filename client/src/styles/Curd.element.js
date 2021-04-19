@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
 
 export const Div = styled.div`
   width: 100%;
@@ -31,7 +30,7 @@ export const Div = styled.div`
   }
 `
 
-export const AddButton = styled(NavLink)`
+export const AddButton = styled.button`
   border: none;
   outline: none;
   color: var(--wht);

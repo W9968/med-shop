@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useCrud } from '../../services/context/CrudContext'
+import { useHistory } from 'react-router-dom'
 import {
   Wrapper,
   DeleteIcon,
@@ -44,7 +45,7 @@ function GlobalFilter({ globalFilter, setGlobalFilter, field }) {
 
 const DataTable = ({ columns, data, path }) => {
   const { deleteData } = useCrud()
-
+  const histroy = useHistory()
   const {
     getTableProps,
     getTableBodyProps,
@@ -90,7 +91,9 @@ const DataTable = ({ columns, data, path }) => {
                 display: 'flex',
                 flexDirection: 'row',
               }}>
-              <EditIcon />
+              <EditIcon
+                onClick={() => histroy.push(`${path}/edit/${row.values.id}`)}
+              />
               <DeleteIcon onClick={() => deleteData(path, row.values.id)} />
             </span>
           ),

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import useApi from '../../hooks/useApi'
 import { useToast } from '@chakra-ui/toast'
-import { useHistory } from 'react-router-dom'
 
 const CrudContext = React.createContext()
 
@@ -11,8 +10,8 @@ export function useCrud() {
 
 export default function CrudProvider({ children }) {
   const toast = useToast()
-  const history = useHistory()
   const [data, setData] = useState([])
+  const [onlyRes, setOnlyRes] = useState(null)
   const [loading, setLoading] = useState(true)
 
   const getData = async (route) => {
@@ -24,12 +23,12 @@ export default function CrudProvider({ children }) {
     })
   }
 
-  const storeData = async (path, route, req) => {
+  const storeData = async (route, req) => {
     await useApi
       .post(`/api/${route}`, req)
       .then((res) => {
         if (res.status === 201) {
-          history.push(path)
+          getData(route)
         }
       })
       .catch(() => {
@@ -38,17 +37,28 @@ export default function CrudProvider({ children }) {
   }
 
   const editData = async (route, key, req) => {
-    await useApi.put(`/api/${route}/${key}`, req).then((res) => {
-      getData(`${route}`)
-    })
+    await useApi
+      .put(`/api/${route}/${key}`, req)
+      .then((res) => {
+        if (res.status === 201) {
+          getData(`${route}`)
+        }
+      })
+      .catch(() => {
+        showToast('Error', 'Something went wrong with out server', 'error')
+      })
   }
 
   const showData = async (route, key) => {
-    await useApi.get(`/api/${route}/${key}`)
+    await useApi.get(`/api/${route}/${key}`).then((res) => {
+      setOnlyRes(res.data)
+    })
   }
 
   const deleteData = async (route, key) => {
-    await useApi.delete(`/api/${route}/${key}`)
+    await useApi.delete(`/api/${route}/${key}`).then((res) => {
+      getData(route)
+    })
   }
 
   const destroy = async (route) => {
@@ -74,6 +84,7 @@ export default function CrudProvider({ children }) {
     showData,
     destroy,
     data,
+    onlyRes,
     loading,
   }
 

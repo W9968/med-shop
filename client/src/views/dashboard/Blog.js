@@ -1,14 +1,12 @@
 import React, { useMemo, useEffect } from 'react'
 import { useCrud } from '../../services/context/CrudContext'
 import { Wrapper, Spin } from '../../styles/content.element'
-import { Switch, Route, useRouteMatch } from 'react-router-dom'
 
 import DataTable from '../../shared/admin/DataTable'
-import CardHeader from '../../shared/hero/CardHeader'
-import BlogForm from '../../shared/admin/blog/BlogForm'
+import CardHeader from '../../shared/admin/CardHeader'
+import BlogModal from '../../shared/admin/Modals/blog/BlogModal'
 
 const Blog = () => {
-  const { path } = useRouteMatch()
   const { getData, data, loading } = useCrud()
 
   const column = useMemo(
@@ -22,7 +20,7 @@ const Blog = () => {
 
   useEffect(() => {
     getData('post')
-  }, [data]) // eslint-disable-line
+  }, []) // eslint-disable-line
 
   return (
     <>
@@ -30,15 +28,11 @@ const Blog = () => {
         <Spin />
       ) : (
         <Wrapper>
-          <CardHeader title='Post' />
-          <Switch>
-            <Route exact path={path}>
-              <DataTable path='post' columns={column} data={data} />
-            </Route>
-            <Route path={`${path}/add`}>
-              <BlogForm />
-            </Route>
-          </Switch>
+          <CardHeader
+            title='Post'
+            children={<BlogModal titleButton='Post' />}
+          />
+          <DataTable path='post' columns={column} data={data} />
         </Wrapper>
       )}
     </>
