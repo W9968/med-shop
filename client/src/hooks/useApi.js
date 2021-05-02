@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const useApi = axios.create({
+const _fetchApi = axios.create({
   baseURL: 'http://localhost:8000',
   withCredentials: true,
 })
 
-export default useApi
+export default _fetchApi

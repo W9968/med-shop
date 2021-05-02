@@ -1,66 +1,132 @@
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
+import { BiCheck, BiErrorCircle } from 'react-icons/bi'
+import { CheckBox } from 'grommet'
 
-export const Wrapper = styled.div`
+export const Container = styled.div`
+  width: 100%;
+  height: 100vh;
   display: flex;
-  max-width: 100%;
-  min-height: 100vh;
+  position: absolute;
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  background: ${({ theme }) => theme.primary};
+
+  @media (max-width: 600px) {
+    padding: 40px 0px;
+    justify-content: flex-start;
+    background: ${({ theme }) => theme.primary};
+  }
 `
 
-export const Form = styled.div`
-  width: 500px;
-  display: flex;
+export const Wrapper = styled.div`
+  width: 600px;
   padding: 15px;
-  margin: 1rem 0rem;
-  border-radius: 10px;
-  padding-top: 1.5rem;
+  display: flex;
+  border-radius: 12px;
+  align-items: center;
   flex-direction: column;
-  background-color: var(--wht);
-  box-shadow: 0px 15px 15px 00px #e1e1e1;
+  justify-content: center;
+  background-color: transparent;
 
-  @media (max-width: 768px) {
-    width: 90%;
+  .fieldgroup {
+    padding: 0px 15px;
+    background-color: ${({ theme }) => theme.fourth};
   }
+
+  @media (max-width: 600px) {
+    width: 100%;
+    box-shadow: none;
+  }
+`
+
+export const Text = styled(NavLink)`
+  margin-top: 1rem;
+  font-weight: 600;
+  text-align: center;
+  font-size: 2.225rem;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: capitalize;
+  color: ${({ theme }) => theme.secondary};
 `
 
 export const InputGroup = styled.div`
+  width: 400px;
   display: flex;
-  margin: 1rem 0rem;
-  flex-direction: column;
-  justify-content: center;
-`
+  margin-bottom: 1rem;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 12px;
 
-export const Input = styled.input`
-  border: none;
-  width: 100%;
-  outline: none;
-  padding: 1rem 1rem;
-  border-radius: 10px;
-  background-color: var(--bgd);
-`
-
-export const Button = styled.button`
-  width: 100%;
-  border: none;
-  outline: none;
-  color: var(--bgd);
-  letter-spacing: 1px;
-  border-radius: 10px;
-  padding: 0.8rem 1rem;
-  text-transform: capitalize;
-  background-color: var(--txt);
-  transition: 0.3s ease-in-out;
-
-  &:hover {
-    cursor: pointer;
-    background-color: var(--hov);
+  @media (max-width: 400px) {
+    width: 100%;
   }
 `
 
-export const Parag = styled.p`
-  margin: 0;
-  font-weight: 500;
+export const Input = styled.input`
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 16px 0px;
+  letter-spacing: 0.78px;
+  background: transparent;
+  color: ${({ theme }) => theme.secondary};
+`
+
+export const Correct = styled(BiCheck)`
+  font-size: 2rem;
+  color: ${({ theme }) => theme.correct};
+`
+export const Error = styled(BiErrorCircle)`
+  font-size: 1.775rem;
+  color: ${({ theme }) => theme.error};
+`
+
+export const CheckButton = styled(CheckBox)``
+
+export const Button = styled.button`
+  width: 400px;
+  border: none;
+  outline: none;
+  display: flex;
+  cursor: pointer;
+  margin: 1rem 0rem;
+  font-size: 1.125rem;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 12px;
+  padding: 0.7rem 2rem;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+  justify-content: space-around;
+  color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.third};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.hover};
+  }
+
+  @media (max-width: 400px) {
+    width: 100%;
+  }
+
+  &:disabled {
+    color: ${({ theme }) => theme.primary};
+    background-color: ${({ theme }) => theme.fourth};
+  }
+`
+
+export const Message = styled.p`
+  width: 400px;
+  font-weight: 600;
+  margin: 1rem 0rem;
   text-align: center;
+  border-radius: 12px;
+  padding: 0.7rem 2rem;
+  background-color: red;
+  color: ${({ theme }) => theme.primary};
 `

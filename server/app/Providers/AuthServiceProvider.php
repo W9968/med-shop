@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         //createUrlUsing method provided by the ResetPassword notification class. 
         ResetPassword::createUrlUsing(
             function ($notifiable, $token) {
-                return 'http://localhost:3000/resetpassword?token='.$token.'&email='.$notifiable->getEmailForPasswordReset();
+                return 'http://localhost:3000/password/reset?token='.$token.'&email='.$notifiable->getEmailForPasswordReset();
             }
         );
     }
