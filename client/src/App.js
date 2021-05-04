@@ -16,7 +16,7 @@ import {
   SendResetMAil,
   ResetPassword,
 } from './views/imports'
-import { AuthProvider } from './global/exports'
+import { AuthProvider, CrudProvider } from './global/exports'
 
 import PrivateRoute from './routes/PrivateRoute'
 import ProtectedRoute from './routes/ProtectedRoute'
@@ -31,27 +31,28 @@ function App() {
           <Wrapper>
             <Main>
               <AuthProvider>
-                <Router>
-                  <Nav />
-
-                  <Switch>
-                    <Route path='/checkout' component={Checkout} />
-                    <ProtectedRoute path='/dash' component={Dash} />
-                    <ControlledRoute path='/profile' component={Profile} />
-                    <PrivateRoute
-                      path='/password/reset'
-                      component={ResetPassword}
-                    />
-                    <PrivateRoute
-                      path='/password/mail'
-                      component={SendResetMAil}
-                    />
-                    <PrivateRoute path='/register' component={Register} />
-                    <PrivateRoute path='/login' component={Login} />
-                    <Route exact path='/' component={Home} />
-                    <Route path='*' component={P404} />
-                  </Switch>
-                </Router>
+                <CrudProvider>
+                  <Router>
+                    <Nav />
+                    <Switch>
+                      <Route path='/checkout' component={Checkout} />
+                      <ProtectedRoute path='/dash' component={Dash} />
+                      <ControlledRoute path='/profile' component={Profile} />
+                      <PrivateRoute
+                        path='/password/reset'
+                        component={ResetPassword}
+                      />
+                      <PrivateRoute
+                        path='/password/mail'
+                        component={SendResetMAil}
+                      />
+                      <PrivateRoute path='/register' component={Register} />
+                      <PrivateRoute path='/login' component={Login} />
+                      <Route exact path='/' component={Home} />
+                      <Route path='*' component={P404} />
+                    </Switch>
+                  </Router>
+                </CrudProvider>
               </AuthProvider>
             </Main>
           </Wrapper>

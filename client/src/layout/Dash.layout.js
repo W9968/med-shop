@@ -35,6 +35,7 @@ const Dashlayout = () => {
         <Content>
           <ContentSection route={path} />
         </Content>
+
         <Footer>eee</Footer>
       </MobileWrapper>
     </>
