@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
-class BlogController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return Blog::all();
+        return Brand::all();
     }
 
     /**
@@ -27,11 +27,10 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'content' => 'required',
+            'tag' => 'required',
         ]); 
 
-        return Blog::create($request->all());
+        return Brand::create($request->all());
     }
 
     /**
@@ -42,7 +41,18 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        return Blog::find($id);
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
@@ -54,9 +64,7 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $blog = Blog::find($id);
-        $blog -> update($request-> all());
-        return $blog; 
+        //
     }
 
     /**
@@ -67,7 +75,6 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        return Blog::destroy($id);
+        Brand::destroy($id);
     }
-    
 }
