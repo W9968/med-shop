@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import { CSVLink } from 'react-csv'
+
 import {
   BiChevronDown,
   BiChevronUp,
@@ -8,6 +10,7 @@ import {
   BiChevronsLeft,
   BiChevronRight,
   BiChevronsRight,
+  BiFileBlank,
 } from 'react-icons/bi'
 import {
   useTable,
@@ -16,6 +19,8 @@ import {
   useGlobalFilter,
   useAsyncDebounce,
 } from 'react-table'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { useCrud } from '../../global/exports'
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -43,7 +48,8 @@ function GlobalFilter({
   )
 }
 
-const _DataTable = ({ columns, data }) => {
+const _DataTable = ({ columns, data, filename, path }) => {
+  const { deleteData } = useCrud()
   const {
     getTableProps,
     getTableBodyProps,
@@ -71,23 +77,55 @@ const _DataTable = ({ columns, data }) => {
     },
     useGlobalFilter, // useGlobalFilter!
     useSortBy, // sorting
-    usePagination // usePagination
+    usePagination, // usePagination
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
+        //let's make a col for delete
+        ...columns,
+        {
+          id: 'Action',
+          Header: 'Action',
+          Cell: ({ row }) => (
+            <button onClick={() => deleteData(path, row.values.id)}>
+              delete
+            </button>
+          ),
+        },
+      ])
+    }
   )
 
   return (
     <>
       <TableContainer>
-        <GlobalFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          globalFilter={state.globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        />
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <GlobalFilter
+            preGlobalFilteredRows={preGlobalFilteredRows}
+            globalFilter={state.globalFilter}
+            setGlobalFilter={setGlobalFilter}
+          />
+          {/* file name make the file unreadable */}
+          <LinkerExcel data={data} filename={filename} target={'_blank'}>
+            {!useMediaQuery(500) && (
+              <span style={{ marginRight: '5px' }}>Export</span>
+            )}
+
+            <File />
+          </LinkerExcel>
+        </div>
+
         <Table {...getTableProps()}>
           <TableHead>
             {headerGroups.map((headerGroup) => (
               <TableRow {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
+                {headerGroup.headers.map((column, key) => (
                   <TableCell
+                    key={`tab-${key}`}
                     {...column.getHeaderProps(column.getSortByToggleProps())}>
                     <div
                       style={{
@@ -113,13 +151,13 @@ const _DataTable = ({ columns, data }) => {
             ))}
           </TableHead>
           <TableBody {...getTableBodyProps()}>
-            {page.map((row, i) => {
+            {page.map((row, key) => {
               prepareRow(row)
               return (
-                <TableRow {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
+                <TableRow key={`tab-${key}`} {...row.getRowProps()}>
+                  {row.cells.map((cell, key) => {
                     return (
-                      <TableCell {...cell.getCellProps()}>
+                      <TableCell key={`tab-${key}`} {...cell.getCellProps()}>
                         {cell.render('Cell')}
                       </TableCell>
                     )
@@ -166,8 +204,8 @@ const _DataTable = ({ columns, data }) => {
               onChange={(e) => {
                 setPageSize(Number(e.target.value))
               }}>
-              {[5, 10, 15, data.length].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
+              {[5, 10, 15, data.length].map((pageSize, key) => (
+                <option key={`tab-Page-${key}`} value={pageSize}>
                   {data.length === pageSize ? 'All' : pageSize}
                 </option>
               ))}
@@ -188,20 +226,23 @@ const TableContainer = styled.div`
 `
 
 const Input = styled.input`
+  width: 200px;
   border: none;
   outline: none;
-  padding: 14px;
+  padding: 10px;
   font-size: 1rem;
   margin: 1rem 0rem;
   border-radius: 5px;
   letter-spacing: 0.78px;
   background: transparent;
-  color: ${({ theme }) => theme.text};
-  background-color: ${({ theme }) => theme.light};
+  color: ${({ theme }) => theme.secondary};
+  background-color: ${({ theme }) => theme.fourth};
 `
 
 const Table = styled.table`
   border-collapse: collapse;
+  overflow-x: auto;
+  table-layout: inherit;
 `
 const TableHead = styled.thead`
   font-size: 1rem;
@@ -212,10 +253,10 @@ const TableHead = styled.thead`
 const TableBody = styled.tbody``
 
 const TableRow = styled.tr`
-  border-bottom: 1px solid ${({ theme }) => theme.light};
+  border-bottom: 1px solid ${({ theme }) => theme.fourth};
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.light};
+    background-color: ${({ theme }) => theme.fourth};
   }
 `
 
@@ -238,7 +279,8 @@ const Button = styled.button`
   border-radius: 8px;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.button};
+  color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.third};
 `
 
 const Select = styled.select`
@@ -247,7 +289,7 @@ const Select = styled.select`
   background-color: ${({ theme }) => theme.button};
 
   .option {
-    background-color: ${({ theme }) => theme.light};
+    background-color: ${({ theme }) => theme.darkhover};
   }
 `
 
@@ -271,4 +313,26 @@ const First = styled(BiChevronsLeft)`
 `
 const Last = styled(BiChevronsRight)`
   font-size: 1.5rem;
+`
+
+const LinkerExcel = styled(CSVLink)`
+  border: none;
+  display: flex;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 0rem 0.5rem;
+  font-size: 0.825rem;
+  align-items: center;
+  justify-content: center;
+  color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.third};
+
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+    background-color: ${({ theme }) => theme.hover};
+  }
+`
+
+const File = styled(BiFileBlank)`
+  font-size: 1.125rem;
 `

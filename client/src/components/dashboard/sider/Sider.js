@@ -20,18 +20,18 @@ import {
 
 const Sider = ({ size }) => {
   const OrderItem = [
-    { id: '1', name: 'Orders', path: '' },
-    { id: '2', name: 'Inovice', path: '' },
-    { id: '3', name: 'Credit Slips', path: '' },
-    { id: '4', name: 'Delivery Slips', path: '' },
+    { id: '1', name: 'Orders', path: '/dash/orders' },
+    { id: '2', name: 'Inovice', path: '/dash/inovices' },
+    { id: '3', name: 'Credit Slips', path: '/' },
+    { id: '4', name: 'Delivery Slips', path: '/' },
   ]
 
   const CatalogItem = [
-    { id: '5', name: 'Products', path: '' },
-    { id: '6', name: 'Attributes', path: '' },
-    { id: '7', name: 'Brands', path: '/blogs' },
-    { id: '8', name: 'Discount', path: '' },
-    { id: '9', name: 'Stocks', path: '' },
+    { id: '5', name: 'Products', path: '/dash/products' },
+    { id: '6', name: 'Attributes', path: '/dash' },
+    { id: '7', name: 'Brands', path: '/dash/brands' },
+    { id: '8', name: 'Discount', path: '/dash/discount' },
+    { id: '9', name: 'Stocks', path: '/dash/stocks' },
   ]
 
   return (
@@ -67,10 +67,12 @@ const Sider = ({ size }) => {
                   </Item>
                   {size && (
                     <Panel>
-                      {OrderItem.map((item, key) => {
+                      {OrderItem.map((item) => {
                         return (
-                          <Item key={key} className='panelItem'>
-                            {item.name}
+                          <Item key={item.id} className='panelItem'>
+                            <Link style={{ padding: 0 }} to={item.path}>
+                              {item.name}
+                            </Link>
                           </Item>
                         )
                       })}
@@ -103,10 +105,12 @@ const Sider = ({ size }) => {
 
                   {size && (
                     <Panel>
-                      {CatalogItem.map((item, key) => {
+                      {CatalogItem.map((item) => {
                         return (
-                          <Item key={key} className='panelItem'>
-                            {item.name}
+                          <Item key={item.id} className='panelItem'>
+                            <Link style={{ padding: 0 }} to={item.path}>
+                              {item.name}
+                            </Link>
                           </Item>
                         )
                       })}

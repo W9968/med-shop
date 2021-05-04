@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\UserController;
 use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -18,11 +20,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/post', [BlogController::class, 'index']);
-Route::get('/post/{id}', [BlogController::class, 'show']);
-Route::post('/post', [BlogController::class, 'store']);
-Route::delete('/post/{id}', [BlogController::class, 'destroy']);
-Route::delete('/post', [BlogController::class,'turncate']);
+// user routes
+Route::get('/customer', [UserController::class, 'index']);
+
+// brand routes
+Route::get('/brand', [BrandController::class, 'index']);
+Route::post('/brand', [BrandController::class, 'store']);
+Route::delete('/brand/{id}', [BrandController::class, 'destroy']);
+
+//blog routes
+Route::get('/blogs', [BlogController::class, 'index']);
+Route::get('/blogs/{id}', [BlogController::class, 'show']);
+Route::post('/blogs', [BlogController::class, 'store']);
+Route::delete('/blogs/{id}', [BlogController::class, 'destroy']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

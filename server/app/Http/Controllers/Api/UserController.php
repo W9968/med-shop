@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class BlogController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,19 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return Blog::all();
+        // dd(DB::table('users')->where('role', '=', 0)->get());
+        return DB::table('users')->where('role', '=', 0)->get();
+        // return User::all();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -26,12 +39,7 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-        ]); 
-
-        return Blog::create($request->all());
+        //
     }
 
     /**
@@ -42,7 +50,18 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        return Blog::find($id);
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
@@ -54,9 +73,7 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $blog = Blog::find($id);
-        $blog -> update($request-> all());
-        return $blog; 
+        //
     }
 
     /**
@@ -67,7 +84,6 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        return Blog::destroy($id);
+        //
     }
-    
 }
