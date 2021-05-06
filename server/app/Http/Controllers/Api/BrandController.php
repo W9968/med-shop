@@ -41,18 +41,7 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return Brand::find($id);
     }
 
     /**
@@ -64,7 +53,9 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $brand = Brand::find($id);
+        $brand -> update($request-> all());
+        return $brand; 
     }
 
     /**

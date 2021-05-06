@@ -21,6 +21,8 @@ import {
 } from 'react-table'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { useCrud } from '../../global/exports'
+import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
+import { NavLink } from 'react-router-dom'
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -84,11 +86,23 @@ const _DataTable = ({ columns, data, filename, path }) => {
         ...columns,
         {
           id: 'Action',
+          width: 35,
           Header: 'Action',
           Cell: ({ row }) => (
-            <button onClick={() => deleteData(path, row.values.id)}>
-              delete
-            </button>
+            <div
+              style={{
+                width: '76px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <Edit to={`/dash/${path}/edit/${row.values.id}`}>
+                <AiOutlineEdit />
+              </Edit>
+              <Delete onClick={() => deleteData(path, row.values.id)}>
+                <AiOutlineDelete />
+              </Delete>
+            </div>
           ),
         },
       ])
@@ -223,6 +237,11 @@ const TableContainer = styled.div`
   display: flex;
   margin: 0rem 1rem;
   flex-direction: column;
+  overflow-x: auto;
+
+  .action {
+    position: fixed;
+  }
 `
 
 const Input = styled.input`
@@ -254,10 +273,6 @@ const TableBody = styled.tbody``
 
 const TableRow = styled.tr`
   border-bottom: 1px solid ${({ theme }) => theme.fourth};
-  &:hover {
-    cursor: pointer;
-    background-color: ${({ theme }) => theme.fourth};
-  }
 `
 
 const TableCell = styled.td`
@@ -318,9 +333,8 @@ const Last = styled(BiChevronsRight)`
 const LinkerExcel = styled(CSVLink)`
   border: none;
   display: flex;
-  padding: 10px;
+  padding: 8px 12px;
   border-radius: 5px;
-  margin: 0rem 0.5rem;
   font-size: 0.825rem;
   align-items: center;
   justify-content: center;
@@ -335,4 +349,45 @@ const LinkerExcel = styled(CSVLink)`
 
 const File = styled(BiFileBlank)`
   font-size: 1.125rem;
+`
+
+const Delete = styled.button`
+  margin: 0;
+
+  padding: 5px;
+  border: none;
+  outline: none;
+  display: flex;
+  cursor: pointer;
+  font-size: 1.5rem;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: center;
+  color: ${({ theme }) => theme.error};
+  background-color: ${({ theme }) => theme.fourth};
+
+  &:hover {
+    color: ${({ theme }) => theme.fourth};
+    background-color: ${({ theme }) => theme.error};
+  }
+`
+
+const Edit = styled(NavLink)`
+  margin: 0;
+  padding: 5px;
+  border: none;
+  outline: none;
+  display: flex;
+  cursor: pointer;
+  font-size: 1.5rem;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: center;
+  color: ${({ theme }) => theme.third};
+  background-color: ${({ theme }) => theme.fourth};
+
+  &:hover {
+    color: ${({ theme }) => theme.fourth};
+    background-color: ${({ theme }) => theme.third};
+  }
 `

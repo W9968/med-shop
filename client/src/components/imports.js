@@ -7,10 +7,16 @@ export { default as DataTable } from './datatable/_DataTable'
 
 export { default as HomeContent } from './home/_Content'
 
+export { default as InputLeftedUp } from './leftedInput/_Input'
+
 export { default as SideMenu } from './dashboard/sider/_SideMenu'
 export { default as TopHeader } from './dashboard/header/_TopHeader'
 export { default as NextHeader } from './dashboard/header/_NextHeader'
 export { default as ContentSection } from './dashboard/Content/_Content'
+export { default as ContentHeader } from './dashboard/header/_ContentHeader'
 
 export { default as AddBlog } from './dashboard/crud/blogs/_AddBlog'
 export { default as EditBlog } from './dashboard/crud/blogs/_EditBlog'
+
+export { default as AddBrand } from './dashboard/crud/brand/AddBrand'
+export { default as EditBrand } from './dashboard/crud/brand/EditBrand'

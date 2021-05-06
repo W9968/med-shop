@@ -9,6 +9,7 @@ export function useCrud() {
 
 export default function _CrudProvider({ children }) {
   const [socket, setSocket] = useState([])
+  const [oneResponse, setOneResponse] = useState({})
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({
     type: '',
@@ -18,7 +19,7 @@ export default function _CrudProvider({ children }) {
   // get data from api
   const loadData = async (route) => {
     setLoading(true)
-    return useApi
+    return await useApi
       .get(`/api/${route}`)
       .then((response) => {
         if (response.status === 200) {
@@ -37,11 +38,12 @@ export default function _CrudProvider({ children }) {
 
   const storeData = async (route, req) => {
     setLoading(true)
-    return useApi
+    return await useApi
       .post(`/api/${route}`, req)
       .then((response) => {
         if (response.status === 201) {
           loadData(route)
+          setLoading(false)
         }
       })
       .catch(() => {
@@ -53,11 +55,33 @@ export default function _CrudProvider({ children }) {
       })
   }
 
-  const deleteData = async (route, id) => {
-    return useApi.delete(`/api/${route}/${id}`).then((response) => {
+  const showOneData = async (route, id) => {
+    return await useApi.get(`/api/${route}/${id}`).then((response) => {
       if (response.status === 200) {
-        loadData(route)
+        setOneResponse(response.data)
       }
+    })
+  }
+
+  const updateData = async (route, id, req) => {
+    return await useApi
+      .put(`/api/${route}/${id}`, req)
+      .then((response) => {
+        if (response.status === 200) {
+          loadData(route)
+        }
+      })
+      .catch(() => {
+        setMessage({
+          type: 'error',
+          content: 'We could not store data from server',
+        })
+      })
+  }
+
+  const deleteData = async (route, id) => {
+    return await useApi.delete(`/api/${route}/${id}`).then(() => {
+      loadData(`${route}`)
     })
   }
 
@@ -71,6 +95,9 @@ export default function _CrudProvider({ children }) {
         loadData,
         storeData,
         deleteData,
+        showOneData,
+        oneResponse,
+        updateData,
       }}>
       {children}
     </CrudContext.Provider>

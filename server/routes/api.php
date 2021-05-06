@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\UserController;
+use App\Models\Brand;
 use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -24,9 +25,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/customer', [UserController::class, 'index']);
 
 // brand routes
-Route::get('/brand', [BrandController::class, 'index']);
-Route::post('/brand', [BrandController::class, 'store']);
-Route::delete('/brand/{id}', [BrandController::class, 'destroy']);
+Route::get('/brands', [BrandController::class, 'index']);
+Route::get('/brands/{id}', [BrandController::class, 'show']);
+Route::post('/brands', [BrandController::class, 'store']);
+Route::put('/brands/{id}', [BrandController::class, 'update']);
+Route::delete('/brands/{id}', [BrandController::class, 'destroy']);
 
 //blog routes
 Route::get('/blogs', [BlogController::class, 'index']);

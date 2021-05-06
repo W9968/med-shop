@@ -1,8 +1,12 @@
 import React, { useMemo, useEffect } from 'react'
 import { useCrud } from '../../../global/exports'
-import { ContentLoader, DataTable } from '../../../components/imports'
+import {
+  ContentLoader,
+  DataTable,
+  ContentHeader,
+} from '../../../components/imports'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
-import { AddBlog, EditBlog } from '../../../components/imports'
+import { AddBrand, EditBrand } from '../../../components/imports'
 
 const _Brands = () => {
   const { socket, loadData, loading } = useCrud()
@@ -17,7 +21,7 @@ const _Brands = () => {
   )
 
   useEffect(() => {
-    loadData('brand')
+    loadData('brands')
   }, []) // eslint-disable-line
 
   return (
@@ -25,22 +29,25 @@ const _Brands = () => {
       {loading ? (
         <ContentLoader />
       ) : (
-        <Switch>
-          <Route exact path={path}>
-            <DataTable
-              columns={column}
-              data={socket}
-              filename='blogs csv'
-              path='brand'
-            />
-          </Route>
-          <Route path={`${path}/add`}>
-            <AddBlog />
-          </Route>
-          <Route>
-            <EditBlog />
-          </Route>
-        </Switch>
+        <>
+          <ContentHeader header='brands list' path='brands' />
+          <Switch>
+            <Route exact path={path}>
+              <DataTable
+                columns={column}
+                data={socket}
+                filename='BrandCSV'
+                path='brands'
+              />
+            </Route>
+            <Route path={`${path}/add`}>
+              <AddBrand />
+            </Route>
+            <Route path={`${path}/edit/:id`}>
+              <EditBrand />
+            </Route>
+          </Switch>
+        </>
       )}
     </>
   )

@@ -13,6 +13,8 @@ const _Users = () => {
       { Haeder: 'id', accessor: 'id' },
       { Header: 'name', accessor: 'name' },
       { Header: 'email', accessor: 'email' },
+      { Header: 'registred at', accessor: 'created_at' },
+      { Header: 'verified at', accessor: 'email_verified_at' },
     ],
     []
   )
