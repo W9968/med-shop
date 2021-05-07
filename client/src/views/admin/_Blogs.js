@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from 'react'
 import { useCrud } from '../../global/exports'
-import { DataTable } from '../../components/imports'
+import { DataTable, ContentHeader } from '../../components/imports'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import { AddBlog, EditBlog } from '../../components/imports'
 
@@ -23,6 +23,7 @@ const _Blogs = () => {
 
   return (
     <>
+      <ContentHeader header='Blogs list' boolState={true} />
       <Switch>
         <Route exact path={path}>
           <DataTable columns={column} data={socket} filename='blogs csv' />

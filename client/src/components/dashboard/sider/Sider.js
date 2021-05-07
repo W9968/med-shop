@@ -148,8 +148,16 @@ const Sider = ({ size }) => {
 
                   {size && (
                     <Panel>
-                      <Item className='panelItem'>Return Policy</Item>
-                      <Item className='panelItem'>Activities</Item>
+                      <Item className='panelItem'>
+                        <Link style={{ padding: 0 }} to='/dash/returnpolicy'>
+                          Return Policy
+                        </Link>
+                      </Item>
+                      <Item className='panelItem'>
+                        <Link style={{ padding: 0 }} to='/dash/activities'>
+                          activities
+                        </Link>
+                      </Item>
                     </Panel>
                   )}
                 </>

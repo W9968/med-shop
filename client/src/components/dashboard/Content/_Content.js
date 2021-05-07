@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Switch } from 'react-router-dom'
 import ProtectedRoute from '../../../routes/ProtectedRoute'
@@ -14,13 +14,38 @@ import {
   // orders
   Orders,
   Inovices,
+  // customer service
+  AllActivities,
+  ReturnPolicy,
+  //tracker
+  AdminActi,
 } from '../../../views/imports'
+import { useCrud } from '../../../global/exports'
 
 const _Content = ({ route }) => {
+  const [uri, setUri] = useState(null)
+  const { logged, currentUser } = useCrud()
+
+  useEffect(() => {
+    logged && setUri(currentUser.name)
+  }, [logged, currentUser, uri])
+
   return (
     <>
       <Container>
         <Switch>
+          <ProtectedRoute
+            path={`${route}/recent/admin`}
+            component={AdminActi}
+          />
+          <ProtectedRoute
+            path={`${route}/activities`}
+            component={AllActivities}
+          />
+          <ProtectedRoute
+            path={`${route}/returnpolicy`}
+            component={ReturnPolicy}
+          />
           <ProtectedRoute path={`${route}/orders`} component={Orders} />
           <ProtectedRoute path={`${route}/inovices`} component={Inovices} />
           <ProtectedRoute path={`${route}/products`} component={Products} />

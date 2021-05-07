@@ -36,7 +36,7 @@ const _SideMenu = () => {
           initial={`open`}
           animate={size ? `open` : `closed`}>
           <Brand style={{ justifyContent: size ? 'space-between' : 'center' }}>
-            {size && <Link to='dash'>MedEspoir</Link>}
+            {size && <Link to='/dash'>MedEspoir</Link>}
             <animate.span
               initial={{ rotate: rotation }}
               animate={{ rotate: rotation }}

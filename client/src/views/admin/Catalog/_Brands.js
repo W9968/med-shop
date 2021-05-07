@@ -26,29 +26,29 @@ const _Brands = () => {
 
   return (
     <>
-      {loading ? (
-        <ContentLoader />
-      ) : (
-        <>
-          <ContentHeader header='brands list' path='brands' />
-          <Switch>
-            <Route exact path={path}>
+      <>
+        <ContentHeader header='brands list' path='brands' boolState={true} />
+        <Switch>
+          <Route exact path={path}>
+            {loading ? (
+              <ContentLoader />
+            ) : (
               <DataTable
                 columns={column}
                 data={socket}
                 filename='BrandCSV'
                 path='brands'
               />
-            </Route>
-            <Route path={`${path}/add`}>
-              <AddBrand />
-            </Route>
-            <Route path={`${path}/edit/:id`}>
-              <EditBrand />
-            </Route>
-          </Switch>
-        </>
-      )}
+            )}
+          </Route>
+          <Route path={`${path}/add`}>
+            <AddBrand />
+          </Route>
+          <Route path={`${path}/edit/:id`}>
+            <EditBrand />
+          </Route>
+        </Switch>
+      </>
     </>
   )
 }

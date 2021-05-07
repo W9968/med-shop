@@ -5,7 +5,7 @@ export { default as ContentLoader } from './spinner/ContentLoader'
 export { default as Nav } from './navbar/_Navbar'
 export { default as DataTable } from './datatable/_DataTable'
 
-export { default as HomeContent } from './home/_Content'
+export { default as Carousel } from './home/Caroussel'
 
 export { default as InputLeftedUp } from './leftedInput/_Input'
 

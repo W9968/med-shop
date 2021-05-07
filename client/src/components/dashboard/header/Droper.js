@@ -1,26 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../../global/exports'
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/menu'
-import { MdExitToApp, MdHome } from 'react-icons/md'
+import {
+  AiOutlineLogout,
+  AiOutlineHome,
+  AiOutlineHistory,
+} from 'react-icons/ai'
 
 const Droper = () => {
   const history = useHistory()
+  const [uri, setUri] = useState(null)
   const { currentUser, logged, logout } = useAuth()
+
+  useEffect(() => {
+    logged && setUri(currentUser.name)
+  }, [uri, logged, currentUser])
 
   return (
     <>
-      <Menu>
+      <Menu placement='bottom-end'>
         <Button>{logged && currentUser.name}</Button>
         <List>
+          <Item onClick={() => history.push(`/dash/recent/admin`)}>
+            <AiOutlineHistory className='icon' />
+            My Activity
+          </Item>
           <Item onClick={() => history.push('/')}>
-            <MdHome className='icon' />
-            <p>Home</p>
+            <AiOutlineHome className='icon' />
+            Home
           </Item>
           <Item onClick={logout}>
-            <MdExitToApp className='icon' />
-            <p>Logout</p>
+            <AiOutlineLogout className='icon' />
+            Log out
           </Item>
         </List>
       </Menu>
@@ -41,7 +54,7 @@ const List = styled(MenuList)`
 `
 
 const Item = styled(MenuItem)`
-  width: 100%;
+  /* width: 100%; */
   border: none;
   margin: 5px 0px;
   cursor: pointer;

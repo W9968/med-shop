@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
   top: 0;
   left: 0;
+  z-index: 10;
   width: 100%;
   height: 100%;
   display: flex;
@@ -16,10 +17,10 @@ export const Wrapper = styled.div`
 export const MobileWrapper = styled.div`
   top: 0;
   left: 0;
+  z-index: 10;
   width: 100%;
   height: 100%;
   display: flex;
-
   position: absolute;
   flex-direction: column;
   background-color: ${({ theme }) => theme.primary};

@@ -2,12 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
-const _ContentHeader = ({ path, header }) => {
+const _ContentHeader = ({ path, header, boolState }) => {
+  const state = boolState
+
   return (
     <>
       <Wrapper>
         <Text>{header}</Text>
-        <Link to={`/dash/${path}/add`}>add new</Link>
+        {state && <Link to={`/dash/${path}/add`}>add new</Link>}
       </Wrapper>
     </>
   )
@@ -17,6 +19,7 @@ export default _ContentHeader
 
 const Wrapper = styled.div`
   display: flex;
+
   padding: 0rem 1rem;
   margin-bottom: 1rem;
   flex-direction: row;
@@ -25,6 +28,7 @@ const Wrapper = styled.div`
 `
 
 const Text = styled.h2`
+  padding: 8px 0px;
   text-transform: capitalize;
 `
 const Link = styled(NavLink)`

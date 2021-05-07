@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from 'react'
 import { useCrud } from '../../global/exports'
-import { DataTable } from '../../components/imports'
+import { DataTable, ContentHeader } from '../../components/imports'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import { AddBlog, EditBlog } from '../../components/imports'
 
@@ -10,7 +10,7 @@ const _Users = () => {
 
   const column = useMemo(
     () => [
-      { Haeder: 'id', accessor: 'id' },
+      { Header: 'id ', accessor: 'id' },
       { Header: 'name', accessor: 'name' },
       { Header: 'email', accessor: 'email' },
       { Header: 'registred at', accessor: 'created_at' },
@@ -25,6 +25,7 @@ const _Users = () => {
 
   return (
     <>
+      <ContentHeader header='Users list' boolState={false} />
       <Switch>
         <Route exact path={path}>
           <DataTable columns={column} data={socket} filename='Users-csv' />

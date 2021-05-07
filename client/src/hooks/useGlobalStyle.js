@@ -40,7 +40,7 @@ export const GlobalStyle = createGlobalStyle`
   /* width */
   ::-webkit-scrollbar {
     width: 5px;
-    
+    scrollbar-width: thin
   }
   /* Track */
   ::-webkit-scrollbar-track {

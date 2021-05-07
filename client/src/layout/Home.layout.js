@@ -1,44 +1,104 @@
 import React from 'react'
+import { Carousel } from '../components/imports'
 import {
   Wrapper,
-  Carousel,
-  StyledFlex,
-  StyledBox,
   Container,
+  FlexBox,
+  Flexed,
+  Overlay,
+  Image,
+  Text,
+  Parag,
 } from '../styles/HomeLayout.element'
 
 const Homelayout = (props) => {
   return (
     <>
+      <Carousel />
       <Wrapper>
-        <Carousel>{props.children}</Carousel>
-        <StyledFlex>
-          <StyledBox flex='1'>{props.grid11}</StyledBox>
-          <StyledBox flex='1'>{props.grid12}</StyledBox>
-        </StyledFlex>
-
-        <Container>{props.container}</Container>
-
-        <StyledFlex>
-          <StyledBox flex='1'>{props.p1}</StyledBox>
-          <StyledBox flex='1'>
-            <StyledFlex direction='column'>
-              <StyledBox flex='1'>
-                <StyledFlex direction='row'>
-                  <StyledBox flex='1'>{props.p2}</StyledBox>
-                  <StyledBox flex='1'>{props.p3}</StyledBox>
-                </StyledFlex>
-              </StyledBox>
-              <StyledBox flex='1'>{props.p4}</StyledBox>
-            </StyledFlex>
-          </StyledBox>
-        </StyledFlex>
-
         <Container>
-          <StyledFlex>
-            <StyledBox flex='1'>{props.grid13}</StyledBox>
-            <StyledBox flex='1'>{props.grid14}</StyledBox>
-          </StyledFlex>
+          {/* flexbox */}
+          <FlexBox>
+            {/* flex */}
+            <Flexed>
+              <Overlay>
+                <div style={{ width: '70%' }}>
+                  <Text to='/'>text</Text>
+                  <Parag>
+                    lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                    lorem
+                  </Parag>
+                </div>
+              </Overlay>
+              <Image src='/asset/homeprod/pro1.png' />
+            </Flexed>
+            {/* flex */}
+            <Flexed>
+              <Overlay>
+                <div style={{ width: '70%' }}>
+                  <Text to='/'>text</Text>
+                  <Parag>
+                    lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                    lorem
+                  </Parag>
+                </div>
+              </Overlay>
+              <Image src='/asset/homeprod/pro2.png' />
+            </Flexed>
+            {/* flex */}
+          </FlexBox>
+
+          {/* flexbox */}
+          <FlexBox>sales</FlexBox>
+          {/* flexbox */}
+
+          <FlexBox>
+            <Flexed>
+              <Overlay>
+                <div style={{ width: '70%' }}>
+                  <Text to='/'>text</Text>
+                  <Parag>
+                    lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                    lorem
+                  </Parag>
+                </div>
+              </Overlay>
+              <Image src='/asset/homeprod/pro3.png' />
+            </Flexed>
+            <Flexed>
+              <FlexBox style={{ margin: 0, flexDirection: 'column' }}>
+                <Flexed>
+                  <FlexBox style={{ margin: 0 }}>
+                    <Flexed>
+                      <Overlay>
+                        <div style={{ width: '70%' }}>
+                          <Text to='/'>text</Text>
+                        </div>
+                      </Overlay>
+                      <Image src='/asset/homeprod/pro4.png' />
+                    </Flexed>
+                    <Flexed>
+                      <Overlay>
+                        <div style={{ width: '70%' }}>
+                          <Text to='/'>text</Text>
+                        </div>
+                      </Overlay>
+                      <Image src='/asset/homeprod/pro5.png' />
+                    </Flexed>
+                  </FlexBox>
+                </Flexed>
+                <Flexed>
+                  <Overlay>
+                    <div style={{ width: '70%' }}>
+                      <Text to='/'>text</Text>
+                    </div>
+                  </Overlay>
+                  <Image src='/asset/homeprod/pro6.png' />
+                </Flexed>
+              </FlexBox>
+            </Flexed>
+          </FlexBox>
+          {/* flexbox */}
         </Container>
       </Wrapper>
     </>

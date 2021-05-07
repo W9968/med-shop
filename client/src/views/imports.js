@@ -12,6 +12,7 @@ export { default as ResetPassword } from './auth/_PasswordReset'
 export { default as Stats } from './admin/_Stats'
 export { default as Users } from './admin/_Users'
 export { default as Blogs } from './admin/_Blogs'
+export { default as AdminActi } from './admin/_OwenActiv'
 
 export { default as Brands } from './admin/Catalog/_Brands'
 export { default as Discount } from './admin/Catalog/_Discount'
@@ -20,3 +21,6 @@ export { default as Stocks } from './admin/Catalog/_Stocks'
 
 export { default as Orders } from './admin/Orders/_Orders'
 export { default as Inovices } from './admin/Orders/_Inovice'
+
+export { default as AllActivities } from './admin/customerService/_AllActivities'
+export { default as ReturnPolicy } from './admin/customerService/_ReturnPolicy'

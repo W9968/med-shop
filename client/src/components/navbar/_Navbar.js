@@ -38,8 +38,11 @@ const Navbar = () => {
 export default Navbar
 
 const Container = styled.div`
+  z-index: 1;
+  width: 100%;
   padding: 1rem;
   display: flex;
+  position: fixed;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;

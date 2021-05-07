@@ -111,29 +111,30 @@ const _DataTable = ({ columns, data, filename, path }) => {
 
   return (
     <>
+      <div
+        style={{
+          display: 'flex',
+          padding: '0rem 1rem',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <GlobalFilter
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          globalFilter={state.globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
+        {/* file name make the file unreadable */}
+        <LinkerExcel data={data} filename={filename} target={'_blank'}>
+          {!useMediaQuery(500) && (
+            <span style={{ marginRight: '5px' }}>Export</span>
+          )}
+
+          <File />
+        </LinkerExcel>
+      </div>
+
       <TableContainer>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <GlobalFilter
-            preGlobalFilteredRows={preGlobalFilteredRows}
-            globalFilter={state.globalFilter}
-            setGlobalFilter={setGlobalFilter}
-          />
-          {/* file name make the file unreadable */}
-          <LinkerExcel data={data} filename={filename} target={'_blank'}>
-            {!useMediaQuery(500) && (
-              <span style={{ marginRight: '5px' }}>Export</span>
-            )}
-
-            <File />
-          </LinkerExcel>
-        </div>
-
-        <Table {...getTableProps()}>
+        <Table className='table' {...getTableProps()}>
           <TableHead>
             {headerGroups.map((headerGroup) => (
               <TableRow {...headerGroup.getHeaderGroupProps()}>
@@ -260,7 +261,6 @@ const Input = styled.input`
 
 const Table = styled.table`
   border-collapse: collapse;
-  overflow-x: auto;
   table-layout: inherit;
 `
 const TableHead = styled.thead`
