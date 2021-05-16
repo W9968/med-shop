@@ -9,8 +9,8 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import { AddBrand, EditBrand } from '../../../components/imports'
 
 const _Brands = () => {
-  const { socket, loadData, loading } = useCrud()
   const { path } = useRouteMatch()
+  const { socket, loadData, loading } = useCrud()
 
   const column = useMemo(
     () => [
@@ -26,29 +26,27 @@ const _Brands = () => {
 
   return (
     <>
-      <>
-        <ContentHeader header='brands list' path='brands' boolState={true} />
-        <Switch>
-          <Route exact path={path}>
-            {loading ? (
-              <ContentLoader />
-            ) : (
-              <DataTable
-                columns={column}
-                data={socket}
-                filename='BrandCSV'
-                path='brands'
-              />
-            )}
-          </Route>
-          <Route path={`${path}/add`}>
-            <AddBrand />
-          </Route>
-          <Route path={`${path}/edit/:id`}>
-            <EditBrand />
-          </Route>
-        </Switch>
-      </>
+      <ContentHeader header='brands list' path='brands' boolState={true} />
+      <Switch>
+        <Route exact path={path}>
+          {loading ? (
+            <ContentLoader />
+          ) : (
+            <DataTable
+              columns={column}
+              data={socket}
+              filename='BrandCSV'
+              path='brands'
+            />
+          )}
+        </Route>
+        <Route path={`${path}/add`}>
+          <AddBrand />
+        </Route>
+        <Route path={`${path}/edit/:id`}>
+          <EditBrand />
+        </Route>
+      </Switch>
     </>
   )
 }

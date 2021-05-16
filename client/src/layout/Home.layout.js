@@ -99,6 +99,36 @@ const Homelayout = (props) => {
             </Flexed>
           </FlexBox>
           {/* flexbox */}
+          <FlexBox>
+            {/* flex */}
+            <Flexed>
+              <Overlay>
+                <div style={{ width: '70%' }}>
+                  <Text to='/'>text</Text>
+                  <Parag>
+                    lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                    lorem
+                  </Parag>
+                </div>
+              </Overlay>
+              <Image src='/asset/homeprod/pro7.png' />
+            </Flexed>
+            {/* flex */}
+            <Flexed>
+              <Overlay>
+                <div style={{ width: '70%' }}>
+                  <Text to='/'>text</Text>
+                  <Parag>
+                    lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                    lorem
+                  </Parag>
+                </div>
+              </Overlay>
+              <Image src='/asset/homeprod/pro8.png' />
+            </Flexed>
+            {/* flex */}
+          </FlexBox>
+          {/* flexbox */}
         </Container>
       </Wrapper>
     </>

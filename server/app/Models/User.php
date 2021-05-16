@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements MustVerifyEmail
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
+
+class User extends Authenticatable implements MustVerifyEmail,Auditable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, AuditableTrait;
 
     /**
      * The attributes that are mass assignable.

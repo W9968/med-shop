@@ -4,6 +4,7 @@ import { BiCheck, BiErrorCircle } from 'react-icons/bi'
 import { CheckBox } from 'grommet'
 
 export const Container = styled.div`
+  z-index: 10;
   width: 100%;
   height: 100vh;
   display: flex;

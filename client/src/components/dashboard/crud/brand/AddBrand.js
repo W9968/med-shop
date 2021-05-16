@@ -2,19 +2,19 @@ import React, { useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { useCrud } from '../../../../global/exports'
-import { InputLeftedUp } from '../../../imports'
+import { Input } from '../../../../styles/Form.element'
 
 const AddBrand = () => {
   const history = useHistory()
-  const [text, setText] = useState('')
+  const [name, setName] = useState('')
   const [message, setMessage] = useState()
   const { storeData } = useCrud()
 
   const handleClick = () => {
-    text.length === 0
+    name.length === 0
       ? setMessage('Please enter some information')
       : storeData('brands', {
-          tag: text,
+          tag: name,
         })
     history.push('/dash/brands')
   }
@@ -23,7 +23,14 @@ const AddBrand = () => {
     <>
       <Wrapper>
         <p style={{ marginBottom: '1rem' }}>{message}</p>
-        <InputLeftedUp state={{ text: [text, setText] }} />
+        <InputGroup>
+          <Label>product name</Label>
+          <Input
+            type='text'
+            placeholder='text'
+            onChange={(e) => setName(e.target.value)}
+          />
+        </InputGroup>
         <Div>
           <Linker to='/dash/brands'>cancel</Linker>
           <Button onClick={handleClick}>Add</Button>
@@ -47,6 +54,29 @@ const Div = styled.div`
     justify-content: space-between;
   }
 `
+
+const InputGroup = styled.div`
+  width: 100%;
+  display: flex;
+  padding: 0px 15px;
+  margin-bottom: 1rem;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 12px;
+
+  background-color: ${({ theme }) => theme.fourth};
+
+  @media (max-width: 400px) {
+    width: 100%;
+  }
+`
+
+const Label = styled.p`
+  font-size: 1rem;
+  padding: 0.625rem;
+  text-transform: capitalize;
+`
+
 const Button = styled.button`
   border: none;
   outline: none;

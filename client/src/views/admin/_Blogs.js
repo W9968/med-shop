@@ -26,7 +26,12 @@ const _Blogs = () => {
       <ContentHeader header='Blogs list' boolState={true} />
       <Switch>
         <Route exact path={path}>
-          <DataTable columns={column} data={socket} filename='blogs csv' />
+          <DataTable
+            columns={column}
+            data={socket}
+            filename='blogs csv'
+            path='blogs'
+          />
         </Route>
         <Route path={`${path}/add`}>
           <AddBlog />

@@ -3,28 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProductController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        //return Product::with('images')->with('stocks')->get();
+        return Product::with('images', 'stocks')->get();
     }
 
     /**
@@ -35,7 +29,38 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'description' => 'required',
+            'stocks' => 'required|numeric'
+        ]);
+
+        $product = Product::create($request->only('name','price','description', 'tag'));
+        $product->stocks()->create([
+            'quantity' => $request->stocks,
+            'product' => $product->id
+        ]);
+
+        if($request->hasFile('images'))
+        {
+            $request->file('images')->store('public/products');
+            $product->images()->create([
+                'product_id' => $product->id,
+                //'file_path'  => $request->file('images')->hashName()
+                'file_path'  => $request->file('images')->getClientOriginalName()
+            ]);
+            // $images = (object) $request->file('images');
+            // foreach($images as $key => $image)
+            // {
+            //     $image->store('public/products');
+            //     $product->images()->create([
+            //     'product_id' => $product->id,
+            //     'file_path'  => $image->getClientOriginalName()
+            //     ]);
+            // }
+        }
+        return $product::with('images')->find($product->id);
     }
 
     /**
@@ -46,18 +71,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return Product::with('images')->find($id);
     }
 
     /**
@@ -69,7 +83,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
@@ -80,6 +94,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::find($id)->delete();
     }
 }

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { useCrud } from '../../../../global/exports'
-import { InputLeftedUp } from '../../../imports'
+import { Input } from '../../../../styles/Form.element'
 
 const EditBrand = () => {
   const history = useHistory()
   const ides = parseInt(window.location.pathname.split('/')[4])
-  const [text, setText] = useState('')
+  const [name, setName] = useState('')
   const { showOneData, oneResponse, updateData, loading } = useCrud()
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const EditBrand = () => {
 
   const handleClick = () => {
     updateData('brands', oneResponse.id, {
-      tag: text,
+      tag: name,
     })
     !loading && history.push('/dash/brands')
   }
@@ -24,12 +24,14 @@ const EditBrand = () => {
   return (
     <>
       <Wrapper>
-        <div key={oneResponse.tag}>
-          <InputLeftedUp
-            defaultValue={oneResponse.tag}
-            state={{ text: [text, setText] }}
+        <Label>tag</Label>
+        <InputGroup key={oneResponse.tag}>
+          <Input
+            type='text'
+            placeholder='text'
+            onChange={(e) => setName(e.target.value)}
           />
-        </div>
+        </InputGroup>
 
         <Div>
           <Linker to='/dash/brands'>cancel</Linker>
@@ -54,6 +56,29 @@ const Div = styled.div`
     justify-content: space-between;
   }
 `
+
+const InputGroup = styled.div`
+  width: 100%;
+  display: flex;
+  padding: 0px 15px;
+  margin-bottom: 1rem;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 12px;
+
+  background-color: ${({ theme }) => theme.fourth};
+
+  @media (max-width: 400px) {
+    width: 100%;
+  }
+`
+
+const Label = styled.p`
+  font-size: 1rem;
+  padding: 0.625rem;
+  text-transform: capitalize;
+`
+
 const Button = styled.button`
   border: none;
   outline: none;

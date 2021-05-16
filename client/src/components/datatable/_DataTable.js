@@ -219,9 +219,9 @@ const _DataTable = ({ columns, data, filename, path }) => {
               onChange={(e) => {
                 setPageSize(Number(e.target.value))
               }}>
-              {[5, 10, 15, data.length].map((pageSize, key) => (
+              {[5, 10, 15, 20].map((pageSize, key) => (
                 <option key={`tab-Page-${key}`} value={pageSize}>
-                  {data.length === pageSize ? 'All' : pageSize}
+                  {pageSize}
                 </option>
               ))}
             </Select>

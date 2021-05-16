@@ -10,6 +10,7 @@ export function useCrud() {
 export default function _CrudProvider({ children }) {
   const [socket, setSocket] = useState([])
   const [oneResponse, setOneResponse] = useState({})
+  const [logs, setLogs] = useState([])
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({
     type: '',
@@ -85,6 +86,16 @@ export default function _CrudProvider({ children }) {
     })
   }
 
+  const auditLogs = async () => {
+    setLoading(true)
+    return await useApi.get('/api/logs').then((response) => {
+      if (response.status === 200) {
+        setLogs(response.data)
+        setLoading(false)
+      }
+    })
+  }
+
   return (
     <CrudContext.Provider
       value={{
@@ -98,6 +109,8 @@ export default function _CrudProvider({ children }) {
         showOneData,
         oneResponse,
         updateData,
+        auditLogs,
+        logs,
       }}>
       {children}
     </CrudContext.Provider>

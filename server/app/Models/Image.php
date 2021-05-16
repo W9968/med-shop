@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
-class Stock extends Model
+class Image extends Model
 {
     use HasFactory;
 
@@ -15,9 +15,10 @@ class Stock extends Model
      *
      * @var array
      */
-    protected $fillable = ['quantity', 'product_id'];
+    protected $fillable = ['product_id', 'file_path'];
+
     /**
-     * Get the product that owns the Stock
+     * Get the product that owns the Image
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -25,4 +26,5 @@ class Stock extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
 }

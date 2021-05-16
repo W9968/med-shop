@@ -202,7 +202,7 @@ export default function _AuthProvider({ children }) {
 
   useLayoutEffect(() => {
     getCurrnetUser()
-  }, [currentUser, setCurrentUser])
+  }, [])
 
   return (
     <AuthContext.Provider
