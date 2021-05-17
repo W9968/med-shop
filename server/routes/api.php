@@ -4,8 +4,10 @@ use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ReturnPolicyController;
+use App\Http\Controllers\Api\StockController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AuditsController;
+use App\Models\Product;
 // use App\Models\Brand;
 // use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -34,6 +36,9 @@ Route::post('/products', [ProductController::class, 'store']);
 Route::put('products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
+// stock routes
+Route::get('/stocks', [StockController::class, 'index']);
+Route::put('/stocks/{id}', [StockController::class, 'update']);
 
 // brand routes
 Route::get('/brands', [BrandController::class, 'index']);

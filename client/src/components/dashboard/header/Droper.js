@@ -3,11 +3,7 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../../global/exports'
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/menu'
-import {
-  AiOutlineLogout,
-  AiOutlineHome,
-  AiOutlineHistory,
-} from 'react-icons/ai'
+import { IoRocketOutline, IoHomeOutline } from 'react-icons/io5'
 
 const Droper = () => {
   const history = useHistory()
@@ -21,20 +17,44 @@ const Droper = () => {
   return (
     <>
       <Menu placement='bottom-end'>
-        <Button>{logged && currentUser.name}</Button>
+        <Button>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+            <Avatar>{currentUser.name[0]}</Avatar>
+            <p
+              style={{
+                fontSize: '1.125rem',
+                fontWeight: '600',
+                textTransform: 'capitalize',
+              }}>
+              {currentUser.name}
+            </p>
+          </div>
+        </Button>
         <List>
-          <Item onClick={() => history.push(`/dash/recent/admin`)}>
-            <AiOutlineHistory className='icon' />
-            My Activity
-          </Item>
           <Item onClick={() => history.push('/')}>
-            <AiOutlineHome className='icon' />
-            Home
+            <IoHomeOutline style={{ color: '#00C9A7' }} className='icon' />
+            <div>
+              <p style={{ fontSize: '1rem', fontWeight: '600' }}>Go Home</p>
+              <p style={{ fontSize: '15px' }}>home page and more</p>
+            </div>
           </Item>
-          <Item onClick={logout}>
-            <AiOutlineLogout className='icon' />
-            Log out
+          <Item onClick={() => history.push(`/dash/recent/admin`)}>
+            <IoRocketOutline style={{ color: '#db3069' }} className='icon' />
+            <div>
+              <p style={{ fontSize: '1rem', fontWeight: '600' }}>My Activity</p>
+              <p style={{ fontSize: '15px' }}>logs and notification</p>
+            </div>
           </Item>
+
+          <br />
+
+          <div style={{ padding: '15px' }}>
+            <ActionButton onClick={logout}>sign out</ActionButton>
+          </div>
         </List>
       </Menu>
     </>
@@ -44,6 +64,7 @@ const Droper = () => {
 export default Droper
 
 const List = styled(MenuList)`
+  width: 300px;
   padding: 10px 0px;
   border-radius: 10px 0px 10px 10px;
   color: ${({ theme }) => theme.secondary};
@@ -51,46 +72,42 @@ const List = styled(MenuList)`
   background-color: ${({ theme }) => theme.primary}!important;
   box-shadow: ${({ theme }) => theme.darkhover} 0px 30px 60px -12px,
     ${({ theme }) => theme.darkhover} 0px 18px 36px -18px;
-`
 
-const Item = styled(MenuItem)`
-  /* width: 100%; */
-  border: none;
-  margin: 5px 0px;
-  cursor: pointer;
-  background: none;
-  font-size: 1.125rem;
-  display: flex;
-  padding: 10px 15px;
-  align-items: center;
-  flex-direction: row;
-  color: ${({ theme }) => theme.third};
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
 
   .icon {
     font-size: 1.5rem;
-    margin-right: 5px;
+    margin-right: 1.5rem;
   }
+`
+
+const Item = styled(MenuItem)`
+  border: none;
+  outline: none;
+  display: flex;
+  cursor: pointer;
+  background: none;
+  padding: 10px 15px;
+  align-items: center;
+  justify-content: flex-start;
+
   &:hover {
-    color: ${({ theme }) => theme.fourth};
-    background-color: ${({ theme }) => theme.third};
+    background-color: ${({ theme }) => theme.fourth};
   }
 `
 
 const Button = styled(MenuButton)`
   border: none;
-  font-weight: 600;
-  padding: 0.7rem;
+  padding: 5px;
+  display: flex;
   cursor: pointer;
   background: none;
-  font-size: 1rem;
-  transition: none;
-  margin-left: 1rem;
-  letter-spacing: 1px;
-  border-radius: 10px;
-  color: ${({ theme }) => theme.secondary};
+  align-items: center;
+  flex-direction: row;
 
   &:hover {
-    transition: none;
     background-color: ${({ theme }) => theme.darkhover};
   }
 
@@ -102,4 +119,33 @@ const Button = styled(MenuButton)`
       background-color: ${({ theme }) => theme.lighthover};
     }
   }
+`
+const ActionButton = styled.button`
+  border: none;
+  display: flex;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  padding: 12px 20px;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  color: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.hover};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.third};
+  }
+`
+
+const Avatar = styled.p`
+  padding: 5px 10px;
+  font-weight: 900;
+  margin-right: 1rem;
+  border-radius: 5px;
+  font-size: 1.125rem;
+  text-transform: capitalize;
+  color: ${({ theme }) => theme.secondary};
+  background: ${({ theme }) => theme.fourth};
 `

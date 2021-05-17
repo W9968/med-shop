@@ -51,7 +51,7 @@ export const Content = styled.main`
   padding: 2rem 0rem;
   align-items: flex-start;
   justify-content: center;
-
+  overflow-y: auto;
   background-color: ${({ theme }) => theme.fourth};
 `
 

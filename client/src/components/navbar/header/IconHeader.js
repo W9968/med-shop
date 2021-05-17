@@ -3,13 +3,24 @@ import styled from 'styled-components'
 import { NavLink, useRouteMatch } from 'react-router-dom'
 import { BiLogIn, BiCart, BiSearch, BiHeart, BiUser } from 'react-icons/bi'
 import { useAuth } from '../../../global/exports'
-import DropDown from './menu/DropDown'
+import Drawable from '../../Drawer.js/_Drawable'
+import MobileDrawer from '../mobile/MobileDrawer'
+import Logout from '../../logout/Logout'
 
 const IconHeader = () => {
   const { logged } = useAuth()
   const path = useRouteMatch()
   const loginIcon = { icon: <BiLogIn />, path: '/login' }
-  const loggedIcon = { icon: <DropDown icon={<BiUser />} />, path: path }
+  const loggedIcon = {
+    icon: (
+      <Drawable
+        icon={<BiUser />}
+        children={<MobileDrawer />}
+        footer={<Logout />}
+      />
+    ),
+    path: path,
+  }
 
   const arrayIcon = [
     { icon: <BiSearch />, path: '/' },

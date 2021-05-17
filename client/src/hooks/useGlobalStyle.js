@@ -51,7 +51,7 @@ export const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar-thumb {
     border-radius: 12px;
     filter: contrast(0.75);
-    background: ${({ theme }) => theme.fourth};
+    background: ${({ theme }) => theme.third};
   }
 `
 

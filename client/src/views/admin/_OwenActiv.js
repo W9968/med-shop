@@ -17,29 +17,30 @@ const _OwenActiv = () => {
         {logs.map((log, key) => {
           return (
             <div key={key}>
-              you{' '}
               {log.event === 'deleted' ? (
-                <>
+                <Card>
+                  <span>you</span>
                   <span>{log.event}</span>{' '}
-                  <span>{JSON.parse(log.old_values).title} from</span>{' '}
-                  <span>{log.auditable_type.split('\\')[2]}</span>
-                </>
+                  <span>{log.auditable_type.split('\\')[2]}</span>{' '}
+                  <span>with the id:{JSON.parse(log.old_values).id}</span>
+                </Card>
               ) : log.event === 'updated' ? (
-                <>
+                <Card>
+                  you
                   <span>{log.event}</span>{' '}
                   <span>
                     {JSON.parse(log.old_values).tag} to{' '}
                     {JSON.parse(log.new_values).tag} from{' '}
                   </span>{' '}
                   <span>{log.auditable_type.split('\\')[2]}</span>
-                </>
+                </Card>
               ) : (
                 log.event === 'created' && (
-                  <>
+                  <Card>
+                    you
                     <span>{log.event}</span>{' '}
-                    <span>{JSON.parse(log.new_values).tag} in </span>{' '}
-                    <span>{log.auditable_type.split('\\')[2]}</span>
-                  </>
+                    <span>a new {log.auditable_type.split('\\')[2]}</span>
+                  </Card>
                 )
               )}
             </div>
@@ -54,4 +55,10 @@ export default _OwenActiv
 
 const Wrapper = styled.div`
   padding: 1rem;
+`
+
+const Card = styled.div`
+  padding: 15px;
+  border-radius: 12px;
+  border-bottom: 1px solid ${({ theme }) => theme.darkhover};
 `

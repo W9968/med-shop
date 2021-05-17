@@ -183,7 +183,6 @@ export default Sider
 const Menu = styled.div`
   height: 90%;
   width: inherit;
-  position: fixed;
   overflow-y: auto;
   margin: 2rem 0rem;
   padding: 0rem 1rem;

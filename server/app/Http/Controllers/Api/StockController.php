@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
@@ -14,50 +16,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return Product::with('stocks')->get();
     }
 
     /**
@@ -69,7 +28,9 @@ class StockController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $stocks = Stock::find($id);
+        $stocks->update($request->all());
+        return $stocks;
     }
 
     /**
@@ -80,6 +41,6 @@ class StockController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Stock::destroy($id);
     }
 }

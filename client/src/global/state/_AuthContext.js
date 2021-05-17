@@ -144,12 +144,12 @@ export default function _AuthProvider({ children }) {
     setLoading(true)
     return await useApi
       .get('/sanctum/csrf-cookie')
-      .then((res) => {
+      .then(() => {
         useApi
           .post('/password/reset', {
+            token: token,
             email: email,
             password: password,
-            token: token,
           })
           .then(() => {
             getCurrnetUser()

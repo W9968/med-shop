@@ -9,6 +9,7 @@ import Icon from './mobile/Icon'
 import Drawable from '../Drawer.js/_Drawable'
 import Logout from '../logout/Logout'
 import MobileDrawer from './mobile/MobileDrawer'
+import Menu from './header/menu/Menu'
 
 const Navbar = () => {
   return (
@@ -27,6 +28,7 @@ const Navbar = () => {
         ) : (
           <>
             <Logo brand='MedEpoir' goTo='/' />
+            <Menu />
             <IconHeader />
           </>
         )}
