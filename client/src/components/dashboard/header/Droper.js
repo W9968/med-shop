@@ -3,9 +3,18 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../../global/exports'
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/menu'
-import { IoRocketOutline, IoHomeOutline } from 'react-icons/io5'
+import {
+  IoRocketOutline,
+  IoHomeOutline,
+  IoTimerOutline,
+  IoPerson,
+} from 'react-icons/io5'
 
 const Droper = () => {
+  const date = `${new Date()
+    .toLocaleString('default', { month: 'short' })
+    .toString()} ${new Date().getDate()}`
+
   const history = useHistory()
   const [uri, setUri] = useState(null)
   const { currentUser, logged, logout } = useAuth()
@@ -23,7 +32,7 @@ const Droper = () => {
               display: 'flex',
               alignItems: 'center',
             }}>
-            <Avatar>{currentUser.name[0]}</Avatar>
+            <Avatar />
             <p
               style={{
                 fontSize: '1.125rem',
@@ -35,6 +44,33 @@ const Droper = () => {
           </div>
         </Button>
         <List>
+          <MenuItem
+            style={{
+              display: 'flex',
+              padding: '10px 15px',
+              alignItems: 'center',
+              flexDirection: 'row',
+              background: 'none',
+              outline: 'none',
+              border: 'none',
+              justifyContent: 'flex-start',
+            }}>
+            <IoTimerOutline style={{ color: '#3699ff' }} className='icon' />
+            <div>
+              <p
+                style={{
+                  fontSize: '1rem',
+                  fontWeight: '600',
+                  margin: 0,
+                  padding: 0,
+                }}>
+                Today <span className='date'>{date}</span>
+              </p>
+              <p style={{ fontSize: '15px', margin: 0, padding: 0 }}>
+                showing time
+              </p>
+            </div>
+          </MenuItem>
           <Item onClick={() => history.push('/')}>
             <IoHomeOutline style={{ color: '#00C9A7' }} className='icon' />
             <div>
@@ -81,6 +117,11 @@ const List = styled(MenuList)`
     font-size: 1.5rem;
     margin-right: 1.5rem;
   }
+
+  .date {
+    font-weight: 600;
+    color: ${({ theme }) => theme.third};
+  }
 `
 
 const Item = styled(MenuItem)`
@@ -100,25 +141,15 @@ const Item = styled(MenuItem)`
 
 const Button = styled(MenuButton)`
   border: none;
-  padding: 5px;
   display: flex;
   cursor: pointer;
   background: none;
+  padding: 10px;
+  border-radius: 5px;
   align-items: center;
   flex-direction: row;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.darkhover};
-  }
-
-  @media (max-width: 1366px) {
-    color: ${({ theme }) => theme.primary};
-
-    &:hover {
-      transition: none;
-      background-color: ${({ theme }) => theme.lighthover};
-    }
-  }
+  color: ${({ theme }) => theme.secondary};
+  background-color: ${({ theme }) => theme.primary};
 `
 const ActionButton = styled.button`
   border: none;
@@ -139,13 +170,8 @@ const ActionButton = styled.button`
   }
 `
 
-const Avatar = styled.p`
-  padding: 5px 10px;
-  font-weight: 900;
-  margin-right: 1rem;
-  border-radius: 5px;
-  font-size: 1.125rem;
-  text-transform: capitalize;
-  color: ${({ theme }) => theme.secondary};
-  background: ${({ theme }) => theme.fourth};
+const Avatar = styled(IoPerson)`
+  font-size: 1.5rem;
+  margin-right: 5px;
+  color: ${({ theme }) => theme.third};
 `

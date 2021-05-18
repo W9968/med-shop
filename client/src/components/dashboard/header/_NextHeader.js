@@ -7,9 +7,6 @@ import 'antd/lib/breadcrumb/style/index.css'
 
 const _NextHeader = () => {
   const path = window.location.pathname
-  const date = `${new Date()
-    .toLocaleString('default', { month: 'short' })
-    .toString()} ${new Date().getDate()}`
 
   return (
     <>
@@ -34,10 +31,6 @@ const _NextHeader = () => {
               )
             })}
         </Breadcrumb>
-
-        <Parag>
-          Today <span className='date'>{date}</span>
-        </Parag>
       </Container>
     </>
   )
@@ -50,16 +43,4 @@ const Container = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-`
-
-const Parag = styled.p`
-  font-size: 1rem;
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: ${({ theme }) => theme.darkhover};
-
-  .date {
-    font-weight: 600;
-    color: ${({ theme }) => theme.third};
-  }
 `

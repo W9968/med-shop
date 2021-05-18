@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { NavLink, useRouteMatch } from 'react-router-dom'
-import { BiLogIn, BiCart, BiSearch, BiHeart, BiUser } from 'react-icons/bi'
+import { BiLogIn, BiCart, BiSearch, BiMenu } from 'react-icons/bi'
 import { useAuth } from '../../../global/exports'
 import Drawable from '../../Drawer.js/_Drawable'
 import MobileDrawer from '../mobile/MobileDrawer'
@@ -10,22 +10,9 @@ import Logout from '../../logout/Logout'
 const IconHeader = () => {
   const { logged } = useAuth()
   const path = useRouteMatch()
-  const loginIcon = { icon: <BiLogIn />, path: '/login' }
-  const loggedIcon = {
-    icon: (
-      <Drawable
-        icon={<BiUser />}
-        children={<MobileDrawer />}
-        footer={<Logout />}
-      />
-    ),
-    path: path,
-  }
 
   const arrayIcon = [
     { icon: <BiSearch />, path: '/' },
-    { icon: <BiHeart />, path: '/' },
-    logged ? { ...loggedIcon } : { ...loginIcon },
     { icon: <BiCart />, path: '/checkout' },
   ]
 
@@ -39,6 +26,23 @@ const IconHeader = () => {
             </Item>
           )
         })}
+
+        <Item>
+          <Link to={path}>
+            <Drawable
+              icon={<BiMenu />}
+              children={<MobileDrawer />}
+              footer={<Logout />}
+            />
+          </Link>
+        </Item>
+        {!logged && (
+          <Item>
+            <Link to='/login'>
+              <BiLogIn />
+            </Link>
+          </Item>
+        )}
       </List>
     </>
   )
@@ -63,13 +67,19 @@ const List = styled.ul`
 
 const Item = styled.li`
   display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 const Link = styled(NavLink)`
+  display: flex;
   cursor: pointer;
   font-size: 1.5rem;
+  align-items: center;
+  justify-content: center;
+
   margin: 0rem 0rem 0rem 0.5rem;
-  color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.secondary};
 
   &:hover {
     color: ${({ theme }) => theme.hover};

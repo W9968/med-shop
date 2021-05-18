@@ -5,8 +5,6 @@ export { default as ContentLoader } from './spinner/ContentLoader'
 export { default as Nav } from './navbar/_Navbar'
 export { default as DataTable } from './datatable/_DataTable'
 
-export { default as Carousel } from './home/Caroussel'
-
 export { default as SideMenu } from './dashboard/sider/_SideMenu'
 export { default as TopHeader } from './dashboard/header/_TopHeader'
 export { default as NextHeader } from './dashboard/header/_NextHeader'
@@ -21,3 +19,9 @@ export { default as EditBrand } from './dashboard/crud/brand/EditBrand'
 
 export { default as AddProduct } from './dashboard/crud/products/AddProduct'
 export { default as EditProduct } from './dashboard/crud/products/EditProduct'
+
+export { default as Carousel } from './home/Caroussel'
+export { default as FirstSection } from './home/FirstSection'
+export { default as ProductTabs } from './home/ProductTabs'
+export { default as SecondSection } from './home/SecondSection'
+export { default as ThirdSection } from './home/ThirdSection'

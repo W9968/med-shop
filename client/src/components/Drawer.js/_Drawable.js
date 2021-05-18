@@ -8,19 +8,20 @@ const Drawable = ({ icon, children, footer }) => {
 
   const FooterStyle = {
     border: 'none',
-    backgroundColor: `#0b0e11`,
+    backgroundColor: `#ffffff`,
   }
 
   const DrawerStyle = {
     color: `#fcfffd`,
     overflowY: 'auto',
-    backgroundColor: `#0b0e11`,
+    backgroundColor: `#ffffff`,
   }
 
   return (
     <>
       <Button onClick={() => setVisible(true)}>{icon}</Button>
       <Drawerr
+        width={300}
         height={100}
         placement='left'
         onClose={() => setVisible(false)}
@@ -38,6 +39,10 @@ const Drawable = ({ icon, children, footer }) => {
 export default Drawable
 
 const Button = styled.button`
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
   border: none;
   display: flex;
   cursor: pointer;
@@ -45,7 +50,11 @@ const Button = styled.button`
   font-size: 1.5rem;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.secondary};
+
+  &:hover {
+    color: ${({ theme }) => theme.third};
+  }
 `
 
 const Drawerr = styled(Drawer)`

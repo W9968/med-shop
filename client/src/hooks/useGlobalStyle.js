@@ -62,10 +62,14 @@ export const Wrapper = styled.div`
 `
 
 export const Main = styled.main`
-  width: 100%;
+  width: 1304px;
   display: flex;
   min-height: 100vh;
   margin: 0px auto;
   flex-direction: column;
   background-color: none;
+
+  @media (max-width: 1304px) {
+    width: 100%;
+  }
 `

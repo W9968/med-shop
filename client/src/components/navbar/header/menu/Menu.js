@@ -3,36 +3,27 @@ import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
 const Menu = () => {
+  const paths = [
+    { name: 'billets avions', path: '/planticket' },
+    { name: 'Alimentaires', path: '/organic' },
+    { name: 'produit beauté', path: '/beautyproduct' },
+    { name: 'médecine esthétique', path: '/cosmetic' },
+    { name: 'autre domaines', path: '/others' },
+  ]
+
   return (
     <>
       <Container>
-        <List>
-          <Item>
-            <Linker activeStyle={{ color: '#00C9A7' }} to='/profile'>
-              billets avions
+        {paths.map((value, key) => {
+          return (
+            <Linker
+              key={key}
+              activeStyle={{ color: '#5865f2' }}
+              to={`${value.path}`}>
+              {value.name}
             </Linker>
-          </Item>
-          <Item>
-            <Linker activeStyle={{ color: '#00C9A7' }} to='/profile'>
-              Alimentaires
-            </Linker>
-          </Item>
-          <Item>
-            <Linker activeStyle={{ color: '#00C9A7' }} to='/profile'>
-              produit beauté
-            </Linker>
-          </Item>
-          <Item>
-            <Linker activeStyle={{ color: '#00C9A7' }} to='/profile'>
-              médecine esthétique
-            </Linker>
-          </Item>
-          <Item>
-            <Linker activeStyle={{ color: '#00C9A7' }} to='/profile'>
-              autre domaines
-            </Linker>
-          </Item>
-        </List>
+          )
+        })}
       </Container>
     </>
   )
@@ -43,25 +34,22 @@ export default Menu
 const Container = styled.div`
   flex: 1;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  margin: 1rem 0rem;
+  align-items: flex-start;
   justify-content: center;
+  flex-direction: column;
 `
-
-const List = styled.ul`
-  width: 750px;
-  display: flex;
-  list-style: none;
-  justify-content: space-around;
-`
-const Item = styled.li``
 
 const Linker = styled(NavLink)`
-  font-weight: 400;
+  width: 100%;
+  padding: 10px;
+  font-weight: 600;
+  font-size: 1.125rem;
   letter-spacing: 1px;
-  color: ${({ theme }) => theme.darkhover};
+  color: ${({ theme }) => theme.secondary};
 
   &:hover {
-    color: ${({ theme }) => theme.correct};
+    color: ${({ theme }) => theme.primary};
+    background-color: ${({ theme }) => theme.hover};
   }
 `

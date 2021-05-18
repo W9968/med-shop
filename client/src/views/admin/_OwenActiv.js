@@ -26,8 +26,7 @@ const _OwenActiv = () => {
                 </Card>
               ) : log.event === 'updated' ? (
                 <Card>
-                  you
-                  <span>{log.event}</span>{' '}
+                  you <span>{log.event}</span>{' '}
                   <span>
                     {JSON.parse(log.old_values).tag} to{' '}
                     {JSON.parse(log.new_values).tag} from{' '}
@@ -59,6 +58,7 @@ const Wrapper = styled.div`
 
 const Card = styled.div`
   padding: 15px;
+  margin-bottom: 1rem;
   border-radius: 12px;
   border-bottom: 1px solid ${({ theme }) => theme.darkhover};
 `

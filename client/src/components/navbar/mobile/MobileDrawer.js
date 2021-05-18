@@ -1,7 +1,9 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../../global/exports'
+import Menu from '../header/menu/Menu'
+import { BiCustomize, BiHeart, BiUser } from 'react-icons/bi'
 
 const MobileDrawer = () => {
   const { currentUser, logged } = useAuth()
@@ -16,20 +18,25 @@ const MobileDrawer = () => {
               {currentUser.name}
             </ConntectedUser>
             <List>
-              <Item>
-                <Link to='/profile'>Profile</Link>
-              </Item>
-              <Item>
-                <Link to='/profile'>Activity</Link>
-              </Item>
+              <Linker to='/profiles'>
+                <BiUser className='navIcon' />
+                Profile
+              </Linker>
+
+              <Linker to='/dashboard'>
+                <BiHeart className='navIcon' />
+                wish List
+              </Linker>
               {currentUser.role === 1 && (
-                <Item>
-                  <Link to='/dash'>Dashboard</Link>
-                </Item>
+                <Linker to='/dash'>
+                  <BiCustomize className='navIcon' />
+                  Admin Panel
+                </Linker>
               )}
             </List>
           </UserWrapper>
         )}
+        <Menu />
       </Container>
     </>
   )
@@ -43,15 +50,18 @@ const Container = styled.div`
 `
 
 const UserWrapper = styled.div`
-  background-color: ${({ theme }) => theme.lighthover};
+  background-color: ${({ theme }) => theme.fourth};
 `
 
 const ConntectedUser = styled.div`
   padding: 1rem;
   display: flex;
+  font-weight: 600;
   align-items: center;
   font-size: 1.225rem;
   justify-content: stretch;
+  text-transform: capitalize;
+  color: ${({ theme }) => theme.secondary};
 `
 
 const Avatar = styled.div`
@@ -60,19 +70,31 @@ const Avatar = styled.div`
   margin-right: 1rem;
   border-radius: 10px;
   text-transform: capitalize;
-  color: ${({ theme }) => theme.secondary};
-  background: ${({ theme }) => theme.darkhover};
-`
-
-const List = styled.ul`
-  list-style: none;
-  padding: 0rem 1rem;
-`
-const Item = styled.li`
-  padding: 0rem 1rem;
-`
-
-const Link = styled(NavLink)`
-  font-size: 1rem;
   color: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.secondary};
+`
+
+const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-bottom: 1rem;
+
+  .navIcon {
+    margin-right: 10px;
+    font-size: 1.5rem;
+  }
+`
+const Linker = styled(NavLink)`
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: ${({ theme }) => theme.secondary};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.primary};
+  }
 `

@@ -15,7 +15,13 @@ import {
   Register,
   SendResetMAil,
   ResetPassword,
+  PlanTicket,
+  Organic,
+  BeautyProduct,
+  Cosmetic,
+  OtherDomains,
 } from './views/imports'
+
 import { AuthProvider, CrudProvider } from './global/exports'
 
 import PrivateRoute from './routes/PrivateRoute'
@@ -35,6 +41,11 @@ function App() {
                   <Router>
                     <Nav />
                     <Switch>
+                      <Route path='/others' component={OtherDomains} />
+                      <Route path='/cosmetic' component={Cosmetic} />
+                      <Route path='/beautyproduct' component={BeautyProduct} />
+                      <Route path='/organic' component={Organic} />
+                      <Route path='/planticket' component={PlanTicket} />
                       <Route path='/checkout' component={Checkout} />
                       <ProtectedRoute path='/dash' component={Dash} />
                       <ControlledRoute path='/profile' component={Profile} />

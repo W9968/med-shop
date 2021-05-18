@@ -5,7 +5,9 @@ import Droper from './Droper'
 import Drawable from '../../Drawer.js/_Drawable'
 import { BiMenuAltRight } from 'react-icons/bi'
 import { useMediaQuery } from '../../../hooks/useMediaQuery' // eslint-disable-line
-import Sider from '../sider/Sider'
+
+import LanguageDroper from './LanguageDroper'
+import DashMenu from '../sider/DashMenu'
 
 const _TopHeader = () => {
   return (
@@ -13,10 +15,11 @@ const _TopHeader = () => {
       <Container>
         {useMediaQuery(1366) && (
           <Drawable
-            children={<Sider size={true} />}
-            icon={<BiMenuAltRight />}
+            children={<DashMenu size={true} />}
+            icon={<BiMenuAltRight className='iconSider' />}
           />
         )}
+        <LanguageDroper />
         <Droper />
       </Container>
     </>
@@ -28,14 +31,20 @@ export default _TopHeader
 const Container = styled.div`
   display: flex;
   padding: 0.5rem;
+  margin: 0rem 1rem;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
   color: ${({ theme }) => theme.secondary};
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.fourth};
 
   @media (max-width: 1366px) {
-    color: ${({ theme }) => theme.primary};
-    background-color: ${({ theme }) => theme.fifth};
+    color: ${({ theme }) => theme.secondary};
+    background-color: ${({ theme }) => theme.fourth};
+  }
+
+  .iconSider {
+    font-size: 1.5rem;
+    color: ${({ theme }) => theme.secondary};
   }
 `

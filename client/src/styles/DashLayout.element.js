@@ -11,24 +11,12 @@ export const Wrapper = styled.div`
   align-items: stretch;
   justify-content: space-between;
   position: absolute;
-  background-color: ${({ theme }) => theme.primary};
-`
-
-export const MobileWrapper = styled.div`
-  top: 0;
-  left: 0;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  position: absolute;
-  flex-direction: column;
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.fourth};
 `
 
 export const Sider = styled.aside`
   color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.fifth};
+  background-color: ${({ theme }) => theme.primary};
 `
 
 export const SubSide = styled.aside`
@@ -38,12 +26,10 @@ export const SubSide = styled.aside`
   justify-content: stretch;
 `
 
-export const Header = styled.header`
-  border-bottom: 1px solid ${({ theme }) => theme.darkhover};
-`
+export const Header = styled.header``
 
 export const SubHeader = styled.header`
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
 `
 export const Content = styled.main`
   flex: 1;
@@ -53,9 +39,4 @@ export const Content = styled.main`
   justify-content: center;
   overflow-y: auto;
   background-color: ${({ theme }) => theme.fourth};
-`
-
-export const Footer = styled.footer`
-  padding: 1rem;
-  background-color: darkslategray;
 `

@@ -17,5 +17,5 @@ export default Icon
 
 const Link = styled(NavLink)`
   font-size: 1.5rem;
-  color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.secondary};
 `

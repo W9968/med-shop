@@ -9,7 +9,6 @@ import Icon from './mobile/Icon'
 import Drawable from '../Drawer.js/_Drawable'
 import Logout from '../logout/Logout'
 import MobileDrawer from './mobile/MobileDrawer'
-import Menu from './header/menu/Menu'
 
 const Navbar = () => {
   return (
@@ -28,7 +27,6 @@ const Navbar = () => {
         ) : (
           <>
             <Logo brand='MedEpoir' goTo='/' />
-            <Menu />
             <IconHeader />
           </>
         )}
@@ -40,14 +38,14 @@ const Navbar = () => {
 export default Navbar
 
 const Container = styled.div`
-  z-index: 1;
-  width: 100%;
-  padding: 1rem;
+  z-index: 10;
   display: flex;
+  padding: 1rem;
+  width: inherit;
   position: fixed;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.fifth};
+  color: ${({ theme }) => theme.secondary};
+  background-color: ${({ theme }) => theme.primary};
 `

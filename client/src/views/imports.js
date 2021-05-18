@@ -4,6 +4,12 @@ export { default as Dash } from './pages/_Dashboard'
 export { default as Profile } from './pages/_Profile'
 export { default as Checkout } from './pages/_Checkout'
 
+export { default as PlanTicket } from './delta/_PlanTicked'
+export { default as Organic } from './delta/_Organic'
+export { default as BeautyProduct } from './delta/_BeautyProduct'
+export { default as Cosmetic } from './delta/_CosmeticSurgery'
+export { default as OtherDomains } from './delta/_OtherServices'
+
 export { default as Login } from './auth/_Login'
 export { default as Register } from './auth/_Register'
 export { default as SendResetMAil } from './auth/_MailReset'

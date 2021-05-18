@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
-import { BiChevronsLeft } from 'react-icons/bi'
 import { motion as animate } from 'framer-motion'
-import Sider from './Sider'
+
+import DashMenu from './DashMenu'
 
 const _SideMenu = () => {
-  const [size, setSizing] = useState(true)
-  const [rotation, setRotation] = useState(0)
+  const [size, setSizing] = useState(false)
 
   const parentVarient = {
     open: {
@@ -20,7 +19,7 @@ const _SideMenu = () => {
     closed: {
       width: 68,
       transition: {
-        type: 'tween',
+        type: 'just',
         staggerChildren: 0.1,
         stagerDirection: -1,
         when: `afterChildren`,
@@ -34,19 +33,17 @@ const _SideMenu = () => {
         <animate.div
           variants={parentVarient}
           initial={`open`}
-          animate={size ? `open` : `closed`}>
+          animate={size ? `open` : `closed`}
+          onMouseEnter={() => setSizing(true)}
+          onMouseLeave={() => setSizing(false)}>
           <Brand style={{ justifyContent: size ? 'space-between' : 'center' }}>
-            {size && <Link to='/dash'>MedEspoir</Link>}
-            <animate.span
-              initial={{ rotate: rotation }}
-              animate={{ rotate: rotation }}
-              transition={{ type: 'tween' }}
-              onClick={() => setSizing(!size)}>
-              <LeftArrow onClick={() => setRotation(rotation + 180)} />
-            </animate.span>
+            {size ? (
+              <Link to='/dash'>MedEspoir</Link>
+            ) : (
+              <Image src='/logos/logo_small.png' />
+            )}
           </Brand>
-
-          <Sider size={size} />
+          <DashMenu size={size} />
         </animate.div>
       </Container>
     </>
@@ -63,22 +60,17 @@ const Container = styled.div`
 const Brand = styled.div`
   width: 100%;
   display: flex;
-  padding: 1rem;
+  padding: 1.125rem;
   flex-direction: row;
   align-items: center;
-  background-color: ${({ theme }) => theme.lighthover};
+  background-color: ${({ theme }) => theme.primary};
 `
 
 const Link = styled(NavLink)`
+  font-size: 1.5rem;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.primary};
 `
 
-const LeftArrow = styled(BiChevronsLeft)`
-  flex: 1;
-  display: flex;
-  font-size: 1.5rem;
-  align-self: center;
-  justify-self: center;
-  cursor: pointer;
+const Image = styled.img`
+  width: 42px;
 `
