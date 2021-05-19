@@ -48,6 +48,8 @@ const _404 = () => {
 export default _404
 
 const Wrapper = styled.div`
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -66,7 +68,6 @@ const Div = styled.div`
   width: 600px;
   display: flex;
   padding: 2rem;
-  margin: 0px auto;
   align-items: center;
   flex-direction: column;
   justify-content: center;

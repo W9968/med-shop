@@ -40,7 +40,11 @@ export default function _CrudProvider({ children }) {
   const storeData = async (route, req) => {
     setLoading(true)
     return await useApi
-      .post(`/api/${route}`, req)
+      .post(`/api/${route}`, req, {
+        headers: {
+          'CouseApintent-Type': 'multipart/form-data',
+        },
+      })
       .then((response) => {
         if (response.status === 201) {
           loadData(route)

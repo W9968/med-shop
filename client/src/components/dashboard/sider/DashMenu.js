@@ -20,18 +20,18 @@ import {
 
 const DashMenu = ({ size }) => {
   const OrderItem = [
-    { id: '1', name: 'Orders', path: '/dash/orders' },
-    { id: '2', name: 'Inovice', path: '/dash/inovices' },
-    { id: '3', name: 'Credit Slips', path: '/' },
-    { id: '4', name: 'Delivery Slips', path: '/' },
+    { name: 'Orders', path: '/dash/orders' },
+    { name: 'Inovice', path: '/dash/inovices' },
+    { name: 'Credit Slips', path: '/' },
+    { name: 'Delivery Slips', path: '/' },
   ]
 
   const CatalogItem = [
-    { id: '5', name: 'Products', path: '/dash/products' },
-    { id: '6', name: 'Attributes', path: '/dash' },
-    { id: '7', name: 'Brands', path: '/dash/brands' },
-    { id: '8', name: 'Discount', path: '/dash/discount' },
-    { id: '9', name: 'Stocks', path: '/dash/stocks' },
+    { name: 'Products', path: '/dash/products' },
+    { name: 'Attributes', path: '/dash' },
+    { name: 'Brands', path: '/dash/brands' },
+    { name: 'Discount', path: '/dash/discount' },
+    { name: 'Stocks', path: '/dash/stocks' },
   ]
 
   return (
@@ -74,9 +74,9 @@ const DashMenu = ({ size }) => {
           </Button>
 
           <Panel pb={4}>
-            {OrderItem.map((value) => {
+            {OrderItem.map((value, id) => {
               return (
-                <Linker key={value.id} to={value.path}>
+                <Linker key={id} to={value.path}>
                   <Line>{value.name}</Line>
                 </Linker>
               )
@@ -106,9 +106,9 @@ const DashMenu = ({ size }) => {
           </Button>
 
           <Panel pb={4}>
-            {CatalogItem.map((value) => {
+            {CatalogItem.map((value, id) => {
               return (
-                <Linker key={value.id} to={value.path}>
+                <Linker key={id} to={value.path}>
                   <Line>{value.name}</Line>
                 </Linker>
               )

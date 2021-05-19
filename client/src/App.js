@@ -4,7 +4,7 @@ import { Grommet } from 'grommet'
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyle, Wrapper, Main } from './hooks/useGlobalStyle'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Nav } from './components/imports'
+import { Nav, Footer } from './components/imports'
 import {
   P404,
   Home,
@@ -62,6 +62,7 @@ function App() {
                       <Route exact path='/' component={Home} />
                       <Route path='*' component={P404} />
                     </Switch>
+                    <Footer />
                   </Router>
                 </CrudProvider>
               </AuthProvider>

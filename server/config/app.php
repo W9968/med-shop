@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         //OwenIt\Auditing\AuditingServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Application Service Providers...
          */

@@ -3,6 +3,7 @@ export { default as ThreeDotSpinner } from './spinner/ScreenLoading'
 export { default as ContentLoader } from './spinner/ContentLoader'
 
 export { default as Nav } from './navbar/_Navbar'
+export { default as Footer } from './footer/_Footer'
 export { default as DataTable } from './datatable/_DataTable'
 
 export { default as SideMenu } from './dashboard/sider/_SideMenu'

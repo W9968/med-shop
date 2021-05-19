@@ -35,6 +35,7 @@ const _Products = () => {
                     {value.images.map((key) => {
                       return (
                         <img
+                          key={key.id}
                           src={`http://localhost:8000/storage/products/${key.file_path}`}
                           alt='yes'
                         />

@@ -39,7 +39,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   /* width */
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 2px;
     scrollbar-width: thin
   }
   /* Track */
