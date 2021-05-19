@@ -44,23 +44,15 @@ class ProductController extends Controller
 
         if($request->hasFile('images'))
         {
-            $request->file('images')->store('public/products');
-            $product->images()->create([
-                'product_id' => $product->id,
-                'file_path'  => $request->file('images')->hashName()
-                //'file_path'  => $request->file('images')->getClientOriginalName()
-            ]);
-            // $images = (object) $request->file('images');
-            // foreach($images as $key => $image)
-            // {
-            //     $image->store('public/products');
-            //     $product->images()->create([
-            //     'product_id' => $product->id,
-            //     'file_path'  => $image->getClientOriginalName()
-            //     ]);
-            // }
-        }
-        return $product::with('images')->find($product->id);
+            foreach( $request->file('images') as $file)
+            {
+                $file->store('public/products');
+                $product->images()->create([
+                    'product_id' => $product->id,
+                    'file_path'  => $file->hashName()
+                ]);
+            }
+        }    
     }
 
     /**

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useCrud } from '../../../global/exports'
 import { ContentHeader } from '../../../components/imports'
-//import { ContentLoader, ContentHeader } from '../../../components/imports'
+
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import { AddProduct, EditProduct } from '../../../components/imports'
 

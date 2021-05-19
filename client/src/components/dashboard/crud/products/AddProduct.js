@@ -26,7 +26,7 @@ const AddProduct = () => {
   const [description, setDescription] = useState('')
   const [tag, setTag] = useState('')
   const [stocks, setStocks] = useState()
-  const [images, setImages] = useState()
+  const [images, setImages] = useState([])
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
@@ -38,7 +38,9 @@ const AddProduct = () => {
     formData.append('description', description)
     formData.append('tag', tag)
     formData.append('stocks', stocks)
-    formData.append('images', images)
+    for (let i = 0; i < images.length; i++) {
+      formData.append('images[]', images[i])
+    }
 
     axios.defaults.withCredentials = true
     axios.post('http://localhost:8000/api/products', formData, {
@@ -94,9 +96,10 @@ const AddProduct = () => {
           <InputGroup>
             <Label>images</Label>
             <Input
+              multiple
               type='file'
-              name='images'
-              onChange={(e) => setImages(e.target.files[0])}
+              name='images[]'
+              onChange={(e) => setImages(e.target.files)}
             />
           </InputGroup>
 
