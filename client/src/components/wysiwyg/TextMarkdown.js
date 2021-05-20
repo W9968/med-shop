@@ -1,38 +1,28 @@
-import React, { useRef, useState } from 'react'
-import EditorJs from 'react-editor-js'
-import { EDITOR_JS_TOOLS } from './Constant'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import MenuBar from './MenuBar'
 
-const TextMarkdown = (props) => {
-  const instanceRef = useRef(null)
+const TextMarkdown = () => {
+  const [content, setContent] = useState(null)
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: '<p>write your blog here🌎️</p>',
+    onUpdate() {
+      setContent(JSON.stringify(this.getJSON()))
+    },
+  })
 
-  const {
-    value: [value, setValue], // eslint-disable-line
-  } = {
-    value: useState(null),
-    ...(props.state || {}),
-  }
-
-  const handleSave = async () => {
-    return await instanceRef.current.save().then((outputData) => {
-      setValue(outputData.blocks)
-      console.log('value', outputData.blocks)
-    })
-  }
+  useEffect(() => {
+    console.log(content)
+  }, [content, editor])
 
   return (
     <>
       <Container>
-        <EditorJs
-          data={props.data}
-          readOnly={true}
-          onChange={handleSave}
-          placeholder='start writing here'
-          instanceRef={(instance) => (instanceRef.current = instance)}
-          tools={EDITOR_JS_TOOLS}
-        />
-        {/* {JSON.stringify(value)} */}
-        <Div />
+        <MenuBar editor={editor} />
+        <EditorContent editor={editor} />
       </Container>
     </>
   )
@@ -41,10 +31,45 @@ const TextMarkdown = (props) => {
 export default TextMarkdown
 
 const Container = styled.div`
-  border: 1px solid ${({ theme }) => theme.darkhover};
-`
+  /* Basic editor styles */
+  .ProseMirror {
+    height: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #0d0d0d;
+    background-color: ${({ theme }) => theme.fourth};
+    > * + * {
+      margin-top: 0.75em;
+    }
 
-const Div = styled.div`
-  width: 50px;
-  background-color: red;
+    ul,
+    ol {
+      padding: 0 1rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      line-height: 1.1;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    blockquote {
+      padding-left: 1rem;
+      border-left: 2px solid ${({ theme }) => theme.secondary};
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid rgba(#0d0d0d, 0.1);
+      margin: 2rem 0;
+    }
+  }
 `

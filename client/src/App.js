@@ -62,7 +62,7 @@ function App() {
                       <Route exact path='/' component={Home} />
                       <Route path='*' component={P404} />
                     </Switch>
-                    <Footer />
+                    {/* <Footer /> */}
                   </Router>
                 </CrudProvider>
               </AuthProvider>

@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
+import Select from 'react-select'
 
 export const Wrapper = styled.div`
   padding: 1rem;
@@ -85,4 +86,12 @@ export const Linker = styled(NavLink)`
   font-size: 1.125rem;
   color: ${({ theme }) => theme.third};
   background-color: ${({ theme }) => theme.fourth};
+`
+
+export const StyledSelect = styled(Select)`
+  width: 100%;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: ${({ theme }) => theme.fourth}; ;
 `

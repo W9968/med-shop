@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import {
   Wrapper,
@@ -9,16 +9,8 @@ import {
   Div,
   Button,
   Linker,
+  StyledSelect,
 } from '../../../../styles/Crud.element'
-
-// file pond for file upload
-// import { FilePond, registerPlugin } from 'react-filepond'
-// import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-// import FilePondPluginImageCrop from 'filepond-plugin-image-crop'
-// import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
-// import 'filepond/dist/filepond.min.css'
-
-// registerPlugin(FilePondPluginImagePreview, FilePondPluginImageCrop)
 
 const AddProduct = () => {
   const [name, setName] = useState('')
@@ -27,12 +19,18 @@ const AddProduct = () => {
   const [tag, setTag] = useState('')
   const [stocks, setStocks] = useState()
   const [images, setImages] = useState([])
+  const [fetchedBrand, setFetchedBrand] = useState([])
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/brands').then((res) => {
+      const option = res.data.map((val) => ({ value: val.tag, label: val.tag }))
+      setFetchedBrand(option)
+    })
+  }, [])
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
-
     let formData = new FormData()
-
     formData.append('name', name)
     formData.append('price', price)
     formData.append('description', description)
@@ -41,7 +39,6 @@ const AddProduct = () => {
     for (let i = 0; i < images.length; i++) {
       formData.append('images[]', images[i])
     }
-
     axios.defaults.withCredentials = true
     axios.post('http://localhost:8000/api/products', formData, {
       headers: {
@@ -49,7 +46,6 @@ const AddProduct = () => {
       },
     })
   }
-
   return (
     <>
       <Wrapper>
@@ -79,10 +75,10 @@ const AddProduct = () => {
           </InputGroup>
           <InputGroup>
             <Label>tag</Label>
-            <Input
-              type='text'
-              name='tag'
-              onChange={(e) => setTag(e.target.value)}
+            <StyledSelect
+              placeholder='select my brand'
+              options={fetchedBrand}
+              onChange={(e) => setTag(e.value)}
             />
           </InputGroup>
           <InputGroup>

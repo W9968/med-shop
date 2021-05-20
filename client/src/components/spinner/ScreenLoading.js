@@ -1,75 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
-import { motion as m } from 'framer-motion'
+import styled, { keyframes } from 'styled-components'
 
 const ScreenLoading = () => {
-  const loadingContainer = {
-    width: '2rem',
-    height: '2rem',
-    display: 'flex',
-    justifyContent: 'space-around',
-  }
-
-  const loadingCircle = {
-    display: 'block',
-    width: '0.5rem',
-    height: '0.5rem',
-    backgroundColor: 'black',
-    borderRadius: '0.25rem',
-  }
-
-  const loadingContainerVariants = {
-    start: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-    end: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const loadingCircleVariants = {
-    start: {
-      y: '0%',
-    },
-    end: {
-      y: '100%',
-    },
-  }
-
-  const loadingCircleTransition = {
-    duration: 0.4,
-    yoyo: Infinity,
-    ease: 'easeInOut',
-  }
-
   return (
     <>
       <Container>
-        <m.div
-          style={loadingContainer}
-          variants={loadingContainerVariants}
-          initial='start'
-          animate='end'>
-          <m.span
-            style={loadingCircle}
-            variants={loadingCircleVariants}
-            transition={loadingCircleTransition}
-          />
-          <m.span
-            style={loadingCircle}
-            variants={loadingCircleVariants}
-            transition={loadingCircleTransition}
-          />
-          <m.span
-            style={loadingCircle}
-            variants={loadingCircleVariants}
-            transition={loadingCircleTransition}
-          />
-        </m.div>
+        <Pulse />
       </Container>
     </>
   )
@@ -87,4 +23,35 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`
+
+const pls = keyframes`
+  to {
+   box-shadow: 0 0 0 40px #0000
+  }
+`
+
+const Pulse = styled.div`
+  width: 20px;
+  height: 20px;
+  position: relative;
+  border-radius: 50%;
+  animation: ${pls} 1.5s infinite linear;
+  background: ${({ theme }) => theme.third};
+  box-shadow: 0 0 0 0 ${({ theme }) => theme.hover};
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 0 #0004;
+    animation: inherit;
+    animation-delay: -0.5s;
+  }
+
+  &::after {
+    animation-delay: -1s;
+  }
 `

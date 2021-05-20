@@ -5,6 +5,7 @@ import {
   ProductTabs,
   SecondSection,
   ThirdSection,
+  LastSection,
 } from '../components/imports'
 import { Wrapper } from '../styles/HomeLayout.element'
 
@@ -17,6 +18,7 @@ const Homelayout = () => {
         <ProductTabs />
         <SecondSection />
         <ThirdSection />
+        <LastSection />
       </Wrapper>
     </>
   )

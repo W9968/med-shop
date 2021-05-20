@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
 import { motion as animate } from 'framer-motion'
 
 import DashMenu from './DashMenu'
+import SmallLogo from './SmallLogo'
 
 const _SideMenu = () => {
-  const [size, setSizing] = useState(false)
+  const [size, setSizing] = useState(true)
 
   const parentVarient = {
     open: {
@@ -33,14 +33,14 @@ const _SideMenu = () => {
         <animate.div
           variants={parentVarient}
           initial={`open`}
-          animate={size ? `open` : `closed`}
-          onMouseEnter={() => setSizing(true)}
-          onMouseLeave={() => setSizing(false)}>
-          <Brand style={{ justifyContent: size ? 'space-between' : 'center' }}>
+          animate={size ? `open` : `closed`}>
+          <Brand style={{ justifyContent: 'center' }}>
             {size ? (
-              <Link to='/dash'>MedEspoir</Link>
+              <Link onClick={() => setSizing(false)}>MedEspoir</Link>
             ) : (
-              <Image src='/logos/logo_small.png' />
+              <span onClick={() => setSizing(true)}>
+                <SmallLogo />
+              </span>
             )}
           </Brand>
           <DashMenu size={size} />
@@ -66,11 +66,10 @@ const Brand = styled.div`
   background-color: ${({ theme }) => theme.primary};
 `
 
-const Link = styled(NavLink)`
+const Link = styled.p`
+  font-weight: 600;
   font-size: 1.5rem;
+  margin-bottom: 1rem;
   text-transform: uppercase;
-`
-
-const Image = styled.img`
-  width: 42px;
+  color: ${({ theme }) => theme.secondary};
 `

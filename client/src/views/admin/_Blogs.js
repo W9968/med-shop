@@ -23,7 +23,7 @@ const _Blogs = () => {
 
   return (
     <>
-      <ContentHeader header='Blogs list' boolState={true} />
+      <ContentHeader header='Blogs list' boolState={true} path='blogs' />
       <Switch>
         <Route exact path={path}>
           <DataTable
