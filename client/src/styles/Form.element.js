@@ -1,10 +1,13 @@
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import { BiCheck, BiErrorCircle } from 'react-icons/bi'
-import { CheckBox } from 'grommet'
+import CheckBox from 'antd/lib/checkbox'
+import 'antd/lib/checkbox/style/index.css'
 
 export const Container = styled.div`
-  z-index: 10;
+  top: 0;
+  left: 0;
+  z-index: 11;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -12,12 +15,11 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background: ${({ theme }) => theme.primary};
+  background: ${({ theme }) => theme.body};
 
   @media (max-width: 600px) {
     padding: 40px 0px;
     justify-content: flex-start;
-    background: ${({ theme }) => theme.primary};
   }
 `
 
@@ -25,7 +27,6 @@ export const Wrapper = styled.div`
   width: 600px;
   padding: 15px;
   display: flex;
-  border-radius: 12px;
   align-items: center;
   flex-direction: column;
   justify-content: center;
@@ -33,7 +34,7 @@ export const Wrapper = styled.div`
 
   .fieldgroup {
     padding: 0px 15px;
-    background-color: ${({ theme }) => theme.fourth};
+    background-color: ${({ theme }) => theme.hover};
   }
 
   @media (max-width: 600px) {
@@ -51,7 +52,7 @@ export const Text = styled(NavLink)`
   letter-spacing: 1px;
   text-decoration: none;
   text-transform: capitalize;
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.text};
 `
 
 export const InputGroup = styled.div`
@@ -60,7 +61,6 @@ export const InputGroup = styled.div`
   margin-bottom: 1rem;
   align-items: center;
   flex-direction: row;
-  border-radius: 12px;
 
   @media (max-width: 400px) {
     width: 100%;
@@ -75,7 +75,7 @@ export const Input = styled.input`
   padding: 16px 0px;
   letter-spacing: 0.78px;
   background: transparent;
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.text};
 `
 
 export const Correct = styled(BiCheck)`
@@ -87,7 +87,29 @@ export const Error = styled(BiErrorCircle)`
   color: ${({ theme }) => theme.error};
 `
 
-export const CheckButton = styled(CheckBox)``
+export const CheckButton = styled(CheckBox)`
+  color: ${({ theme }) => theme.text};
+
+  .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+  .ant-checkbox:hover .ant-checkbox-inner,
+  .ant-checkbox-input:focus + .ant-checkbox-inner {
+    border: 2px solid ${({ theme }) => theme.text} !important;
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner,
+  .ant-checkbox-indeterminate .ant-checkbox-inner {
+    border: 2px solid #1bba79;
+    background-color: ${({ theme }) => theme.text};
+  }
+
+  .ant-checkbox {
+    .ant-checkbox-inner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid ${({ theme }) => theme.text};
+    }
+  }
+`
 
 export const Button = styled.button`
   width: 400px;
@@ -99,16 +121,15 @@ export const Button = styled.button`
   font-size: 1.125rem;
   align-items: center;
   flex-direction: row;
-  border-radius: 12px;
   padding: 0.7rem 2rem;
   text-decoration: none;
   transition: 0.3s ease-in-out;
   justify-content: space-around;
-  color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.third};
+  color: ${({ theme }) => theme.body};
+  background-color: ${({ theme }) => theme.text};
 
   &:hover {
-    background-color: ${({ theme }) => theme.hover};
+    background-color: ${({ theme }) => theme.sameHover};
   }
 
   @media (max-width: 400px) {
@@ -116,8 +137,8 @@ export const Button = styled.button`
   }
 
   &:disabled {
-    color: ${({ theme }) => theme.primary};
-    background-color: ${({ theme }) => theme.fourth};
+    color: ${({ theme }) => theme.select};
+    background-color: ${({ theme }) => theme.sameHover};
   }
 `
 
@@ -129,5 +150,5 @@ export const Message = styled.p`
   border-radius: 12px;
   padding: 0.7rem 2rem;
   background-color: red;
-  color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.text};
 `

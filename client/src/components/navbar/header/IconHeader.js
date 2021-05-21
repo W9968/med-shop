@@ -77,11 +77,10 @@ const Link = styled(NavLink)`
   font-size: 1.5rem;
   align-items: center;
   justify-content: center;
-
   margin: 0rem 0rem 0rem 0.5rem;
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.text};
 
   &:hover {
-    color: ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
   }
 `

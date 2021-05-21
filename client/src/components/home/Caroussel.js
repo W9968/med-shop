@@ -17,5 +17,5 @@ const Carousel = styled.div`
   margin-top: 4rem;
   border-radius: 50px;
   margin-bottom: 96px;
-  background-color: ${({ theme }) => theme.third};
+  background-color: ${({ theme }) => theme.text};
 `

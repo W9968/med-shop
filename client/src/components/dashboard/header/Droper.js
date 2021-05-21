@@ -103,11 +103,8 @@ const List = styled(MenuList)`
   width: 300px;
   padding: 10px 0px;
   border-radius: 10px 0px 10px 10px;
-  color: ${({ theme }) => theme.secondary};
-  border: 1px solid ${({ theme }) => theme.fourth};
-  background-color: ${({ theme }) => theme.primary}!important;
-  box-shadow: ${({ theme }) => theme.darkhover} 0px 30px 60px -12px,
-    ${({ theme }) => theme.darkhover} 0px 18px 36px -18px;
+  border: 1px solid ${({ theme }) => theme.hover};
+  background-color: ${({ theme }) => theme.body}!important;
 
   @media (max-width: 768px) {
     width: 100vw;
@@ -120,7 +117,7 @@ const List = styled(MenuList)`
 
   .date {
     font-weight: 600;
-    color: ${({ theme }) => theme.third};
+    color: ${({ theme }) => theme.text};
   }
 `
 
@@ -135,21 +132,20 @@ const Item = styled(MenuItem)`
   justify-content: flex-start;
 
   &:hover {
-    background-color: ${({ theme }) => theme.fourth};
+    background-color: ${({ theme }) => theme.hover};
   }
 `
 
 const Button = styled(MenuButton)`
   border: none;
+  padding: 10px;
   display: flex;
   cursor: pointer;
   background: none;
-  padding: 10px;
-  border-radius: 5px;
   align-items: center;
   flex-direction: row;
-  color: ${({ theme }) => theme.secondary};
-  background-color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.hover};
 `
 const ActionButton = styled.button`
   border: none;
@@ -162,16 +158,12 @@ const ActionButton = styled.button`
   align-items: center;
   flex-direction: row;
   justify-content: center;
-  color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.text};
   background: ${({ theme }) => theme.hover};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.third};
-  }
 `
 
 const Avatar = styled(IoPerson)`
   font-size: 1.5rem;
   margin-right: 5px;
-  color: ${({ theme }) => theme.third};
+  color: ${({ theme }) => theme.text};
 `

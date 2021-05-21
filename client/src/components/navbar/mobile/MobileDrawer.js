@@ -50,7 +50,7 @@ const Container = styled.div`
 `
 
 const UserWrapper = styled.div`
-  background-color: ${({ theme }) => theme.fourth};
+  background-color: ${({ theme }) => theme.hover};
 `
 
 const ConntectedUser = styled.div`
@@ -61,7 +61,6 @@ const ConntectedUser = styled.div`
   font-size: 1.225rem;
   justify-content: stretch;
   text-transform: capitalize;
-  color: ${({ theme }) => theme.secondary};
 `
 
 const Avatar = styled.div`
@@ -70,8 +69,8 @@ const Avatar = styled.div`
   margin-right: 1rem;
   border-radius: 10px;
   text-transform: capitalize;
-  color: ${({ theme }) => theme.primary};
-  background: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.text};
+  background: ${({ theme }) => theme.body};
 `
 
 const List = styled.div`
@@ -92,9 +91,9 @@ const Linker = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.text};
 
   &:hover {
-    background-color: ${({ theme }) => theme.primary};
+    background-color: ${({ theme }) => theme.body};
   }
 `

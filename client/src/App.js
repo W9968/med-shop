@@ -1,7 +1,7 @@
 import React from 'react'
-import { theme } from './Theme'
-import { Grommet } from 'grommet'
+import { lightTheme, darkTheme } from './Theme'
 import { ThemeProvider } from 'styled-components'
+import { useThemeToggler } from './hooks/useThemeToggler'
 import { GlobalStyle, Wrapper, Main } from './hooks/useGlobalStyle'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Nav, Footer } from './components/imports'
@@ -29,17 +29,21 @@ import ProtectedRoute from './routes/ProtectedRoute'
 import ControlledRoute from './routes/ControlledRoute'
 
 function App() {
-  return (
-    <>
-      <Grommet>
-        <ThemeProvider theme={theme}>
+  const [theme, toggleTheme, componentMounted] = useThemeToggler()
+
+  if (!componentMounted) {
+    return <div />
+  } else {
+    return (
+      <>
+        <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
           <GlobalStyle />
           <Wrapper>
             <Main>
               <AuthProvider>
                 <CrudProvider>
                   <Router>
-                    <Nav />
+                    <Nav mode={theme} modeFunc={toggleTheme} />
                     <Switch>
                       <Route path='/others' component={OtherDomains} />
                       <Route path='/cosmetic' component={Cosmetic} />
@@ -62,16 +66,16 @@ function App() {
                       <Route exact path='/' component={Home} />
                       <Route path='*' component={P404} />
                     </Switch>
-                    {/* <Footer /> */}
+                    <Footer />
                   </Router>
                 </CrudProvider>
               </AuthProvider>
             </Main>
           </Wrapper>
         </ThemeProvider>
-      </Grommet>
-    </>
-  )
+      </>
+    )
+  }
 }
 
 export default App

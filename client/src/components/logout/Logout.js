@@ -36,11 +36,12 @@ const Button = styled.button`
   text-decoration: none;
   transition: 0.3s ease-in-out;
   justify-content: space-around;
-  color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.third};
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.hover};
 
   &:hover {
-    background-color: ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.body};
+    background-color: ${({ theme }) => theme.sameHover};
   }
 `
 const Link = styled(NavLink)`
@@ -59,11 +60,11 @@ const Link = styled(NavLink)`
   text-decoration: none;
   transition: 0.3s ease-in-out;
   justify-content: space-around;
-  color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.third};
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.hover};
 
   &:hover {
-    color: ${({ theme }) => theme.primary};
-    background-color: ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.body};
+    background-color: ${({ theme }) => theme.sameHover};
   }
 `

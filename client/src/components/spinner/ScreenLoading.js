@@ -37,8 +37,8 @@ const Pulse = styled.div`
   position: relative;
   border-radius: 50%;
   animation: ${pls} 1.5s infinite linear;
-  background: ${({ theme }) => theme.third};
-  box-shadow: 0 0 0 0 ${({ theme }) => theme.hover};
+  background: ${({ theme }) => theme.text};
+  box-shadow: 0 0 0 0 ${({ theme }) => theme.text};
 
   &::after,
   &::before {

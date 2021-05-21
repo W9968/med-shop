@@ -45,19 +45,11 @@ const List = styled(MenuList)`
   width: 300px;
   padding: 10px 0px;
   border-radius: 10px 0px 10px 10px;
-  color: ${({ theme }) => theme.secondary};
-  border: 1px solid ${({ theme }) => theme.fourth};
-  background-color: ${({ theme }) => theme.primary}!important;
-  box-shadow: ${({ theme }) => theme.darkhover} 0px 30px 60px -12px,
-    ${({ theme }) => theme.darkhover} 0px 18px 36px -18px;
+  border: 1px solid ${({ theme }) => theme.hover};
+  background-color: ${({ theme }) => theme.body}!important;
 
   @media (max-width: 768px) {
     width: 100vw;
-  }
-
-  .date {
-    font-weight: 600;
-    color: ${({ theme }) => theme.third};
   }
 
   .flag {
@@ -77,7 +69,7 @@ const Item = styled(MenuItem)`
   justify-content: flex-start;
 
   &:hover {
-    background-color: ${({ theme }) => theme.fourth};
+    background-color: ${({ theme }) => theme.hover};
   }
 `
 
@@ -87,10 +79,10 @@ const Button = styled(MenuButton)`
   cursor: pointer;
   padding-top: 5px;
   background: none;
-  margin: 0rem 0.5rem;
+  margin: 0rem 1rem;
   border-radius: 5px;
   font-size: 1.5rem;
   align-items: center;
   flex-direction: row;
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.text};
 `

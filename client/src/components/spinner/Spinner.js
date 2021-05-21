@@ -27,5 +27,5 @@ const Loader = styled(ImSpinner10)`
   font-size: 1.5rem;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => theme.third};
+  color: ${({ theme }) => theme.body};
 `

@@ -120,11 +120,7 @@ const _Login = () => {
           </InputGroup>
 
           <InputGroup style={{ marginTop: '1rem' }}>
-            <CheckButton
-              checked={checked}
-              label='Keep me Signed In'
-              onChange={handleChecks}
-            />
+            <CheckButton onChange={handleChecks}>Keep me Signed in</CheckButton>
           </InputGroup>
 
           <InputGroup>

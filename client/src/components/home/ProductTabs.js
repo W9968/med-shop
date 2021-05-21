@@ -8,12 +8,8 @@ const ProductTabs = () => {
       <Row>
         <Tabs style={{ width: '100%' }} variant='enclosed'>
           <TabList style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <StyledTabs _selected={{ bg: 'none', color: '#5865f2' }}>
-              Best Seller
-            </StyledTabs>
-            <StyledTabs _selected={{ bg: 'none', color: '#5865f2' }}>
-              New Product
-            </StyledTabs>
+            <StyledTabs _selected={{ bg: 'none' }}>Best Seller</StyledTabs>
+            <StyledTabs _selected={{ bg: 'none' }}>New Product</StyledTabs>
           </TabList>
 
           <TabPanels>
@@ -58,6 +54,7 @@ const StyledTabs = styled(Tab)`
   justify-content: center;
   text-transform: capitalize;
   font-family: proxima-nova, sans-serif;
-  background: ${({ theme }) => theme.fourth};
-  border-bottom: 1px solid ${({ theme }) => theme.darkhover};
+  color: ${({ theme }) => theme.text};
+  background: ${({ theme }) => theme.hover};
+  border-bottom: 1px solid ${({ theme }) => theme.hover};
 `

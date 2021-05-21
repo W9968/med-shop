@@ -30,13 +30,14 @@ const Wrapper = styled.div`
 const Text = styled.h2`
   padding: 8px 0px;
   text-transform: capitalize;
+  color: ${({ theme }) => theme.text};
 `
 const Link = styled(NavLink)`
-  padding: 8px 12px;
   font-size: 1rem;
+  padding: 10px 12px;
   border-radius: 5px;
-  color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.third};
+  color: ${({ theme }) => theme.body};
+  background-color: ${({ theme }) => theme.text};
 
   &:hover {
     color: ${({ theme }) => theme.primary};

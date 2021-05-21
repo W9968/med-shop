@@ -8,13 +8,15 @@ const Drawable = ({ icon, children, footer }) => {
 
   const FooterStyle = {
     border: 'none',
-    backgroundColor: `#ffffff`,
+    backgroundColor:
+      sessionStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111',
   }
 
   const DrawerStyle = {
-    color: `#fcfffd`,
+    color: sessionStorage.getItem('mode') === 'light' ? '#111111' : '#ffffff',
     overflowY: 'auto',
-    backgroundColor: `#ffffff`,
+    backgroundColor:
+      sessionStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111',
   }
 
   return (
@@ -50,10 +52,10 @@ const Button = styled.button`
   font-size: 1.5rem;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.text};
 
   &:hover {
-    color: ${({ theme }) => theme.third};
+    color: ${({ theme }) => theme.text};
   }
 `
 

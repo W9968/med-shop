@@ -9,8 +9,9 @@ import Icon from './mobile/Icon'
 import Drawable from '../Drawer.js/_Drawable'
 import Logout from '../logout/Logout'
 import MobileDrawer from './mobile/MobileDrawer'
+import Toggle from './header/Toggle'
 
-const Navbar = () => {
+const Navbar = ({ mode, modeFunc }) => {
   return (
     <>
       <Container>
@@ -20,6 +21,7 @@ const Navbar = () => {
               icon={<BiMenu />}
               children={<MobileDrawer />}
               footer={<Logout />}
+              themed={mode}
             />
             <Logo brand='MedEpoir' goTo='/' />
             <Icon />
@@ -27,7 +29,10 @@ const Navbar = () => {
         ) : (
           <>
             <Logo brand='MedEpoir' goTo='/' />
-            <IconHeader />
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Toggle theme={mode} toggleTheme={modeFunc} />
+              <IconHeader />
+            </div>
           </>
         )}
       </Container>
@@ -46,6 +51,6 @@ const Container = styled.div`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  color: ${({ theme }) => theme.secondary};
-  background-color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.body};
 `

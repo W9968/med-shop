@@ -50,6 +50,7 @@ export default _404
 const Wrapper = styled.div`
   top: 0;
   left: 0;
+  z-index: 11;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -57,7 +58,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.body};
 
   @media (max-width: 600px) {
     justify-content: flex-start;
@@ -96,15 +97,14 @@ const Button = styled(NavLink)`
   margin: 1rem 0rem;
   align-items: center;
   flex-direction: row;
-  border-radius: 12px;
   justify-content: center;
   padding: 0.8225rem 3rem;
-  color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.third};
+  color: ${({ theme }) => theme.body};
+  background-color: ${({ theme }) => theme.text};
 
   &:hover {
-    color: ${({ theme }) => theme.primary};
-    background-color: ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.body};
+    background-color: ${({ theme }) => theme.text};
   }
 `
 const Icon = styled(BiArrowBack)`

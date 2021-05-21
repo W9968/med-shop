@@ -46,10 +46,10 @@ const Linker = styled(NavLink)`
   font-weight: 600;
   font-size: 1.125rem;
   letter-spacing: 1px;
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.text};
 
   &:hover {
-    color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.text};
     background-color: ${({ theme }) => theme.hover};
   }
 `

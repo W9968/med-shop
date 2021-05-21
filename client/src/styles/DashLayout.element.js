@@ -11,12 +11,12 @@ export const Wrapper = styled.div`
   align-items: stretch;
   justify-content: space-between;
   position: absolute;
-  background-color: ${({ theme }) => theme.fourth};
+  background-color: ${({ theme }) => theme.body};
 `
 
 export const Sider = styled.aside`
-  color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.hover};
 `
 
 export const SubSide = styled.aside`
@@ -38,5 +38,5 @@ export const Content = styled.main`
   align-items: flex-start;
   justify-content: center;
   overflow-y: auto;
-  background-color: ${({ theme }) => theme.fourth};
+  background-color: ${({ theme }) => theme.body};
 `

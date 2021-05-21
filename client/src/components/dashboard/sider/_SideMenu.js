@@ -63,7 +63,7 @@ const Brand = styled.div`
   padding: 1.125rem;
   flex-direction: row;
   align-items: center;
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.hover};
 `
 
 const Link = styled.p`
@@ -71,5 +71,5 @@ const Link = styled.p`
   font-size: 1.5rem;
   margin-bottom: 1rem;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.text};
 `

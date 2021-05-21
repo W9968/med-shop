@@ -252,11 +252,10 @@ const Input = styled.input`
   padding: 10px;
   font-size: 1rem;
   margin: 1rem 0rem;
-  border-radius: 5px;
   letter-spacing: 0.78px;
   background: transparent;
-  color: ${({ theme }) => theme.secondary};
-  background-color: ${({ theme }) => theme.fourth};
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.hover};
 `
 
 const Table = styled.table`
@@ -272,7 +271,7 @@ const TableHead = styled.thead`
 const TableBody = styled.tbody``
 
 const TableRow = styled.tr`
-  border-bottom: 1px solid ${({ theme }) => theme.fourth};
+  border-bottom: 1px solid ${({ theme }) => theme.hover};
 `
 
 const TableCell = styled.td`
@@ -294,17 +293,17 @@ const Button = styled.button`
   border-radius: 8px;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.third};
+  color: ${({ theme }) => theme.body};
+  background-color: ${({ theme }) => theme.sameHover};
 `
 
 const Select = styled.select`
   border: none;
   padding: 5px;
-  background-color: ${({ theme }) => theme.button};
+  background-color: ${({ theme }) => theme.body};
 
   .option {
-    background-color: ${({ theme }) => theme.darkhover};
+    background-color: ${({ theme }) => theme.body};
   }
 `
 
@@ -333,13 +332,13 @@ const Last = styled(BiChevronsRight)`
 const LinkerExcel = styled(CSVLink)`
   border: none;
   display: flex;
-  padding: 8px 12px;
+  padding: 10px 12px;
   border-radius: 5px;
   font-size: 0.825rem;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.third};
+  color: ${({ theme }) => theme.body};
+  background-color: ${({ theme }) => theme.text};
 
   &:hover {
     color: ${({ theme }) => theme.primary};
@@ -364,10 +363,10 @@ const Delete = styled.button`
   border-radius: 10px;
   justify-content: center;
   color: ${({ theme }) => theme.error};
-  background-color: ${({ theme }) => theme.fourth};
+  background-color: ${({ theme }) => theme.hover};
 
   &:hover {
-    color: ${({ theme }) => theme.fourth};
+    color: ${({ theme }) => theme.body};
     background-color: ${({ theme }) => theme.error};
   }
 `
@@ -383,11 +382,11 @@ const Edit = styled(NavLink)`
   align-items: center;
   border-radius: 10px;
   justify-content: center;
-  color: ${({ theme }) => theme.third};
-  background-color: ${({ theme }) => theme.fourth};
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.hover};
 
   &:hover {
-    color: ${({ theme }) => theme.fourth};
-    background-color: ${({ theme }) => theme.third};
+    color: ${({ theme }) => theme.body};
+    background-color: ${({ theme }) => theme.text};
   }
 `

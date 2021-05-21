@@ -15,5 +15,5 @@ export default Logo
 const Brand = styled(NavLink)`
   font-size: 1.5rem;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.text};
 `

@@ -86,4 +86,7 @@ export default FooterLogo
 
 const Svg = styled.svg`
   width: 150px;
+  .cls-1 {
+    color: red;
+  }
 `

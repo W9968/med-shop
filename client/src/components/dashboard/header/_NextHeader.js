@@ -43,4 +43,16 @@ const Container = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  .ant-breadcrumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: ${({ theme }) => theme.hover};
+  }
+
+  .ant-breadcrumb-separator,
+  .ant-breadcrumb-link {
+    color: ${({ theme }) => theme.text};
+  }
 `

@@ -204,11 +204,11 @@ const Button = styled(AccordionButton)`
   font-weight: 600;
   background: none;
   padding: 15px 10px;
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.text};
 
   &:hover {
-    color: ${({ theme }) => theme.primary};
-    background: ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+    background: ${({ theme }) => theme.body};
   }
 `
 
@@ -216,7 +216,7 @@ const Panel = styled(AccordionPanel)`
   padding: 5px;
   display: flex;
   flex-direction: column;
-  border-left: 5px solid ${({ theme }) => theme.third};
+  border-left: 5px solid ${({ theme }) => theme.text};
 `
 
 const Linker = styled(NavLink)``
@@ -226,11 +226,10 @@ const Line = styled.p`
   font-size: 1rem;
   padding: 13px 10px;
   align-items: center;
-
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.text};
 
   &:hover {
-    color: ${({ theme }) => theme.primary};
-    background: ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+    background: ${({ theme }) => theme.body};
   }
 `

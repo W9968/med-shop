@@ -35,16 +35,11 @@ const Container = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  color: ${({ theme }) => theme.secondary};
-  background-color: ${({ theme }) => theme.fourth};
-
-  @media (max-width: 1366px) {
-    color: ${({ theme }) => theme.secondary};
-    background-color: ${({ theme }) => theme.fourth};
-  }
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.body};
 
   .iconSider {
     font-size: 1.5rem;
-    color: ${({ theme }) => theme.secondary};
+    color: ${({ theme }) => theme.text};
   }
 `

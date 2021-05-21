@@ -1,13 +1,19 @@
-export const theme = {
-  primary: '#fcfffd',
-  secondary: '#444444',
-  third: '#5865f2',
-  fourth: '#f3f6f9',
-  fifth: '#0b0e11',
+export const lightTheme = {
+  text: '#111111',
+  body: '#ffffff',
+  hover: '#efefef',
+  sameHover: '#424242',
+  select: '#1bffcd',
+  correct: '#00C9A7',
+  error: '#db3069',
+}
 
-  hover: '#707bf4',
-  darkhover: '#efefef',
-  lighthover: '#151a21',
+export const darkTheme = {
+  text: '#ffffff',
+  body: '#111111',
+  hover: '#232323',
+  sameHover: '#dddddd',
+  select: '#1bffcd',
   correct: '#00C9A7',
   error: '#db3069',
 }
