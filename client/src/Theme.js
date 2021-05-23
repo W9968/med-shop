@@ -6,6 +6,7 @@ export const lightTheme = {
   select: '#1bffcd',
   correct: '#00C9A7',
   error: '#db3069',
+  same: '#111',
 }
 
 export const darkTheme = {
@@ -16,4 +17,5 @@ export const darkTheme = {
   select: '#1bffcd',
   correct: '#00C9A7',
   error: '#db3069',
+  same: '#111',
 }

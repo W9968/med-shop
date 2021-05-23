@@ -1,33 +1,38 @@
-import React, { useMemo, useEffect } from 'react'
-import { useCrud } from '../../../global/exports'
+import React, { useEffect, useMemo } from 'react'
+import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import {
   ContentLoader,
   DataTable,
   ContentHeader,
-  AddBrand,
-  EditBrand,
+  AddAttri,
+  EditAttri,
 } from '../../../components/imports'
-import { Switch, Route, useRouteMatch } from 'react-router-dom'
+import { useCrud } from '../../../global/exports'
 
-const _Brands = () => {
+const _Attributes = () => {
   const { path } = useRouteMatch()
   const { socket, loadData, loading } = useCrud()
 
   const column = useMemo(
     () => [
       { Header: 'id', accessor: 'id' },
-      { Header: 'tag', accessor: 'tag' },
+      { Header: 'category', accessor: 'category' },
+      { Header: 'attributes', accessor: 'attributes' },
     ],
     []
   )
 
   useEffect(() => {
-    loadData('brands')
+    loadData('attributes')
   }, []) // eslint-disable-line
 
   return (
     <>
-      <ContentHeader header='brands list' path='brands' boolState={true} />
+      <ContentHeader
+        header='attributes list'
+        path='attributes'
+        boolState={true}
+      />
       <Switch>
         <Route exact path={path}>
           {loading ? (
@@ -36,20 +41,20 @@ const _Brands = () => {
             <DataTable
               columns={column}
               data={socket}
-              filename='BrandCSV'
-              path='brands'
+              filename='attributeCSV'
+              path='attributes'
             />
           )}
         </Route>
         <Route path={`${path}/add`}>
-          <AddBrand />
+          <AddAttri />
         </Route>
         <Route path={`${path}/edit/:id`}>
-          <EditBrand />
+          <EditAttri />
         </Route>
       </Switch>
     </>
   )
 }
 
-export default _Brands
+export default _Attributes

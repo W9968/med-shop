@@ -28,7 +28,7 @@ const DashMenu = ({ size }) => {
 
   const CatalogItem = [
     { name: 'Products', path: '/dash/products' },
-    { name: 'Attributes', path: '/dash' },
+    { name: 'Attributes', path: '/dash/attributes' },
     { name: 'Brands', path: '/dash/brands' },
     { name: 'Discount', path: '/dash/discount' },
     { name: 'Stocks', path: '/dash/stocks' },
@@ -76,7 +76,7 @@ const DashMenu = ({ size }) => {
           <Panel pb={4}>
             {OrderItem.map((value, id) => {
               return (
-                <Linker key={id} to={value.path}>
+                <Linker key={`order-${id}`} to={value.path}>
                   <Line>{value.name}</Line>
                 </Linker>
               )
@@ -108,7 +108,7 @@ const DashMenu = ({ size }) => {
           <Panel pb={4}>
             {CatalogItem.map((value, id) => {
               return (
-                <Linker key={id} to={value.path}>
+                <Linker key={`catalog-${id}`} to={`${value.path}`}>
                   <Line>{value.name}</Line>
                 </Linker>
               )

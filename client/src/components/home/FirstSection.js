@@ -61,6 +61,7 @@ const Text = styled.h1`
   z-index: 2;
   position: absolute;
   transform: translate(0%, 0%);
+  color: ${({ theme }) => theme.same};
 
   @media (max-width: 550px) {
     font-size: 7vw;

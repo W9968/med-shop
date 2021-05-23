@@ -11,6 +11,7 @@ import {
   Stocks,
   Discount,
   Brands,
+  Attributes,
   // orders
   Orders,
   Inovices,
@@ -51,6 +52,7 @@ const _Content = ({ route }) => {
           <ProtectedRoute path={`${route}/products`} component={Products} />
           <ProtectedRoute path={`${route}/stocks`} component={Stocks} />
           <ProtectedRoute path={`${route}/brands`} component={Brands} />
+          <ProtectedRoute path={`${route}/attributes`} component={Attributes} />
           <ProtectedRoute path={`${route}/discount`} component={Discount} />
           <ProtectedRoute path={`${route}/blogs`} component={Blogs} />
           <ProtectedRoute path={`${route}/users`} component={Users} />

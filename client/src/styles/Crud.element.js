@@ -4,12 +4,6 @@ import Select from 'react-select'
 
 export const Wrapper = styled.div`
   padding: 1rem;
-
-  .filepond--drop-label {
-    border-radius: 12px;
-    color: ${({ theme }) => theme.secondary};
-    background-color: ${({ theme }) => theme.fourth};
-  }
 `
 
 export const Div = styled.div`
@@ -35,12 +29,12 @@ export const Input = styled.input`
   padding: 15px;
   display: flex;
   outline: none;
-  border-radius: 12px;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   background-color: transparent;
-  background-color: ${({ theme }) => theme.fourth};
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.hover};
 `
 export const TextArea = styled.textarea`
   width: 100%;
@@ -54,13 +48,13 @@ export const TextArea = styled.textarea`
   flex-direction: column;
   justify-content: center;
   background-color: transparent;
-  background-color: ${({ theme }) => theme.fourth};
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.hover};
 `
 
 export const Label = styled.p`
   font-size: 1rem;
-  padding-top: 0.625rem;
-  padding-left: 0.625rem;
+  padding-top: 1rem;
   text-transform: capitalize;
 `
 
@@ -69,29 +63,21 @@ export const Button = styled.button`
   outline: none;
   cursor: pointer;
   padding: 8px 12px;
-  border-radius: 5px;
   font-size: 1.125rem;
   color: ${({ theme }) => theme.primary};
   background-color: ${({ theme }) => theme.third};
 
   &:hover {
-    color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.text};
     background-color: ${({ theme }) => theme.hover};
   }
 `
 export const Linker = styled(NavLink)`
   padding: 8px 12px;
   margin-right: 1rem;
-  border-radius: 5px;
   font-size: 1.125rem;
   color: ${({ theme }) => theme.third};
   background-color: ${({ theme }) => theme.fourth};
 `
 
-export const StyledSelect = styled(Select)`
-  width: 100%;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  background: ${({ theme }) => theme.fourth}; ;
-`
+export const StyledSelect = styled(Select)``

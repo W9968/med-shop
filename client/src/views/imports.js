@@ -24,6 +24,7 @@ export { default as Brands } from './admin/Catalog/_Brands'
 export { default as Discount } from './admin/Catalog/_Discount'
 export { default as Products } from './admin/Catalog/_Products'
 export { default as Stocks } from './admin/Catalog/_Stocks'
+export { default as Attributes } from './admin/Catalog/_Attributes'
 
 export { default as Orders } from './admin/Orders/_Orders'
 export { default as Inovices } from './admin/Orders/_Inovice'

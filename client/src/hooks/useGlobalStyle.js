@@ -33,7 +33,6 @@ export const GlobalStyle = createGlobalStyle`
 
   p{
     font-size: 1.122rem;
-    color: ${({ theme }) => theme.text};
   }
 
   ::selection {

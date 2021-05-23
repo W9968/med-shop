@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AttributeController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\ProductController;
@@ -7,10 +8,7 @@ use App\Http\Controllers\Api\ReturnPolicyController;
 use App\Http\Controllers\Api\StockController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AuditsController;
-use App\Models\Product;
-// use App\Models\Brand;
-// use App\Models\User;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +26,13 @@ use Illuminate\Support\Facades\Route;
 
 // user routes
 Route::get('/customer', [UserController::class, 'index']);
+
+// attributes routes
+Route::get('/attributes', [AttributeController::class, 'index']);
+Route::get('/attributes/{id}', [AttributeController::class, 'show']);
+Route::Post('/attributes', [AttributeController::class, 'store']);
+Route::put('/attributes/{id}', [AttributeController::class, 'update']);
+Route::delete('/attributes/{id}', [AttributeController::class, 'destroy']);
 
 // product routes
 Route::get('/products', [ProductController::class, 'index']);
