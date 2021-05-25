@@ -58,18 +58,22 @@ Route::get('/blogs/{id}', [BlogController::class, 'show']);
 Route::post('/blogs', [BlogController::class, 'store']);
 Route::delete('/blogs/{id}', [BlogController::class, 'destroy']);
 
-// get current user
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// return policy 
+Route::get('returnpolicy', [ReturnPolicyController::class, 'show']);
+Route::put('returnpolicy', [ReturnPolicyController::class, 'update']);
 
 // get audit lgos
 Route::get('/logs', [AuditsController::class, 'showAdminLogs']);
 Route::get('/logs/customer', [AuditsController::class, 'showCustomerLogs']);
 
-// return policy 
-Route::get('returnpolicy', [ReturnPolicyController::class, 'show']);
-Route::put('returnpolicy', [ReturnPolicyController::class, 'update']);
+// get current user
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+
+
+
 
 // check if route is verified to pass
 Auth::routes(['verify' => true]);

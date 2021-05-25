@@ -33,10 +33,12 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'description' => 'required',
+            'category' => 'required',
+            'attribute' => 'required',
             'stocks' => 'required|numeric'
         ]);
 
-        $product = Product::create($request->only('name','price','description', 'tag'));
+        $product = Product::create($request->only('name','price','description', 'tag', 'category', 'attribute'));
         $product->stocks()->create([
             'quantity' => $request->stocks,
             'product' => $product->id
@@ -63,7 +65,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return Product::with('images')->find($id);
+        return Product::with('images', 'stocks')->find($id);
     }
 
     /**

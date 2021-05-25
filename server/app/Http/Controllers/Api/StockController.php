@@ -16,7 +16,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        return Product::with('stocks')->get();
+        return Stock::all();
     }
 
     /**
@@ -28,8 +28,9 @@ class StockController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $stocks = Stock::find($id);
-        $stocks->update($request->all());
+        $stocks = Product::find($id);
+        $stocks->stocks->quantity = $request->quantity;
+        $stocks->push();
         return $stocks;
     }
 

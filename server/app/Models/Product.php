@@ -18,7 +18,7 @@ class Product extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['name','price','description', 'tag'];
+    protected $fillable = ['name','price','description', 'tag', 'category', 'attribute'];
 
     /**
      * Get all of the images for the Product
