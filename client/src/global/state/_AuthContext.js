@@ -102,7 +102,40 @@ export default function _AuthProvider({ children }) {
       .catch(() => {
         setMessage({
           type: 'error',
-          content: 'It seems ther was an error with our servers',
+          content: 'It seems there was an error with our servers',
+        })
+      })
+  }
+
+  // resend verification email
+  const resentVerificationMail = async () => {
+    return await useApi
+      .get('/sanctum/csrf-cookie')
+      .then((response) => {
+        if (response.status === 204) {
+          useApi
+            .post('api/email/resend', {
+              email: currentUser.email,
+            })
+            .then((response) => {
+              if (response.status === 202) {
+                setMessage({
+                  type: 'success',
+                  content: 'message sent',
+                })
+              } else {
+                setMessage({
+                  type: '',
+                  content: '',
+                })
+              }
+            })
+        }
+      })
+      .catch(() => {
+        setMessage({
+          type: 'error',
+          content: 'it seems there was an error wiht our serves',
         })
       })
   }
@@ -216,6 +249,7 @@ export default function _AuthProvider({ children }) {
         register,
         emailReset,
         passwordReset,
+        resentVerificationMail,
         setMessage,
       }}>
       {authStateChange ? children : <ThreeDotSpinner />}

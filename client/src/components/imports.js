@@ -19,6 +19,8 @@ export { default as SecondSection } from './home/SecondSection'
 export { default as ThirdSection } from './home/ThirdSection'
 export { default as LastSection } from './home/LastSection'
 
+export { default as ProfileHeader } from './profile/Hero'
+
 export { default as AddBlog } from './dashboard/crud/blogs/_AddBlog'
 export { default as EditBlog } from './dashboard/crud/blogs/_EditBlog'
 

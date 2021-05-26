@@ -18,7 +18,7 @@ const MobileDrawer = () => {
               {currentUser.name}
             </ConntectedUser>
             <List>
-              <Linker to='/profiles'>
+              <Linker to='/profile'>
                 <BiUser className='navIcon' />
                 Profile
               </Linker>
