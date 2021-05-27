@@ -16,6 +16,7 @@ class CreateReturnPoliciesTable extends Migration
         Schema::create('return_policies', function (Blueprint $table) {
             $table->id();
             $table->boolean('retun_policy')->default(0);
+            $table->integer('duration');
             $table->timestamps();
         });
     }

@@ -15,7 +15,18 @@ class ReturnPolicyController extends Controller
      */
     public function show()
     {
-        return ReturnPolicy::find(1);
+        return ReturnPolicy::all();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        return ReturnPolicy::create($request->all());
     }
 
     /**
@@ -25,11 +36,11 @@ class ReturnPolicyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $returnPolicy = ReturnPolicy::find(1);
-        $returnPolicy -> update($request-> all());
-        return $returnPolicy; 
+        $returnpolicy = ReturnPolicy::find($id);
+        $returnpolicy -> update($request-> all());
+        return $returnpolicy; 
     }
 
 }

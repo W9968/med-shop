@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
 import Select from 'react-select'
+import CheckBox from 'antd/lib/checkbox'
+import 'antd/lib/checkbox/style/index.css'
 
 export const Wrapper = styled.div`
   padding: 1rem;
@@ -81,3 +83,27 @@ export const Linker = styled(NavLink)`
 `
 
 export const StyledSelect = styled(Select)``
+
+export const Checkbox = styled(CheckBox)`
+  color: ${({ theme }) => theme.text};
+
+  .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+  .ant-checkbox:hover .ant-checkbox-inner,
+  .ant-checkbox-input:focus + .ant-checkbox-inner {
+    border: 2px solid ${({ theme }) => theme.text} !important;
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner,
+  .ant-checkbox-indeterminate .ant-checkbox-inner {
+    border: 2px solid #1bba79;
+    background-color: ${({ theme }) => theme.text};
+  }
+
+  .ant-checkbox {
+    .ant-checkbox-inner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid ${({ theme }) => theme.text};
+    }
+  }
+`

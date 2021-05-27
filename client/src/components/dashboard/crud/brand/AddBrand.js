@@ -1,8 +1,16 @@
 import React, { useState } from 'react'
-import { NavLink, useHistory } from 'react-router-dom'
-import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 import { useCrud } from '../../../../global/exports'
-import { Input } from '../../../../styles/Form.element'
+
+import {
+  Wrapper,
+  InputGroup,
+  Input,
+  Div,
+  Label,
+  Button,
+  Linker,
+} from '../../../../styles/Crud.element'
 
 const AddBrand = () => {
   const history = useHistory()
@@ -24,7 +32,7 @@ const AddBrand = () => {
       <Wrapper>
         <p style={{ marginBottom: '1rem' }}>{message}</p>
         <InputGroup>
-          <Label>product name</Label>
+          <Label>Brand name</Label>
           <Input
             type='text'
             placeholder='text'
@@ -41,62 +49,3 @@ const AddBrand = () => {
 }
 
 export default AddBrand
-
-const Wrapper = styled.div`
-  padding: 1rem;
-`
-
-const Div = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  @media (max-width: 400px) {
-    justify-content: space-between;
-  }
-`
-
-const InputGroup = styled.div`
-  width: 100%;
-  display: flex;
-  padding: 0px 15px;
-  margin-bottom: 1rem;
-  align-items: center;
-  flex-direction: row;
-  border-radius: 12px;
-
-  background-color: ${({ theme }) => theme.fourth};
-
-  @media (max-width: 400px) {
-    width: 100%;
-  }
-`
-
-const Label = styled.p`
-  font-size: 1rem;
-  padding: 0.625rem;
-  text-transform: capitalize;
-`
-
-const Button = styled.button`
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 5px;
-  font-size: 1.125rem;
-  color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.third};
-
-  &:hover {
-    color: ${({ theme }) => theme.primary};
-    background-color: ${({ theme }) => theme.hover};
-  }
-`
-const Linker = styled(NavLink)`
-  padding: 8px 12px;
-  margin-right: 1rem;
-  border-radius: 5px;
-  font-size: 1.125rem;
-  color: ${({ theme }) => theme.third};
-  background-color: ${({ theme }) => theme.fourth};
-`

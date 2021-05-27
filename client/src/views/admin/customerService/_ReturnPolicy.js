@@ -1,48 +1,107 @@
-import React, { useEffect } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react'
 import { useCrud } from '../../../global/exports'
-import { ContentHeader } from '../../../components/imports'
-import Switch from 'antd/lib/switch'
-import 'antd/lib/switch/style/index.css'
+import { ContentHeader, ContentLoader } from '../../../components/imports'
+import {
+  Wrapper,
+  InputGroup,
+  Label,
+  Input,
+  Checkbox,
+  Div,
+  Button,
+} from '../../../styles/Crud.element'
 
 const _ReturnPolicy = () => {
-  const { loadData, socket, loading } = useCrud()
-  const [state, setState] = React.useState(socket.retun_policy)
-
-  const handleSwitchChange = (checked) => {
-    setState(checked)
-  }
-
   useEffect(() => {
     loadData('returnpolicy')
   }, []) // eslint-disable-line
+
+  const [period, setPeriod] = useState()
+  const { updateData, storeData, loadData, socket, loading } = useCrud()
+  const [checkes, setChecks] = useState(
+    ...socket.map((val) => val.retun_policy)
+  )
 
   return (
     <>
       <ContentHeader header='Return policy' boolState={false} />
       <Wrapper>
-        <Parag>
-          by changing this, all product will have a return policy for certain
-          amount of time you can define later
-        </Parag>
-        {!loading && (
-          <Div>
-            <p
-              style={{
-                padding: '0rem 0.425rem',
-                color: state === '1' ? 'gray' : 'blue',
-              }}>
-              enabled
-            </p>
-            <Switch defaultChecked={state} onChange={handleSwitchChange} />
-            <p
-              style={{
-                padding: '0rem 0.425rem',
-                color: state === '0' ? 'gray' : 'blue',
-              }}>
-              disabled
-            </p>
-          </Div>
+        {socket.length === 0 ? (
+          <>
+            <InputGroup>
+              <Checkbox onChange={(e) => setChecks(e.target.checked)}>
+                <p>status: Enabled</p>
+              </Checkbox>
+            </InputGroup>
+            <InputGroup>
+              <Label>set period</Label>
+              <Input
+                type='number'
+                placeholder='set a period of time'
+                onChange={(e) => setPeriod(e.target.value)}
+              />
+            </InputGroup>
+            <Div>
+              <Button
+                onClick={() => {
+                  storeData('returnpolicy', {
+                    retun_policy: checkes,
+                    duration: period,
+                  })
+                }}>
+                create
+              </Button>
+            </Div>
+          </>
+        ) : loading ? (
+          <ContentLoader />
+        ) : (
+          <>
+            <InputGroup>
+              <Checkbox
+                defaultChecked={checkes}
+                onChange={(e) => setChecks(e.target.checked)}>
+                <p>status: {checkes ? 'Enabled' : 'Disabled'}</p>
+              </Checkbox>
+            </InputGroup>
+            <InputGroup>
+              <Label>set period</Label>
+              <Input
+                type='number'
+                placeholder='set a period of time'
+                defaultValue={socket.map((val) => val.duration)}
+                onChange={(e) => setPeriod(e.target.value)}
+              />
+            </InputGroup>
+            <Div>
+              <Button
+                onClick={() => {
+                  updateData('returnpolicy', 1, {
+                    retun_policy: checkes,
+                    duration: period,
+                  })
+                }}>
+                update
+              </Button>
+            </Div>
+            <div style={{ margin: '1rem 0rem', padding: '1rem' }}>
+              {socket.map((value) => {
+                return value.retun_policy ? (
+                  <>
+                    <p style={{ listStyle: 'none' }}>
+                      Return policy is set to <>{value.duration}</> days
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p style={{ listStyle: 'none' }}>
+                      Return policy is disabled
+                    </p>
+                  </>
+                )
+              })}
+            </div>
+          </>
         )}
       </Wrapper>
     </>
@@ -50,21 +109,3 @@ const _ReturnPolicy = () => {
 }
 
 export default _ReturnPolicy
-
-const Wrapper = styled.div`
-  display: flex;
-  padding: 1rem;
-  align-items: flex-start;
-  flex-direction: column;
-`
-
-const Div = styled.div`
-  display: flex;
-  margin: 0rem auto;
-  flex-direction: row;
-`
-
-const Parag = styled.p`
-  font-size: 1.125rem;
-  margin-bottom: 1rem;
-`

@@ -59,8 +59,9 @@ Route::post('/blogs', [BlogController::class, 'store']);
 Route::delete('/blogs/{id}', [BlogController::class, 'destroy']);
 
 // return policy 
-Route::get('returnpolicy', [ReturnPolicyController::class, 'show']);
-Route::put('returnpolicy', [ReturnPolicyController::class, 'update']);
+Route::get('/returnpolicy', [ReturnPolicyController::class, 'show']);
+Route::post('/returnpolicy', [ReturnPolicyController::class, 'store']);
+Route::put('/returnpolicy/{id}', [ReturnPolicyController::class, 'update']);
 
 // get audit lgos
 Route::get('/logs', [AuditsController::class, 'showAdminLogs']);
