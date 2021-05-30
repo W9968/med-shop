@@ -70,7 +70,7 @@ const _Stocks = () => {
                       })
                       message.success(`${value.name} stock has been updated`, 1)
                     }}>
-                    updated
+                    update
                   </button>
                 </div>
               </InputGroup>

@@ -31,7 +31,6 @@ const Button = styled.button`
   font-size: 1.125rem;
   align-items: center;
   flex-direction: row;
-  border-radius: 12px;
   padding: 0.7rem 2rem;
   text-decoration: none;
   transition: 0.3s ease-in-out;
@@ -55,7 +54,6 @@ const Link = styled(NavLink)`
   font-size: 1.125rem;
   align-items: center;
   flex-direction: row;
-  border-radius: 12px;
   padding: 0.7rem 2rem;
   text-decoration: none;
   transition: 0.3s ease-in-out;

@@ -1,19 +1,15 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import styled from 'styled-components'
+import { IconLogo } from '../../imports'
 
-const Logo = ({ brand, goTo }) => {
+const Logo = ({ goTo }) => {
   return (
     <>
-      <Brand to={goTo}>{brand}</Brand>
+      <NavLink to={goTo}>
+        <IconLogo />
+      </NavLink>
     </>
   )
 }
 
 export default Logo
-
-const Brand = styled(NavLink)`
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.text};
-`

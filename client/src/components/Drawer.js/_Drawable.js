@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Drawer from 'antd/lib/drawer'
 import 'antd/lib/drawer/style/index.css'
 
-const Drawable = ({ icon, children, footer }) => {
+const Drawable = ({ icon, children, footer, direction }) => {
   const [visible, setVisible] = useState(false)
 
   const FooterStyle = {
@@ -25,7 +25,7 @@ const Drawable = ({ icon, children, footer }) => {
       <Drawerr
         width={300}
         height={100}
-        placement='left'
+        placement={direction === 'left' ? 'left' : 'right'}
         onClose={() => setVisible(false)}
         closable={false}
         visible={visible}
@@ -49,7 +49,7 @@ const Button = styled.button`
   display: flex;
   cursor: pointer;
   background: none;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   align-items: center;
   justify-content: center;
   color: ${({ theme }) => theme.text};

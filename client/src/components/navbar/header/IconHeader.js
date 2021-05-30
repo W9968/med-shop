@@ -1,48 +1,33 @@
 import React from 'react'
 import styled from 'styled-components'
 import { NavLink, useRouteMatch } from 'react-router-dom'
-import { BiLogIn, BiCart, BiSearch, BiMenu } from 'react-icons/bi'
-import { useAuth } from '../../../global/exports'
+import { BiCart, BiMenu } from 'react-icons/bi'
 import Drawable from '../../Drawer.js/_Drawable'
 import MobileDrawer from '../mobile/MobileDrawer'
 import Logout from '../../logout/Logout'
 
 const IconHeader = () => {
-  const { logged } = useAuth()
   const path = useRouteMatch()
-
-  const arrayIcon = [
-    { icon: <BiSearch />, path: '/' },
-    { icon: <BiCart />, path: '/checkout' },
-  ]
 
   return (
     <>
       <List>
-        {arrayIcon.map((icon, i) => {
-          return (
-            <Item key={i}>
-              <Link to={icon.path}>{icon.icon}</Link>
-            </Item>
-          )
-        })}
+        <Item>
+          <Link to={path}>
+            <Drawable direction='right' icon={<BiCart />} children={'sdfdf'} />
+          </Link>
+        </Item>
 
         <Item>
           <Link to={path}>
             <Drawable
+              direction='left'
               icon={<BiMenu />}
               children={<MobileDrawer />}
               footer={<Logout />}
             />
           </Link>
         </Item>
-        {!logged && (
-          <Item>
-            <Link to='/login'>
-              <BiLogIn />
-            </Link>
-          </Item>
-        )}
       </List>
     </>
   )
@@ -55,6 +40,7 @@ const List = styled.ul`
   padding: 0;
   display: flex;
   list-style: none;
+  margin: 0rem 0.5rem;
   align-items: center;
   flex-direction: row;
   justify-content: center;
@@ -74,7 +60,7 @@ const Item = styled.li`
 const Link = styled(NavLink)`
   display: flex;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   align-items: center;
   justify-content: center;
   margin: 0rem 0rem 0rem 0.5rem;

@@ -26,7 +26,17 @@ export const SubSide = styled.aside`
   justify-content: stretch;
 `
 
-export const Header = styled.header``
+export const Header = styled.header`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: 500px) {
+    align-items: initial;
+    flex-direction: column-reverse;
+  }
+`
 
 export const SubHeader = styled.header`
   padding: 0.5rem 1.5rem;

@@ -39,22 +39,6 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.text};
     background-color: ${({ theme }) => theme.select}
   }
-  /* width */
-  /* ::-webkit-scrollbar {
-    width: 2px;
-    scrollbar-width: thin
-  } */
-  /* Track */
-  /* ::-webkit-scrollbar-track {
-    background: ${({ theme }) => theme.secondary}
-  } */
- 
-  /* Handle */
-  /* ::-webkit-scrollbar-thumb {
-    border-radius: 12px;
-    filter: contrast(0.75);
-    background: ${({ theme }) => theme.third};
-  } */
 `
 
 export const Wrapper = styled.div`
@@ -64,14 +48,9 @@ export const Wrapper = styled.div`
 `
 
 export const Main = styled.main`
-  width: 1304px;
+  width: 100%;
   display: flex;
-  min-height: 100vh;
-  margin: 0px auto;
-  flex-direction: column;
   background: none;
-
-  @media (max-width: 1304px) {
-    width: 100%;
-  }
+  min-height: 100vh;
+  flex-direction: column;
 `

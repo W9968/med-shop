@@ -1,17 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
-import { BiMenu } from 'react-icons/bi'
+import { BiMenu, BiCart } from 'react-icons/bi'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 
 import Logo from './header/Logo'
 import IconHeader from './header/IconHeader'
-import Icon from './mobile/Icon'
 import Drawable from '../Drawer.js/_Drawable'
 import Logout from '../logout/Logout'
 import MobileDrawer from './mobile/MobileDrawer'
 import Toggle from './header/Toggle'
+import SearchProd from './header/SearchProd'
+import { NavLink } from 'react-router-dom'
+import { useAuth } from '../../global/exports'
 
 const Navbar = ({ mode, modeFunc }) => {
+  const { logged } = useAuth()
+
   return (
     <>
       <Container>
@@ -19,19 +23,33 @@ const Navbar = ({ mode, modeFunc }) => {
           <>
             <Drawable
               icon={<BiMenu />}
+              direction='left'
               children={<MobileDrawer />}
               footer={<Logout />}
               themed={mode}
             />
-            <Logo brand='MedEpoir' goTo='/' />
-            <Icon />
+            <Logo goTo='/' />
+            <Drawable
+              icon={<BiCart />}
+              direction='right'
+              children={'dgf'}
+              themed={mode}
+            />
           </>
         ) : (
           <>
-            <Logo brand='MedEpoir' goTo='/' />
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Toggle theme={mode} toggleTheme={modeFunc} />
+              <Logo goTo='/' />
+              {!logged && (
+                <NavLink style={{ margin: '0rem 1rem' }} to='login'>
+                  login
+                </NavLink>
+              )}
+            </div>
+            <SearchProd />
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <IconHeader />
+              <Toggle theme={mode} toggleTheme={modeFunc} />
             </div>
           </>
         )}

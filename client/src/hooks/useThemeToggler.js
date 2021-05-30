@@ -5,7 +5,7 @@ export const useThemeToggler = () => {
   const [componentMounted, setComponentMounted] = useState(false)
 
   const setMode = (mode) => {
-    sessionStorage.setItem('mode', mode)
+    localStorage.setItem('mode', mode)
     setTheme(mode)
   }
 
@@ -14,7 +14,7 @@ export const useThemeToggler = () => {
   }
 
   useEffect(() => {
-    const localTheme = sessionStorage.getItem('mode')
+    const localTheme = localStorage.getItem('mode')
     localTheme ? setTheme(localTheme) : setMode('light')
     setComponentMounted(true)
   }, []) // eslint-disable-line

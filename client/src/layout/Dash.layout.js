@@ -29,11 +29,11 @@ const Dashlayout = () => {
         )}
         <SubSide>
           <Header>
+            <SubHeader>
+              <NextHeader />
+            </SubHeader>
             <TopHeader />
           </Header>
-          <SubHeader>
-            <NextHeader />
-          </SubHeader>
           <Content>
             <ContentSection route={path} />
           </Content>

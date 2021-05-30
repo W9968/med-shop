@@ -87,6 +87,7 @@ const AddProduct = () => {
     formData.append('stocks', stocks)
     formData.append('category', categories)
     formData.append('attribute', att)
+    formData.append('discounts', 0)
 
     for (let i = 0; i < images.length; i++) {
       formData.append('images[]', images[i])
@@ -107,6 +108,7 @@ const AddProduct = () => {
             <Input
               type='text'
               name='name'
+              placeholder='product name'
               onChange={(e) => setName(e.target.value)}
             />
           </InputGroup>
@@ -115,6 +117,7 @@ const AddProduct = () => {
             <Input
               type='number'
               name='price'
+              placeholder='product price'
               onChange={(e) => setPrice(e.target.value)}
             />
           </InputGroup>
@@ -122,6 +125,7 @@ const AddProduct = () => {
             <Label>description</Label>
             <TextArea
               name='description'
+              placeholder='product description'
               onChange={(e) => setDescription(e.target.value)}
             />
           </InputGroup>
@@ -140,6 +144,7 @@ const AddProduct = () => {
             <Input
               type='number'
               name='stocks'
+              placeholder='product stokcs'
               onChange={(e) => setStocks(e.target.value)}
             />
           </InputGroup>

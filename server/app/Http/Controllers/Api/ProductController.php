@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use Illuminate\Contracts\Validation\Validator;
+use App\Models\ReturnPolicy;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class ProductController extends Controller
 {
@@ -17,8 +16,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //return Product::with('images')->with('stocks')->get();
-        return Product::with('images', 'stocks')->get();
+        if(ReturnPolicy::all()->isEmpty()) {
+            ReturnPolicy::create([
+                'return_policy' => 0,
+                'duration' => '0'
+            ]);
+        } 
+        //return Product::with('images', 'stocks', 'discounts')->crossJoin('return_policies')->get();
+        return Product::with('stocks', 'discounts', 'images')->get();
     }
 
     /**
@@ -35,13 +40,20 @@ class ProductController extends Controller
             'description' => 'required',
             'category' => 'required',
             'attribute' => 'required',
-            'stocks' => 'required|numeric'
+            'stocks' => 'required|numeric',
+            'discounts' => 'required|numeric'
         ]);
 
         $product = Product::create($request->only('name','price','description', 'tag', 'category', 'attribute'));
+        
         $product->stocks()->create([
             'quantity' => $request->stocks,
-            'product' => $product->id
+            'product_id' => $product->id
+        ]);
+
+        $product->discounts()->create([
+            'discount' => $request->discounts,
+            'product_id' => $product->id
         ]);
 
         if($request->hasFile('images'))
@@ -65,7 +77,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return Product::with('images', 'stocks')->find($id);
+        return Product::with('images', 'stocks', 'discounts')->find($id);
     }
 
     /**

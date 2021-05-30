@@ -39,4 +39,14 @@ class Product extends Model implements Auditable
     {
         return $this->hasOne(Stock::class,'product_id', 'id');
     }
+
+    /**
+     * Get the discount associated with the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function discounts(): HasOne
+    {
+        return $this->hasOne(Discount::class, 'product_id', 'id');
+    }
 }

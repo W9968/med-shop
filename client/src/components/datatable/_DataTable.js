@@ -140,7 +140,7 @@ const _DataTable = ({ columns, data, filename, path }) => {
               <TableRow {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column, key) => (
                   <TableCell
-                    key={`tab-${key}`}
+                    key={`tabc-${key}`}
                     {...column.getHeaderProps(column.getSortByToggleProps())}>
                     <div
                       style={{
@@ -169,10 +169,10 @@ const _DataTable = ({ columns, data, filename, path }) => {
             {page.map((row, key) => {
               prepareRow(row)
               return (
-                <TableRow key={`tab-${key}`} {...row.getRowProps()}>
+                <TableRow key={`tabb-${key}`} {...row.getRowProps()}>
                   {row.cells.map((cell, key) => {
                     return (
-                      <TableCell key={`tab-${key}`} {...cell.getCellProps()}>
+                      <TableCell key={`tabcc-${key}`} {...cell.getCellProps()}>
                         {cell.render('Cell')}
                       </TableCell>
                     )
@@ -235,8 +235,8 @@ const _DataTable = ({ columns, data, filename, path }) => {
 export default _DataTable
 
 const TableContainer = styled.div`
+  width: inherit;
   display: flex;
-  margin: 0rem 1rem;
   flex-direction: column;
   overflow-x: auto;
 

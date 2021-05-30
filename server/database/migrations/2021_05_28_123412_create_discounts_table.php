@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReturnPoliciesTable extends Migration
+class CreateDiscountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateReturnPoliciesTable extends Migration
      */
     public function up()
     {
-        Schema::create('return_policies', function (Blueprint $table) {
+        Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->boolean('return_policy')->default(0);
-            $table->integer('duration')->default(0);
+            $table->integer('discount')->default('0');
             $table->timestamps();
+            $table->foreignId('product_id')->constrained('products')->onUpdata('cascade')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ class CreateReturnPoliciesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('return_policies');
+        Schema::dropIfExists('discounts');
     }
 }

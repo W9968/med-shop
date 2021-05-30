@@ -19,7 +19,7 @@ const _ReturnPolicy = () => {
   const [period, setPeriod] = useState()
   const { updateData, storeData, loadData, socket, loading } = useCrud()
   const [checkes, setChecks] = useState(
-    ...socket.map((val) => val.retun_policy)
+    ...socket.map((val) => val.return_policy)
   )
 
   return (
@@ -45,7 +45,7 @@ const _ReturnPolicy = () => {
               <Button
                 onClick={() => {
                   storeData('returnpolicy', {
-                    retun_policy: checkes,
+                    return_policy: checkes,
                     duration: period,
                   })
                 }}>
@@ -77,7 +77,7 @@ const _ReturnPolicy = () => {
               <Button
                 onClick={() => {
                   updateData('returnpolicy', 1, {
-                    retun_policy: checkes,
+                    return_policy: checkes,
                     duration: period,
                   })
                 }}>
@@ -86,7 +86,7 @@ const _ReturnPolicy = () => {
             </Div>
             <div style={{ margin: '1rem 0rem', padding: '1rem' }}>
               {socket.map((value) => {
-                return value.retun_policy ? (
+                return value.return_policy ? (
                   <>
                     <p style={{ listStyle: 'none' }}>
                       Return policy is set to <>{value.duration}</> days

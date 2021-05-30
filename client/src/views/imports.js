@@ -3,6 +3,7 @@ export { default as Home } from './pages/_Home'
 export { default as Dash } from './pages/_Dashboard'
 export { default as Profile } from './pages/_Profile'
 export { default as Checkout } from './pages/_Checkout'
+export { default as SingleProduct } from './pages/_ProductShow'
 
 export { default as PlanTicket } from './delta/_PlanTicked'
 export { default as Organic } from './delta/_Organic'

@@ -63,7 +63,7 @@ const Container = styled.div`
 
     blockquote {
       padding-left: 1rem;
-      border-left: 2px solid ${({ theme }) => theme.secondary};
+      border-left: 2px solid ${({ theme }) => theme.text};
     }
 
     hr {
