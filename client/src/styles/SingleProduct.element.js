@@ -61,6 +61,7 @@ export const Col = styled.div`
 
 export const Images = styled.img`
   height: 3rem;
+  cursor: pointer;
   margin-right: 5px;
 `
 

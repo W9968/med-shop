@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useCrud, useCart } from '../../global/exports.js'
+import { useCrud, CartContext } from '../../global/exports.js'
 import ContentLoader from '../spinner/ContentLoader'
 import { motion as m } from 'framer-motion'
 import axios from 'axios'
@@ -20,11 +20,24 @@ import {
 } from '../../styles/SingleProduct.element'
 
 const PreviewProduct = () => {
+  // set states
   const [thumbnail, setThumbnail] = useState(0)
   const [returnState, setReturnState] = useState({})
+  //define product that will be saved into storage
+  const [product, setProduct] = useState({
+    id: '',
+    name: '',
+    price: null,
+    category: '',
+    attribute: '',
+    image: '',
+    returnpolicy: '',
+  })
+  // grab context value and functions
   const { showOneData, oneResponse } = useCrud()
-  const { subscribe } = useCart()
+  const { addProduct, cartItems, increase } = React.useContext(CartContext)
 
+  // fetch return policy and one product
   useEffect(() => {
     axios.defaults.withCredentials = true
     axios.get('http://localhost:8000/api/returnpolicy').then((response) => {
@@ -34,7 +47,23 @@ const PreviewProduct = () => {
     })
 
     showOneData('products', 6)
-  }, []) // eslint-disable-line
+    /* set prodyct for the storage since ShowoOneData in run in the context value will be present first after the component render so we test if it not empty by transforming it's keys to array so we don't encounter the {`could not found 0`} */
+    Object.keys(oneResponse).length !== 0 &&
+      setProduct({
+        id: oneResponse.id,
+        name: oneResponse.name,
+        price: oneResponse.price,
+        category: oneResponse.category,
+        attribute: oneResponse.attribute,
+        image: `http://localhost:8000/storage/products/${oneResponse.images[0].file_path}`,
+        returnpolicy: returnState.return_policy,
+      })
+  }, [oneResponse]) // eslint-disable-line
+
+  // check if product is in cart
+  const isInCart = (product) => {
+    return !!cartItems.find((item) => item.id === product.id)
+  }
 
   return (
     <>
@@ -106,17 +135,13 @@ const PreviewProduct = () => {
               <Tag>{oneResponse.tag}</Tag>
               {JSON.stringify(returnState)}
             </div>
-            <AddToCart
-              onClick={() =>
-                subscribe(
-                  oneResponse.name,
-                  oneResponse.price,
-                  oneResponse.category,
-                  oneResponse.attribute,
-                  returnState.return_policy
-                )
-              }
-            />
+
+            {isInCart(product) && (
+              <AddToCart onClick={() => increase(product)} />
+            )}
+            {!isInCart(product) && (
+              <AddToCart onClick={() => addProduct(product)} />
+            )}
           </Col>
         </Row>
       )}

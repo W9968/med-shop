@@ -1,35 +1,57 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useReducer } from 'react'
+import { CartReducer, sumItems } from '../store/CartReducer'
 
-const CartContext = React.createContext()
+export const CartContext = React.createContext()
 
-export function useCart() {
-  return useContext(CartContext)
+export function useCart() {}
+
+const storage = localStorage.getItem('cart')
+  ? JSON.parse(localStorage.getItem('cart'))
+  : []
+const initialState = {
+  cartItems: storage,
+  ...sumItems(storage),
+  checkout: false,
 }
 
 export default function _CartContext({ children }) {
-  const [quantity, setQuantity] = useState(1)
-  const [carts, setCarts] = useState(JSON.parse(localStorage.getItem('cart')))
+  const [state, dispatch] = useReducer(CartReducer, initialState)
 
-  const subscribe = (name, price, category, attribute, returnpolicy) => {
-    const item = {
-      name: name,
-      price: price,
-      category: category,
-      attribute: attribute,
-      return: returnpolicy,
-      quantity: quantity,
-    }
-    if (carts === null) {
-      localStorage.setItem('cart', JSON.stringify([item]))
-    } else {
-      console.log(carts)
-    }
+  const increase = (payload) => {
+    dispatch({ type: 'INCREASE', payload })
+  }
+
+  const decrease = (payload) => {
+    dispatch({ type: 'DECREASE', payload })
+  }
+
+  const addProduct = (payload) => {
+    dispatch({ type: 'ADD_ITEM', payload })
+  }
+
+  const removeProduct = (payload) => {
+    dispatch({ type: 'REMOVE_ITEM', payload })
+  }
+
+  const clearCart = () => {
+    dispatch({ type: 'CLEAR' })
+  }
+
+  const handleCheckout = () => {
+    console.log('CHECKOUT', state)
+    dispatch({ type: 'CHECKOUT' })
   }
 
   return (
     <CartContext.Provider
       value={{
-        subscribe,
+        removeProduct,
+        addProduct,
+        increase,
+        decrease,
+        clearCart,
+        handleCheckout,
+        ...state,
       }}>
       {children}
     </CartContext.Provider>
