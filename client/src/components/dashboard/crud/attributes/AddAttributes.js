@@ -25,7 +25,7 @@ const AddAttributes = () => {
 
   const CustemStyles = {
     singleValue: () => ({
-      color: sessionStorage.getItem('mode') === 'light' ? '#232323' : '#efefef',
+      color: localStorage.getItem('mode') === 'light' ? '#232323' : '#efefef',
     }),
 
     container: (provided) => ({
@@ -37,25 +37,25 @@ const AddAttributes = () => {
       display: 'flex',
       padding: '5px',
       background:
-        sessionStorage.getItem('mode') === 'light' ? '#efefef' : '#232323',
+        localStorage.getItem('mode') === 'light' ? '#efefef' : '#232323',
     }),
 
     menu: (provided, state) => ({
       ...provided,
       color: state.isSelected && 'red',
       background:
-        sessionStorage.getItem('mode') === 'light' ? '#efefef' : '#232323',
+        localStorage.getItem('mode') === 'light' ? '#efefef' : '#232323',
     }),
 
     option: (provided, state) => ({
       ...provided,
-      color: sessionStorage.getItem('mode') === 'light' ? '#232323' : '#efefef',
+      color: localStorage.getItem('mode') === 'light' ? '#232323' : '#efefef',
       background:
         state.isSelected &&
-        (sessionStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111'),
+        (localStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111'),
       '&:hover': {
         background:
-          sessionStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111',
+          localStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111',
       },
     }),
   }

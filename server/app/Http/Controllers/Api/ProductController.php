@@ -41,7 +41,7 @@ class ProductController extends Controller
             'category' => 'required',
             'attribute' => 'required',
             'stocks' => 'required|numeric',
-            'discounts' => 'required|numeric'
+            //'discounts' => 'required|numeric'
         ]);
 
         $product = Product::create($request->only('name','price','description', 'tag', 'category', 'attribute'));
@@ -52,7 +52,7 @@ class ProductController extends Controller
         ]);
 
         $product->discounts()->create([
-            'discount' => $request->discounts,
+            //'discount' => $request->discounts,
             'product_id' => $product->id
         ]);
 
@@ -66,7 +66,16 @@ class ProductController extends Controller
                     'file_path'  => $file->hashName()
                 ]);
             }
-        }    
+        }
+
+        // if ($request->discounts >= 10) {
+        //     foreach(DB::table('users')->where('role', '=', 0)->get() as $recipient )
+        //     {
+        //         Mail::to($recipient)->send(new NewProductNotifications());
+        //     }
+        // }
+
+        
     }
 
     /**

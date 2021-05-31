@@ -9,14 +9,14 @@ const Drawable = ({ icon, children, footer, direction }) => {
   const FooterStyle = {
     border: 'none',
     backgroundColor:
-      sessionStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111',
+      localStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111',
   }
 
   const DrawerStyle = {
-    color: sessionStorage.getItem('mode') === 'light' ? '#111111' : '#ffffff',
+    color: localStorage.getItem('mode') === 'light' ? '#111111' : '#ffffff',
     overflowY: 'auto',
     backgroundColor:
-      sessionStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111',
+      localStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111',
   }
 
   return (

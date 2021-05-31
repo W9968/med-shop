@@ -18,6 +18,7 @@ const AddProduct = () => {
   const [description, setDescription] = useState('')
   const [tag, setTag] = useState('')
   const [stocks, setStocks] = useState()
+  const [discount, setDiscount] = useState(0)
   const [images, setImages] = useState([])
   const [fetchedBrand, setFetchedBrand] = useState([])
 
@@ -42,7 +43,7 @@ const AddProduct = () => {
 
   const CustemStyles = {
     singleValue: () => ({
-      color: sessionStorage.getItem('mode') === 'light' ? '#232323' : '#efefef',
+      color: localStorage.getItem('mode') === 'light' ? '#232323' : '#efefef',
     }),
 
     container: (provided) => ({
@@ -54,25 +55,25 @@ const AddProduct = () => {
       display: 'flex',
       padding: '5px',
       background:
-        sessionStorage.getItem('mode') === 'light' ? '#efefef' : '#232323',
+        localStorage.getItem('mode') === 'light' ? '#efefef' : '#232323',
     }),
 
     menu: (provided, state) => ({
       ...provided,
       color: state.isSelected && 'red',
       background:
-        sessionStorage.getItem('mode') === 'light' ? '#efefef' : '#232323',
+        localStorage.getItem('mode') === 'light' ? '#efefef' : '#232323',
     }),
 
     option: (provided, state) => ({
       ...provided,
-      color: sessionStorage.getItem('mode') === 'light' ? '#232323' : '#efefef',
+      color: localStorage.getItem('mode') === 'light' ? '#232323' : '#efefef',
       background:
         state.isSelected &&
-        (sessionStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111'),
+        (localStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111'),
       '&:hover': {
         background:
-          sessionStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111',
+          localStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111',
       },
     }),
   }
@@ -87,7 +88,7 @@ const AddProduct = () => {
     formData.append('stocks', stocks)
     formData.append('category', categories)
     formData.append('attribute', att)
-    formData.append('discounts', 0)
+    formData.append('discounts', discount)
 
     for (let i = 0; i < images.length; i++) {
       formData.append('images[]', images[i])
@@ -192,6 +193,18 @@ const AddProduct = () => {
               </Label>
             )}
           </InputGroup>
+
+          <InputGroup>
+            <Label>discounts</Label>
+            <Input
+              type='number'
+              name='discounts'
+              placeholder='product discounts'
+              defaultValue={discount}
+              onChange={(e) => setDiscount(e.target.value)}
+            />
+          </InputGroup>
+
           <InputGroup>
             <Label>images</Label>
             <Input

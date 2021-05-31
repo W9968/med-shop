@@ -107,3 +107,12 @@ export const Checkbox = styled(CheckBox)`
     }
   }
 `
+
+export const Table = styled.div``
+
+export const ProductContainer = styled.div`
+  display: flex;
+  padding: 15px;
+  align-items: center;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+`

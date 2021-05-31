@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components'
 import { useThemeToggler } from './hooks/useThemeToggler'
 import { GlobalStyle, Wrapper, Main } from './hooks/useGlobalStyle'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Nav, Footer } from './components/imports'
+import { Nav, Footer, CockiesBanner } from './components/imports'
 import {
   P404,
   Home,
@@ -41,6 +41,7 @@ function App() {
           <GlobalStyle />
           <Wrapper>
             <Main>
+              <CockiesBanner />
               <AuthProvider>
                 <CrudProvider>
                   <CartProvider>

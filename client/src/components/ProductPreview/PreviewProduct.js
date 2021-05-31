@@ -126,7 +126,7 @@ const PreviewProduct = () => {
                 <Attribute>{oneResponse.attribute}</Attribute>
               </div>
               <Description>{oneResponse.description}</Description>
-              {oneResponse.discounts.discount !== 0 && (
+              {oneResponse.discounts.discount !== null && (
                 <Discount>
                   Get {oneResponse.discounts.discount}% discounts for the
                   product

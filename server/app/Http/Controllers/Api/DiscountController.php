@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Discount;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class DiscountController extends Controller
@@ -15,29 +16,7 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        return Discount::all();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return Product::with('stocks', 'discounts', 'images')->get();
     }
 
     /**
@@ -49,17 +28,10 @@ class DiscountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $discount = Product::find($id);
+        $discount->discounts->discount = $request->discount;
+        $discount->push();
+        return $discount;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

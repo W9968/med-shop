@@ -5,8 +5,8 @@ export const CartContext = React.createContext()
 
 export function useCart() {}
 
-const storage = localStorage.getItem('cart')
-  ? JSON.parse(localStorage.getItem('cart'))
+const storage = localStorage.getItem('shop-cart')
+  ? JSON.parse(localStorage.getItem('shop-cart'))
   : []
 const initialState = {
   cartItems: storage,

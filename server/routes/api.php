@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AttributeController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\DiscountController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ReturnPolicyController;
 use App\Http\Controllers\Api\StockController;
@@ -44,6 +45,10 @@ Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 // stock routes
 Route::get('/stocks', [StockController::class, 'index']);
 Route::put('/stocks/{id}', [StockController::class, 'update']);
+
+// discount routes
+Route::get('/discount', [DiscountController::class, 'index']);
+Route::put('/discount/{id}', [DiscountController::class, 'update']);
 
 // brand routes
 Route::get('/brands', [BrandController::class, 'index']);

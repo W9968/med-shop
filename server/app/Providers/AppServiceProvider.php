@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\ReturnPolicy;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Lang;
