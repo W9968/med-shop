@@ -18,7 +18,6 @@ const AddProduct = () => {
   const [description, setDescription] = useState('')
   const [tag, setTag] = useState('')
   const [stocks, setStocks] = useState()
-  const [discount, setDiscount] = useState(0)
   const [images, setImages] = useState([])
   const [fetchedBrand, setFetchedBrand] = useState([])
 
@@ -88,7 +87,6 @@ const AddProduct = () => {
     formData.append('stocks', stocks)
     formData.append('category', categories)
     formData.append('attribute', att)
-    formData.append('discounts', discount)
 
     for (let i = 0; i < images.length; i++) {
       formData.append('images[]', images[i])
@@ -195,17 +193,6 @@ const AddProduct = () => {
           </InputGroup>
 
           <InputGroup>
-            <Label>discounts</Label>
-            <Input
-              type='number'
-              name='discounts'
-              placeholder='product discounts'
-              defaultValue={discount}
-              onChange={(e) => setDiscount(e.target.value)}
-            />
-          </InputGroup>
-
-          <InputGroup>
             <Label>images</Label>
             <Input
               multiple
@@ -220,9 +207,6 @@ const AddProduct = () => {
             <Button type='submit'>Add</Button>
           </Div>
         </form>
-
-        {categories}
-        {att}
       </Wrapper>
     </>
   )

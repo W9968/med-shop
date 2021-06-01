@@ -5,6 +5,7 @@ export { default as ContentLoader } from './spinner/ContentLoader'
 export { default as Nav } from './navbar/_Navbar'
 export { default as Footer } from './footer/_Footer'
 export { default as DataTable } from './datatable/_DataTable'
+export { default as OnlyEditTable } from './datatable/_OnlyEditTable'
 export { default as CockiesBanner } from './acceptCockiesBanner/_BannerAccept'
 
 export { default as SideMenu } from './dashboard/sider/_SideMenu'
@@ -33,6 +34,8 @@ export { default as EditProduct } from './dashboard/crud/products/EditProduct'
 
 export { default as AddAttri } from './dashboard/crud/attributes/AddAttributes'
 export { default as EditAttri } from './dashboard/crud/attributes/EditAttributes'
+
+export { default as EditDiscount } from './dashboard/crud/discount/EditDiscount'
 
 export { default as IconLogo } from './logo/_HeaderLogo'
 export { default as TextLogo } from './logo/_BigLogo'

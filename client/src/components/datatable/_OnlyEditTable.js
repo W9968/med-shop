@@ -1,16 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { CSVLink } from 'react-csv'
-
 import {
-  BiChevronDown,
-  BiChevronUp,
-  BiSort,
   BiChevronLeft,
   BiChevronsLeft,
   BiChevronRight,
   BiChevronsRight,
-  BiFileBlank,
 } from 'react-icons/bi'
 import {
   useTable,
@@ -19,9 +13,8 @@ import {
   useGlobalFilter,
   useAsyncDebounce,
 } from 'react-table'
-import { useMediaQuery } from '../../hooks/useMediaQuery'
-import { useCrud } from '../../global/exports'
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
+
+import { AiOutlineEdit } from 'react-icons/ai'
 import { NavLink } from 'react-router-dom'
 
 // Define a default UI for filtering
@@ -50,8 +43,7 @@ function GlobalFilter({
   )
 }
 
-const _DataTable = ({ columns, data, filename, path }) => {
-  const { deleteData } = useCrud()
+const _OnlyEditTable = ({ columns, data, filename, path }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -86,20 +78,11 @@ const _DataTable = ({ columns, data, filename, path }) => {
         ...columns,
         {
           id: 'Action',
+          width: 35,
           Cell: ({ row }) => (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-              <Edit to={`/dash/${path}/edit/${row.values.id}`}>
-                <AiOutlineEdit />
-              </Edit>
-              <Delete onClick={() => deleteData(path, row.values.id)}>
-                <AiOutlineDelete />
-              </Delete>
-            </div>
+            <Edit to={`/dash/${path}/edit/${row.values.id}`}>
+              <AiOutlineEdit />
+            </Edit>
           ),
         },
       ])
@@ -108,32 +91,13 @@ const _DataTable = ({ columns, data, filename, path }) => {
 
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
-        <div
-          style={{
-            flex: 1,
-          }}>
-          <GlobalFilter
-            preGlobalFilteredRows={preGlobalFilteredRows}
-            globalFilter={state.globalFilter}
-            setGlobalFilter={setGlobalFilter}
-          />
-        </div>
-        {/* file name make the file unreadable */}
-        <LinkerExcel data={data} filename={filename} target={'_blank'}>
-          {!useMediaQuery(500) && (
-            <span style={{ marginRight: '5px' }}>Export</span>
-          )}
-
-          <File />
-        </LinkerExcel>
-      </div>
       <TableContainer>
+        <GlobalFilter
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          globalFilter={state.globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
+
         <Table className='table' {...getTableProps()}>
           <TableHead>
             {headerGroups.map((headerGroup) => (
@@ -142,24 +106,7 @@ const _DataTable = ({ columns, data, filename, path }) => {
                   <TableCell
                     key={`tabc-${key}`}
                     {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                        justifyContent: 'flex-start',
-                      }}>
-                      {column.render('Header')}
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <Down />
-                        ) : (
-                          <Up />
-                        )
-                      ) : (
-                        <SortIcon />
-                      )}
-                    </div>
+                    {column.render('Header')}
                   </TableCell>
                 ))}
               </TableRow>
@@ -232,16 +179,15 @@ const _DataTable = ({ columns, data, filename, path }) => {
   )
 }
 
-export default _DataTable
+export default _OnlyEditTable
 
 const TableContainer = styled.div`
   display: flex;
-  overflow-y: auto;
   flex-direction: column;
 `
 
 const Input = styled.input`
-  width: 95%;
+  width: 100%;
   border: none;
   outline: none;
   padding: 10px;
@@ -254,8 +200,10 @@ const Input = styled.input`
 `
 
 const Table = styled.table`
+  width: 100%;
   border-collapse: collapse;
   table-layout: inherit;
+  overflow-x: auto;
 `
 const TableHead = styled.thead`
   font-size: 1rem;
@@ -302,15 +250,6 @@ const Select = styled.select`
   }
 `
 
-const Up = styled(BiChevronUp)`
-  font-size: 1.125rem;
-`
-const Down = styled(BiChevronDown)`
-  font-size: 1.125rem;
-`
-const SortIcon = styled(BiSort)`
-  font-size: 1.125rem;
-`
 const Left = styled(BiChevronLeft)`
   font-size: 1.5rem;
 `
@@ -322,48 +261,6 @@ const First = styled(BiChevronsLeft)`
 `
 const Last = styled(BiChevronsRight)`
   font-size: 1.5rem;
-`
-
-const LinkerExcel = styled(CSVLink)`
-  border: none;
-  display: flex;
-  padding: 10px 12px;
-  border-radius: 5px;
-  font-size: 0.825rem;
-  align-items: center;
-  justify-content: center;
-  color: ${({ theme }) => theme.body};
-  background-color: ${({ theme }) => theme.text};
-
-  &:hover {
-    color: ${({ theme }) => theme.primary};
-    background-color: ${({ theme }) => theme.hover};
-  }
-`
-
-const File = styled(BiFileBlank)`
-  font-size: 1.125rem;
-`
-
-const Delete = styled.button`
-  margin: 0;
-
-  padding: 5px;
-  border: none;
-  outline: none;
-  display: flex;
-  cursor: pointer;
-  font-size: 1.5rem;
-  align-items: center;
-  border-radius: 10px;
-  justify-content: center;
-  color: ${({ theme }) => theme.error};
-  background-color: ${({ theme }) => theme.hover};
-
-  &:hover {
-    color: ${({ theme }) => theme.body};
-    background-color: ${({ theme }) => theme.error};
-  }
 `
 
 const Edit = styled(NavLink)`

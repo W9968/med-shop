@@ -48,6 +48,7 @@ Route::put('/stocks/{id}', [StockController::class, 'update']);
 
 // discount routes
 Route::get('/discount', [DiscountController::class, 'index']);
+Route::get('/discount/{id}', [DiscountController::class, 'show']);
 Route::put('/discount/{id}', [DiscountController::class, 'update']);
 
 // brand routes
@@ -65,7 +66,6 @@ Route::delete('/blogs/{id}', [BlogController::class, 'destroy']);
 
 // return policy 
 Route::get('/returnpolicy', [ReturnPolicyController::class, 'show']);
-Route::post('/returnpolicy', [ReturnPolicyController::class, 'store']);
 Route::put('/returnpolicy/{id}', [ReturnPolicyController::class, 'update']);
 
 // get audit lgos

@@ -19,8 +19,6 @@ export default _ContentHeader
 
 const Wrapper = styled.div`
   display: flex;
-
-  padding: 0rem 1rem;
   margin-bottom: 1rem;
   flex-direction: row;
   align-items: center;

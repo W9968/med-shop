@@ -14,7 +14,7 @@ const _Stocks = () => {
   const { socket, loadData, loading } = useCrud()
 
   useEffect(() => {
-    loadData('products')
+    loadData('stocks')
   }, []) // eslint-disable-line
 
   return (

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Discount;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -16,7 +15,18 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        return Product::with('stocks', 'discounts', 'images')->get();
+        return Product::with('discounts', 'images')->get();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return Product::with('images', 'discounts')->find($id);
     }
 
     /**

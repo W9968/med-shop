@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
@@ -16,7 +15,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        return Stock::all();
+        return Product::with('stocks', 'images')->get();
     }
 
     /**
@@ -32,16 +31,5 @@ class StockController extends Controller
         $stocks->stocks->quantity = $request->quantity;
         $stocks->push();
         return $stocks;
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        Stock::destroy($id);
     }
 }

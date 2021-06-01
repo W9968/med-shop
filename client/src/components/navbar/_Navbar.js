@@ -71,4 +71,5 @@ const Container = styled.div`
   justify-content: space-between;
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.body};
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `

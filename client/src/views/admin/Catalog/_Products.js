@@ -30,8 +30,6 @@ const _Products = () => {
     loadData('products')
   }, []) // eslint-disable-line
 
-  console.log(socket)
-
   return (
     <>
       <ContentHeader
