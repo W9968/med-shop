@@ -39,6 +39,23 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.text};
     background-color: ${({ theme }) => theme.select}
   }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.hover};
+  }
+ 
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    filter: contrast(0.75);
+    background: ${({ theme }) => theme.text};
+  }
 `
 
 export const Wrapper = styled.div`

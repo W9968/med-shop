@@ -1,6 +1,7 @@
 export { default as Loader } from './spinner/Spinner'
 export { default as ThreeDotSpinner } from './spinner/ScreenLoading'
 export { default as ContentLoader } from './spinner/ContentLoader'
+export { default as SkeletonLoader } from './spinner/Skeleton'
 
 export { default as Nav } from './navbar/_Navbar'
 export { default as Footer } from './footer/_Footer'
