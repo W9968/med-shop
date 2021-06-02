@@ -5,10 +5,13 @@ import styled from 'styled-components'
 import { BiSearch } from 'react-icons/bi'
 import { motion as m } from 'framer-motion'
 import Skeleton from '../../spinner/Skeleton'
+import { useHistory } from 'react-router-dom'
 
 const SearchProd = () => {
+  const history = useHistory()
   const [searchInput, setSearchInput] = useState('')
   const [payload, setPayload] = useState([])
+
   useEffect(() => {
     axios.get('http://localhost:8000/api/products').then((response) => {
       response.status && setPayload(response.data)
@@ -23,7 +26,7 @@ const SearchProd = () => {
             type='text'
             autoComplete='no'
             placeholder='search for products...'
-            onBlur={() => setSearchInput('')}
+            //onBlur={() => setSearchInput('')}
             onChange={(e) => setSearchInput(e.target.value.toLowerCase())}
           />
           <BiSearch style={{ fontSize: '1.2rem' }} />
@@ -63,7 +66,12 @@ const SearchProd = () => {
                     <ProductView
                       key={val.id}
                       initial={{ opacity: 0, y: '-30%' }}
-                      animate={{ opacity: 1, y: '0%' }}>
+                      animate={{ opacity: 1, y: '0%' }}
+                      onClick={() =>
+                        history.push(
+                          `/product/${val.id}/${val.category}/${val.name}`
+                        )
+                      }>
                       <div>
                         <img
                           width='100px'
@@ -128,6 +136,7 @@ const SearchContainer = styled(m.div)`
   flex-direction: column;
   transform: translateY(-0%);
   background-color: ${({ theme }) => theme.body};
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `
 
 const ProductView = styled(m.div)`

@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../../global/exports'
 
 import Menu from '../header/menu/Menu'
-import SearchProd from '../header/SearchProd'
 import { BiCustomize, BiHeart, BiUser } from 'react-icons/bi'
 
 const MobileDrawer = () => {
@@ -38,7 +37,6 @@ const MobileDrawer = () => {
             </List>
           </UserWrapper>
         )}
-        <SearchProd />
         <Menu />
       </Container>
     </>

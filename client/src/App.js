@@ -23,7 +23,12 @@ import {
   SingleProduct,
 } from './views/imports'
 
-import { AuthProvider, CrudProvider, CartProvider } from './global/exports'
+import {
+  AuthProvider,
+  CrudProvider,
+  CartProvider,
+  ProdProvider,
+} from './global/exports'
 
 import PrivateRoute from './routes/PrivateRoute'
 import ProtectedRoute from './routes/ProtectedRoute'
@@ -44,42 +49,47 @@ function App() {
               <CockiesBanner />
               <AuthProvider>
                 <CrudProvider>
-                  <CartProvider>
-                    <Router>
-                      <Nav mode={theme} modeFunc={toggleTheme} />
-                      <Switch>
-                        <Route
-                          path='/product/:id/:type/:name'
-                          component={SingleProduct}
-                        />
-                        <Route path='/others' component={OtherDomains} />
-                        <Route path='/cosmetic' component={Cosmetic} />
-                        <Route
-                          path='/beautyproduct'
-                          component={BeautyProduct}
-                        />
-                        <Route path='/organic' component={Organic} />
-                        <Route path='/planticket' component={PlanTicket} />
-                        <Route path='/checkout' component={Checkout} />
+                  <ProdProvider>
+                    <CartProvider>
+                      <Router>
+                        <Nav mode={theme} modeFunc={toggleTheme} />
+                        <Switch>
+                          <Route
+                            path='/product/:id/:type/:name'
+                            component={SingleProduct}
+                          />
+                          <Route path='/others' component={OtherDomains} />
+                          <Route path='/cosmetic' component={Cosmetic} />
+                          <Route
+                            path='/beautyproduct'
+                            component={BeautyProduct}
+                          />
+                          <Route path='/organic' component={Organic} />
+                          <Route path='/planticket' component={PlanTicket} />
+                          <Route path='/checkout' component={Checkout} />
 
-                        <ProtectedRoute path='/dash' component={Dash} />
-                        <ControlledRoute path='/profile' component={Profile} />
-                        <PrivateRoute
-                          path='/password/reset'
-                          component={ResetPassword}
-                        />
-                        <PrivateRoute
-                          path='/password/mail'
-                          component={SendResetMAil}
-                        />
-                        <PrivateRoute path='/register' component={Register} />
-                        <PrivateRoute path='/login' component={Login} />
-                        <Route exact path='/' component={Home} />
-                        <Route path='*' component={P404} />
-                      </Switch>
-                      <Footer />
-                    </Router>
-                  </CartProvider>
+                          <ProtectedRoute path='/dash' component={Dash} />
+                          <ControlledRoute
+                            path='/profile'
+                            component={Profile}
+                          />
+                          <PrivateRoute
+                            path='/password/reset'
+                            component={ResetPassword}
+                          />
+                          <PrivateRoute
+                            path='/password/mail'
+                            component={SendResetMAil}
+                          />
+                          <PrivateRoute path='/register' component={Register} />
+                          <PrivateRoute path='/login' component={Login} />
+                          <Route exact path='/' component={Home} />
+                          <Route path='*' component={P404} />
+                        </Switch>
+                        <Footer />
+                      </Router>
+                    </CartProvider>
+                  </ProdProvider>
                 </CrudProvider>
               </AuthProvider>
             </Main>

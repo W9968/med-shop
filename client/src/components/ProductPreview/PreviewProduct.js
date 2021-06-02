@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useCrud, CartContext } from '../../global/exports.js'
+import { useProducts, CartContext } from '../../global/exports.js'
 import ContentLoader from '../spinner/ContentLoader'
+import { useParams } from 'react-router-dom'
 import { motion as m } from 'framer-motion'
 import axios from 'axios'
 import {
@@ -22,6 +23,7 @@ import {
 const PreviewProduct = () => {
   // set states
   const [thumbnail, setThumbnail] = useState(0)
+  const { id } = useParams()
   const [returnState, setReturnState] = useState({})
   //define product that will be saved into storage
   const [product, setProduct] = useState({
@@ -34,7 +36,7 @@ const PreviewProduct = () => {
     returnpolicy: '',
   })
   // grab context value and functions
-  const { showOneData, oneResponse } = useCrud()
+  const { productPreview, getPreviewetProduct } = useProducts()
   const { addProduct, cartItems, increase } = React.useContext(CartContext)
 
   // fetch return policy and one product
@@ -45,20 +47,19 @@ const PreviewProduct = () => {
         setReturnState(...response.data)
       }
     })
+    getPreviewetProduct(id)
 
-    showOneData('products', 6)
-    /* set prodyct for the storage since ShowoOneData in run in the context value will be present first after the component render so we test if it not empty by transforming it's keys to array so we don't encounter the {`could not found 0`} */
-    Object.keys(oneResponse).length !== 0 &&
+    productPreview !== undefined &&
       setProduct({
-        id: oneResponse.id,
-        name: oneResponse.name,
-        price: oneResponse.price,
-        category: oneResponse.category,
-        attribute: oneResponse.attribute,
-        image: `http://localhost:8000/storage/products/${oneResponse.images[0].file_path}`,
+        id: productPreview.id,
+        name: productPreview.name,
+        price: productPreview.price,
+        category: productPreview.category,
+        attribute: productPreview.attribute,
+        image: `http://localhost:8000/storage/products/${productPreview.images[0].file_path}`,
         returnpolicy: returnState.return_policy,
       })
-  }, [oneResponse]) // eslint-disable-line
+  }, [getPreviewetProduct]) // eslint-disable-line
 
   // check if product is in cart
   const isInCart = (product) => {
@@ -67,7 +68,7 @@ const PreviewProduct = () => {
 
   return (
     <>
-      {Object.keys(oneResponse).length === 0 ? ( // this line converts an object key into array
+      {productPreview === undefined ? (
         <Row style={{ alignItems: 'center', justifyContent: 'center' }}>
           <ContentLoader />
         </Row>
@@ -82,8 +83,8 @@ const PreviewProduct = () => {
                   alignItems: 'flex-start',
                   flexDirection: 'column',
                 }}>
-                <Title>{oneResponse.name}</Title>
-                <Price>{oneResponse.price} Dt</Price>
+                <Title>{productPreview.name}</Title>
+                <Price>{productPreview.price} Dt</Price>
               </span>
 
               <IconBtn>
@@ -96,11 +97,11 @@ const PreviewProduct = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className='image'
-                src={`http://localhost:8000/storage/products/${oneResponse.images[thumbnail].file_path}`}
+                src={`http://localhost:8000/storage/products/${productPreview.images[thumbnail].file_path}`}
                 alt='thumbnail'
               />
               <div className='thumbs'>
-                {oneResponse.images.map((value, key) => {
+                {productPreview.images.map((value, key) => {
                   return (
                     <Images
                       key={key}
@@ -122,18 +123,17 @@ const PreviewProduct = () => {
                 alignItems: 'flex-start',
               }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Category>{oneResponse.category}</Category>
-                <Attribute>{oneResponse.attribute}</Attribute>
+                <Category>{productPreview.category}</Category>
+                <Attribute>{productPreview.attribute}</Attribute>
               </div>
-              <Description>{oneResponse.description}</Description>
-              {oneResponse.discounts.discount !== null && (
+              <Description>{productPreview.description}</Description>
+              {productPreview.discounts.discount !== null && (
                 <Discount>
-                  Get {oneResponse.discounts.discount}% discounts for the
+                  Get {productPreview.discounts.discount}% discounts for the
                   product
                 </Discount>
               )}
-              <Tag>{oneResponse.tag}</Tag>
-              {JSON.stringify(returnState)}
+              <Tag>{productPreview.tag}</Tag>
             </div>
 
             {isInCart(product) && (
