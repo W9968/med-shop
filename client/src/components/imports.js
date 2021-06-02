@@ -37,6 +37,7 @@ export { default as AddAttri } from './dashboard/crud/attributes/AddAttributes'
 export { default as EditAttri } from './dashboard/crud/attributes/EditAttributes'
 
 export { default as EditDiscount } from './dashboard/crud/discount/EditDiscount'
+export { default as EditStocks } from './dashboard/crud/stock/EditStocks'
 
 export { default as IconLogo } from './logo/_HeaderLogo'
 export { default as TextLogo } from './logo/_BigLogo'

@@ -44,6 +44,7 @@ Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
 // stock routes
 Route::get('/stocks', [StockController::class, 'index']);
+Route::get('/stocks/{id}', [StockController::class, 'show']);
 Route::put('/stocks/{id}', [StockController::class, 'update']);
 
 // discount routes

@@ -31,8 +31,7 @@ export default _TopHeader
 
 const Container = styled.div`
   display: flex;
-  padding: 0.5rem;
-  margin: 0rem 1rem;
+  padding: 0.5rem 1rem;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;

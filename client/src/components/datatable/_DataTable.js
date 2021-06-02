@@ -5,7 +5,6 @@ import { CSVLink } from 'react-csv'
 import {
   BiChevronDown,
   BiChevronUp,
-  BiSort,
   BiChevronLeft,
   BiChevronsLeft,
   BiChevronRight,
@@ -91,7 +90,7 @@ const _DataTable = ({ columns, data, filename, path }) => {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between',
+                justifyContent: 'flex-end',
               }}>
               <Edit to={`/dash/${path}/edit/${row.values.id}`}>
                 <AiOutlineEdit />
@@ -110,6 +109,7 @@ const _DataTable = ({ columns, data, filename, path }) => {
     <>
       <div
         style={{
+          width: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -133,6 +133,7 @@ const _DataTable = ({ columns, data, filename, path }) => {
           <File />
         </LinkerExcel>
       </div>
+
       <TableContainer>
         <Table className='table' {...getTableProps()}>
           <TableHead>
@@ -157,7 +158,7 @@ const _DataTable = ({ columns, data, filename, path }) => {
                           <Up />
                         )
                       ) : (
-                        <SortIcon />
+                        ''
                       )}
                     </div>
                   </TableCell>
@@ -219,8 +220,8 @@ const _DataTable = ({ columns, data, filename, path }) => {
               onChange={(e) => {
                 setPageSize(Number(e.target.value))
               }}>
-              {[5, 10, 15, 20].map((pageSize, key) => (
-                <option key={`tab-Page-${key}`} value={pageSize}>
+              {[3, 5, 10, 15].map((pageSize) => (
+                <option key={`tab-Page-${pageSize}`} value={pageSize}>
                   {pageSize}
                 </option>
               ))}
@@ -236,7 +237,7 @@ export default _DataTable
 
 const TableContainer = styled.div`
   display: flex;
-  overflow-y: auto;
+  overflow-x: auto;
   flex-direction: column;
 `
 
@@ -254,14 +255,15 @@ const Input = styled.input`
 `
 
 const Table = styled.table`
+  width: 100%;
   border-collapse: collapse;
   table-layout: inherit;
 `
 const TableHead = styled.thead`
-  font-size: 1rem;
   font-weight: 600;
+  font-size: 1rem;
   letter-spacing: 1px;
-  text-transform: uppercase;
+  text-transform: capitalize;
 `
 const TableBody = styled.tbody``
 
@@ -308,9 +310,7 @@ const Up = styled(BiChevronUp)`
 const Down = styled(BiChevronDown)`
   font-size: 1.125rem;
 `
-const SortIcon = styled(BiSort)`
-  font-size: 1.125rem;
-`
+
 const Left = styled(BiChevronLeft)`
   font-size: 1.5rem;
 `
@@ -367,7 +367,7 @@ const Delete = styled.button`
 `
 
 const Edit = styled(NavLink)`
-  margin: 0;
+  margin: 0 5px;
   padding: 5px;
   border: none;
   outline: none;

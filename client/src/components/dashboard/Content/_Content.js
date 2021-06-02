@@ -66,7 +66,6 @@ const _Content = ({ route }) => {
 export default _Content
 
 const Container = styled.div`
-  padding: 1rem;
   width: 1104px;
   border-radius: 12px;
   background-color: ${({ theme }) => theme.primary};

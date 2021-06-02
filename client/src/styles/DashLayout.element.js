@@ -39,7 +39,7 @@ export const Header = styled.header`
 `
 
 export const SubHeader = styled.header`
-  padding: 0.5rem 1.5rem;
+  padding: 0 1rem;
 `
 export const Content = styled.main`
   flex: 1;

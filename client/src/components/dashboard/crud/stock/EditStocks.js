@@ -13,14 +13,14 @@ import {
   Linker,
 } from '../../../../styles/Crud.element'
 
-const EditDiscount = () => {
+const EditStocks = () => {
   const history = useHistory()
-  const [discount, setDiscount] = useState()
+  const [stock, setStock] = useState()
   const { showOneData, oneResponse, loadData } = useCrud()
   const ides = parseInt(window.location.pathname.split('/')[4])
 
   useEffect(() => {
-    showOneData('discount', ides)
+    showOneData('stocks', ides)
   }, []) // eslint-disable-line
 
   return (
@@ -40,27 +40,23 @@ const EditDiscount = () => {
               <p>{oneResponse.description}</p>
             </div>
           </ProductContainer>
-          <InputGroup key={oneResponse.discounts.discount}>
+          <InputGroup key={oneResponse.stocks.quantity}>
             <Input
               type='number'
-              onChange={(e) => setDiscount(e.target.value)}
-              defaultValue={
-                oneResponse.discounts.discount === null
-                  ? '0'
-                  : oneResponse.discounts.discount
-              }
+              onChange={(e) => setStock(e.target.value)}
+              defaultValue={oneResponse.stocks.quantity}
             />
           </InputGroup>
           <Div>
-            <Linker to='/dash/discount'>cancel</Linker>
+            <Linker to='/dash/stocks'>cancel</Linker>
             <Button
               onClick={() => {
                 axios.defaults.withCredentials = true
                 axios({
                   method: 'put',
-                  url: `http://localhost:8000/api/discount/${oneResponse.id}`,
+                  url: `http://localhost:8000/api/stocks/${oneResponse.id}`,
                   data: qs.stringify({
-                    discount: discount,
+                    quantity: stock,
                   }),
                   headers: {
                     'content-type':
@@ -68,8 +64,8 @@ const EditDiscount = () => {
                   },
                 }).then((response) => {
                   if (response.status === 200) {
-                    loadData('discount')
-                    history.push('/dash/discount')
+                    loadData('stocks')
+                    history.push('/dash/stocks')
                   }
                 })
               }}>
@@ -82,4 +78,4 @@ const EditDiscount = () => {
   )
 }
 
-export default EditDiscount
+export default EditStocks

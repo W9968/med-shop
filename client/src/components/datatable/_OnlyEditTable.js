@@ -80,9 +80,11 @@ const _OnlyEditTable = ({ columns, data, filename, path }) => {
           id: 'Action',
           width: 35,
           Cell: ({ row }) => (
-            <Edit to={`/dash/${path}/edit/${row.values.id}`}>
-              <AiOutlineEdit />
-            </Edit>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Edit to={`/dash/${path}/edit/${row.values.id}`}>
+                <AiOutlineEdit />
+              </Edit>
+            </div>
           ),
         },
       ])
@@ -91,13 +93,12 @@ const _OnlyEditTable = ({ columns, data, filename, path }) => {
 
   return (
     <>
+      <GlobalFilter
+        preGlobalFilteredRows={preGlobalFilteredRows}
+        globalFilter={state.globalFilter}
+        setGlobalFilter={setGlobalFilter}
+      />
       <TableContainer>
-        <GlobalFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          globalFilter={state.globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        />
-
         <Table className='table' {...getTableProps()}>
           <TableHead>
             {headerGroups.map((headerGroup) => (
@@ -183,7 +184,12 @@ export default _OnlyEditTable
 
 const TableContainer = styled.div`
   display: flex;
+  overflow-x: auto;
   flex-direction: column;
+
+  @media (max-width: 500px) {
+    display: block;
+  }
 `
 
 const Input = styled.input`
@@ -203,7 +209,7 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   table-layout: inherit;
-  overflow-x: auto;
+  overflow-y: auto;
 `
 const TableHead = styled.thead`
   font-size: 1rem;
@@ -233,11 +239,11 @@ const Button = styled.button`
   display: flex;
   outline: none;
   cursor: pointer;
+  background: none;
   border-radius: 8px;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => theme.body};
-  background-color: ${({ theme }) => theme.sameHover};
+  color: ${({ theme }) => theme.text};
 `
 
 const Select = styled.select`
