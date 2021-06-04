@@ -43,5 +43,6 @@ export { default as IconLogo } from './logo/_HeaderLogo'
 export { default as TextLogo } from './logo/_BigLogo'
 
 export { default as SingleProductPreview } from './ProductPreview/PreviewProduct'
+export { default as SingleNewsPreview } from './newsPage/SingleNewPreview'
 
 export { default as Cart } from './cart/_Cart'

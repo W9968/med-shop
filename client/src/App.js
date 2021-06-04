@@ -21,6 +21,7 @@ import {
   Cosmetic,
   OtherDomains,
   SingleProduct,
+  NewsAndBlogs,
 } from './views/imports'
 
 import {
@@ -54,6 +55,10 @@ function App() {
                       <Router>
                         <Nav mode={theme} modeFunc={toggleTheme} />
                         <Switch>
+                          <Route
+                            path='/news/:id/:title'
+                            component={NewsAndBlogs}
+                          />
                           <Route
                             path='/product/:id/:type/:name'
                             component={SingleProduct}
