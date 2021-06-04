@@ -11,8 +11,13 @@ import {
   Linker,
   StyledSelect,
 } from '../../../../styles/Crud.element'
+import { useHistory } from 'react-router'
+import { useCrud } from '../../../../global/exports'
 
 const AddProduct = () => {
+  const history = useHistory()
+  const { loadData } = useCrud()
+
   const [name, setName] = useState('')
   const [price, setPrice] = useState()
   const [description, setDescription] = useState('')
@@ -24,6 +29,8 @@ const AddProduct = () => {
   const [categories, setCategories] = useState('')
   const [att, setAtti] = useState('')
   const [attributes, setAttributes] = useState([])
+
+  console.log(images)
 
   useEffect(() => {
     axios.get('http://localhost:8000/api/brands').then((res) => {
@@ -92,12 +99,20 @@ const AddProduct = () => {
       formData.append('images[]', images[i])
     }
     axios.defaults.withCredentials = true
-    axios.post('http://localhost:8000/api/products', formData, {
-      headers: {
-        'CouseApintent-Type': 'multipart/form-data',
-      },
-    })
+    axios
+      .post('http://localhost:8000/api/products', formData, {
+        headers: {
+          'CouseApintent-Type': 'multipart/form-data',
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          loadData('products')
+          history.push('/dash/products')
+        }
+      })
   }
+
   return (
     <>
       <Wrapper>

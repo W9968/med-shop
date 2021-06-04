@@ -16,7 +16,6 @@ const _Blogs = () => {
     () => [
       { Header: 'id', accessor: 'id' },
       { Header: 'title', accessor: 'title' },
-      { Header: 'content', accessor: 'content' },
     ],
     []
   )

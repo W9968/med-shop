@@ -12,6 +12,8 @@ import Toggle from './header/Toggle'
 import SearchProd from './header/SearchProd'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../global/exports'
+import GoCheckoutButton from '../cart/GoCheckoutButton'
+import { Cart } from '../imports'
 
 const Navbar = ({ mode, modeFunc }) => {
   const { logged } = useAuth()
@@ -22,6 +24,7 @@ const Navbar = ({ mode, modeFunc }) => {
         {useMediaQuery(768) ? (
           <>
             <Drawable
+              width={300}
               icon={<BiMenu />}
               direction='left'
               children={<MobileDrawer />}
@@ -30,9 +33,11 @@ const Navbar = ({ mode, modeFunc }) => {
             />
             <Logo goTo='/' />
             <Drawable
+              width={'100%'}
               icon={<BiCart />}
               direction='right'
-              children={'dgf'}
+              children={<Cart />}
+              footer={<GoCheckoutButton />}
               themed={mode}
             />
           </>

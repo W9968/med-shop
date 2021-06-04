@@ -145,8 +145,4 @@ export const AddToCart = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.sameHover};
   }
-
-  &::before {
-    content: 'add to cart';
-  }
 `

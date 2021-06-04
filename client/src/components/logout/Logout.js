@@ -33,6 +33,7 @@ const Button = styled.button`
   flex-direction: row;
   padding: 0.7rem 2rem;
   text-decoration: none;
+  text-transform: capitalize;
   transition: 0.3s ease-in-out;
   justify-content: space-around;
   color: ${({ theme }) => theme.text};

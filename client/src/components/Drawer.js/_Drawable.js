@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Drawer from 'antd/lib/drawer'
 import 'antd/lib/drawer/style/index.css'
+import { AiOutlineClose } from 'react-icons/ai'
 
-const Drawable = ({ icon, children, footer, direction }) => {
+const Drawable = ({ icon, children, footer, direction, width }) => {
   const [visible, setVisible] = useState(false)
 
   const FooterStyle = {
@@ -23,12 +24,13 @@ const Drawable = ({ icon, children, footer, direction }) => {
     <>
       <Button onClick={() => setVisible(true)}>{icon}</Button>
       <Drawerr
-        width={300}
+        width={width}
         height={100}
-        placement={direction === 'left' ? 'left' : 'right'}
+        placement={direction.length === 0 ? 'left' : direction}
         onClose={() => setVisible(false)}
-        closable={false}
+        closable={true}
         visible={visible}
+        closeIcon={<AiOutlineClose className='closedrawze' />}
         footer={footer}
         footerStyle={FooterStyle}
         drawerStyle={DrawerStyle}>
@@ -62,5 +64,11 @@ const Button = styled.button`
 const Drawerr = styled(Drawer)`
   .ant-drawer-body {
     padding: 0 !important;
+  }
+
+  .closedrawze {
+    font-size: 2rem;
+    padding: 5px;
+    color: ${({ theme }) => theme.text};
   }
 `

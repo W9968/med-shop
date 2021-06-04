@@ -83,7 +83,6 @@ const SearchProd = () => {
                       <div style={{ padding: '0 15px' }}>
                         <p style={{ fontWeight: 600 }}>{val.name}</p>
                         <p style={{ fontFamily: 'consolas' }}>{val.price}</p>
-                        <p style={{ fontSize: '1rem' }}>{val.description}</p>
                       </div>
                     </ProductView>
                   )

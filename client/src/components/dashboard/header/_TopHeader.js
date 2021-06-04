@@ -15,6 +15,7 @@ const _TopHeader = () => {
       <Container>
         {useMediaQuery(1366) && (
           <Drawable
+            width={300}
             direction='left'
             children={<DashMenu size={true} />}
             icon={<BiMenuAltRight className='iconSider' />}

@@ -5,6 +5,8 @@ import { BiCart, BiMenu } from 'react-icons/bi'
 import Drawable from '../../Drawer.js/_Drawable'
 import MobileDrawer from '../mobile/MobileDrawer'
 import Logout from '../../logout/Logout'
+import { Cart } from '../../imports'
+import GoCheckoutButton from '../../cart/GoCheckoutButton'
 
 const IconHeader = () => {
   const path = useRouteMatch()
@@ -14,13 +16,20 @@ const IconHeader = () => {
       <List>
         <Item>
           <Link to={path}>
-            <Drawable direction='right' icon={<BiCart />} children={'sdfdf'} />
+            <Drawable
+              width={450}
+              direction='right'
+              icon={<BiCart />}
+              children={<Cart />}
+              footer={<GoCheckoutButton />}
+            />
           </Link>
         </Item>
 
         <Item>
           <Link to={path}>
             <Drawable
+              width={300}
               direction='left'
               icon={<BiMenu />}
               children={<MobileDrawer />}

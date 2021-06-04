@@ -137,10 +137,12 @@ const PreviewProduct = () => {
             </div>
 
             {isInCart(product) && (
-              <AddToCart onClick={() => increase(product)} />
+              <AddToCart onClick={() => increase(product)}>add more</AddToCart>
             )}
             {!isInCart(product) && (
-              <AddToCart onClick={() => addProduct(product)} />
+              <AddToCart onClick={() => addProduct(product)}>
+                add to cart
+              </AddToCart>
             )}
           </Col>
         </Row>
