@@ -1,56 +1,54 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import useApi from '../../../hooks/useApi'
 import styled from 'styled-components'
 
+import { Modal } from '@geist-ui/react'
 import { BiSearch } from 'react-icons/bi'
+import { FiSearch } from 'react-icons/fi'
 import { motion as m } from 'framer-motion'
 import Skeleton from '../../spinner/Skeleton'
 import { useHistory } from 'react-router-dom'
 
-const SearchProd = () => {
+const SearchProd = ({ searchTitle }) => {
   const history = useHistory()
   const [searchInput, setSearchInput] = useState('')
   const [payload, setPayload] = useState([])
+  const [state, setState] = useState(false)
+  const stateHandler = () => setState(true)
+  const closeHandler = () => setState(false)
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/products').then((response) => {
+    useApi.get('/api/products').then((response) => {
       response.status && setPayload(response.data)
     })
   }, [])
 
   return (
     <>
-      <Wrapper>
-        <Div>
-          <Input
-            type='text'
-            autoComplete='no'
-            placeholder='search for products...'
-            //onBlur={() => setSearchInput('')}
-            onChange={(e) => setSearchInput(e.target.value.toLowerCase())}
-          />
-          <BiSearch style={{ fontSize: '1.2rem' }} />
-        </Div>
-        {searchInput.length !== 0 && (
-          <SearchContainer
-            initial={{ height: '0px' }}
-            animate={{ height: 'auto' }}
-            transition={{ type: 'just' }}>
-            {payload.filter((el) => {
-              if (searchInput.length === 0 || searchInput === ' ') {
-                return 0
-              } else {
-                return (
-                  el.name.toLowerCase().includes(searchInput) ||
-                  el.price.toString().includes(searchInput) ||
-                  el.category.toLowerCase().includes(searchInput)
-                )
-              }
-            }).length === 0 ? (
-              <Skeleton />
-            ) : (
-              payload
-                .filter((el) => {
+      <Icon onClick={stateHandler}>
+        {searchTitle}
+        <FiSearch className='icon' />
+      </Icon>
+      <Modal open={state} onClose={closeHandler}>
+        <Modal.Title>Search for products</Modal.Title>
+        <Modal.Content>
+          <Wrapper>
+            <Div>
+              <Input
+                type='text'
+                autoComplete='no'
+                placeholder='search for products...'
+                onBlur={() => setSearchInput('')}
+                onChange={(e) => setSearchInput(e.target.value.toLowerCase())}
+              />
+              <BiSearch style={{ fontSize: '1.2rem' }} />
+            </Div>
+            {searchInput.length !== 0 && (
+              <SearchContainer
+                initial={{ height: '0px' }}
+                animate={{ height: 'auto' }}
+                transition={{ type: 'just' }}>
+                {payload.filter((el) => {
                   if (searchInput.length === 0 || searchInput === ' ') {
                     return 0
                   } else {
@@ -60,37 +58,55 @@ const SearchProd = () => {
                       el.category.toLowerCase().includes(searchInput)
                     )
                   }
-                })
-                .map((val) => {
-                  return (
-                    <ProductView
-                      key={val.id}
-                      initial={{ opacity: 0, y: '-30%' }}
-                      animate={{ opacity: 1, y: '0%' }}
-                      onClick={() =>
-                        history.push(
-                          `/product/${val.id}/${val.category}/${val.name}`
+                }).length === 0 ? (
+                  <Skeleton />
+                ) : (
+                  payload
+                    .filter((el) => {
+                      if (searchInput.length === 0 || searchInput === ' ') {
+                        return 0
+                      } else {
+                        return (
+                          el.name.toLowerCase().includes(searchInput) ||
+                          el.price.toString().includes(searchInput) ||
+                          el.category.toLowerCase().includes(searchInput)
                         )
-                      }>
-                      <div>
-                        <img
-                          width='100px'
-                          height='86px'
-                          src={`http://localhost:8000/storage/products/${val.images[0].file_path}`}
-                          alt={`search-${val.images[0].file_path}`}
-                        />
-                      </div>
-                      <div style={{ padding: '0 15px' }}>
-                        <p style={{ fontWeight: 600 }}>{val.name}</p>
-                        <p style={{ fontFamily: 'consolas' }}>{val.price}</p>
-                      </div>
-                    </ProductView>
-                  )
-                })
+                      }
+                    })
+                    .map((val) => {
+                      return (
+                        <ProductView
+                          key={val.id}
+                          initial={{ opacity: 0, y: '-30%' }}
+                          animate={{ opacity: 1, y: '0%' }}
+                          onClick={() =>
+                            history.push(
+                              `/product/${val.id}/${val.category}/${val.name}`
+                            )
+                          }>
+                          <div>
+                            <img
+                              width='100px'
+                              height='86px'
+                              src={`http://localhost:8000/storage/products/${val.images[0].file_path}`}
+                              alt={`search-${val.images[0].file_path}`}
+                            />
+                          </div>
+                          <div style={{ padding: '0 15px' }}>
+                            <p style={{ fontWeight: 600 }}>{val.name}</p>
+                            <p style={{ fontFamily: 'consolas' }}>
+                              {val.price}
+                            </p>
+                          </div>
+                        </ProductView>
+                      )
+                    })
+                )}
+              </SearchContainer>
             )}
-          </SearchContainer>
-        )}
-      </Wrapper>
+          </Wrapper>
+        </Modal.Content>
+      </Modal>
     </>
   )
 }
@@ -109,6 +125,7 @@ const Wrapper = styled.div`
 
 const Div = styled.div`
   display: flex;
+  width: 100%;
   padding: 0px 10px;
   border-radius: 5px;
   align-items: center;
@@ -126,22 +143,29 @@ const Input = styled.input`
 `
 
 const SearchContainer = styled(m.div)`
-  top: 100%;
   z-index: 10px;
   padding: 10px;
   display: flex;
   width: inherit;
   max-height: 300px;
   overflow-y: auto;
-  position: absolute;
   flex-direction: column;
-  transform: translateY(-0%);
   background-color: ${({ theme }) => theme.body};
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `
 
 const ProductView = styled(m.div)`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+`
+
+const Icon = styled.button`
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: flex;
+  background: none;
+  font-size: 1.7rem;
+  align-items: center;
+  color: ${({ theme }) => theme.text};
 `

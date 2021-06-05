@@ -6,12 +6,11 @@ const Spinner = () => {
   return (
     <>
       <m.div
-        initial={{ strokeDasharray: 0 }}
-        animate={{ rotate: 360, strokeDasharray: 1 }}
+        animate={{ rotate: 359 }}
         transition={{
           repeat: Infinity,
           duration: 1,
-          type: 'spring',
+          type: 'tween',
         }}>
         <Loader />
       </m.div>

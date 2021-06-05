@@ -3,9 +3,8 @@ import styled from 'styled-components'
 
 import { Cart } from '../../imports'
 import { CartContext, useAuth } from '../../../global/exports'
-import { NavLink, useRouteMatch } from 'react-router-dom'
+import { NavLink, useRouteMatch, useHistory } from 'react-router-dom'
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/menu'
-import { Modal } from '@geist-ui/react'
 import { Badge } from '@geist-ui/react'
 
 import SearchProd from './SearchProd'
@@ -21,17 +20,13 @@ import {
   FiBox,
   FiHome,
   FiLogOut,
-  FiSearch,
 } from 'react-icons/fi'
 
 const IconHeader = () => {
   const path = useRouteMatch()
+  const history = useHistory()
   const { logged, currentUser, logout } = useAuth()
   const { itemCount } = React.useContext(CartContext)
-
-  const [state, setState] = React.useState(false)
-  const stateHandler = () => setState(true)
-  const closeHandler = () => setState(false)
 
   return (
     <>
@@ -64,15 +59,9 @@ const IconHeader = () => {
         </Item>
         {/* search icon */}
         <Item>
-          <Link onClick={stateHandler} to={path}>
-            <FiSearch className='icon' />
+          <Link to={path}>
+            <SearchProd />
           </Link>
-          <Modal open={state} onClose={closeHandler}>
-            <Modal.Title>Search for products</Modal.Title>
-            <Modal.Content>
-              <SearchProd />
-            </Modal.Content>
-          </Modal>
         </Item>
         {/* menu */}
         {logged ? (
@@ -91,20 +80,28 @@ const IconHeader = () => {
                     padding: '15px',
                   }}>
                   <FiUsers className='icon' />
-                  <p>{currentUser.name}</p>
+                  <p style={{ fontSize: '1.2rem', fontWeight: '600' }}>
+                    {currentUser.name}
+                  </p>
                 </div>
-                <ItemDrop>
+                <ItemDrop onClick={() => history.push('/profile')}>
                   <FiHome className='icon' />
-                  <p style={{ fontSize: '1.1rem' }}>Profile</p>
+                  <p style={{ fontSize: '1.1rem', fontWeight: '500' }}>
+                    Profile
+                  </p>
                 </ItemDrop>
-                <ItemDrop>
+                <ItemDrop onClick={() => history.push('/wishlist')}>
                   <FiHeart className='icon' />
-                  <p style={{ fontSize: '1.1rem' }}>wihslist</p>
+                  <p style={{ fontSize: '1.1rem', fontWeight: '500' }}>
+                    wihslist
+                  </p>
                 </ItemDrop>
                 {currentUser.role === 1 && (
-                  <ItemDrop>
+                  <ItemDrop onClick={() => history.push('/dash')}>
                     <FiBox className='icon' />
-                    <p style={{ fontSize: '1.1rem' }}>dashboard</p>
+                    <p style={{ fontSize: '1.1rem', fontWeight: '500' }}>
+                      dashboard
+                    </p>
                   </ItemDrop>
                 )}
                 <ItemDrop onClick={() => logout()}>

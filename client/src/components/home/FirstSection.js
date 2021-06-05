@@ -37,13 +37,16 @@ const Row = styled.div`
   }
 `
 const Col = styled.div`
+  width: 100%;
+  height: 500px;
   cursor: pointer;
   position: relative;
 `
 
 const Image = styled.img`
-  height: 400px;
-  border-radius: 25px;
+  width: 100%;
+  height: 100%;
+  display: flex;
 
   @media (max-width: 1304px) {
     height: 350px;
