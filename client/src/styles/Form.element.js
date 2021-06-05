@@ -58,6 +58,7 @@ export const Text = styled(NavLink)`
 export const InputGroup = styled.div`
   width: 400px;
   display: flex;
+  border-radius: 5px;
   margin-bottom: 1rem;
   align-items: center;
   flex-direction: row;
@@ -118,6 +119,7 @@ export const Button = styled.button`
   display: flex;
   cursor: pointer;
   margin: 1rem 0rem;
+  border-radius: 5px;
   font-size: 1.125rem;
   align-items: center;
   flex-direction: row;
@@ -126,10 +128,13 @@ export const Button = styled.button`
   transition: 0.3s ease-in-out;
   justify-content: space-around;
   color: ${({ theme }) => theme.body};
+  border: 1px solid ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.text};
 
   &:hover {
-    background-color: ${({ theme }) => theme.sameHover};
+    color: ${({ theme }) => theme.text};
+    border: 1px solid ${({ theme }) => theme.text};
+    background-color: ${({ theme }) => theme.body};
   }
 
   @media (max-width: 400px) {

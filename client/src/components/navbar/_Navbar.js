@@ -1,4 +1,5 @@
 import React from 'react'
+import { Cart } from '../imports'
 import styled from 'styled-components'
 import { BiMenu, BiCart } from 'react-icons/bi'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
@@ -9,15 +10,10 @@ import Drawable from '../Drawer.js/_Drawable'
 import Logout from '../logout/Logout'
 import MobileDrawer from './mobile/MobileDrawer'
 import Toggle from './header/Toggle'
-import SearchProd from './header/SearchProd'
-import { NavLink } from 'react-router-dom'
-import { useAuth } from '../../global/exports'
+import FullWidhMenu from './header/menu/FullWidhMenu'
 import GoCheckoutButton from '../cart/GoCheckoutButton'
-import { Cart } from '../imports'
 
 const Navbar = ({ mode, modeFunc }) => {
-  const { logged } = useAuth()
-
   return (
     <>
       <Container>
@@ -45,13 +41,8 @@ const Navbar = ({ mode, modeFunc }) => {
           <>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Logo goTo='/' />
-              {!logged && (
-                <NavLink style={{ margin: '0rem 1rem' }} to='login'>
-                  login
-                </NavLink>
-              )}
             </div>
-            <SearchProd />
+            <FullWidhMenu />
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <IconHeader />
               <Toggle theme={mode} toggleTheme={modeFunc} />
@@ -76,5 +67,4 @@ const Container = styled.div`
   justify-content: space-between;
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.body};
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `

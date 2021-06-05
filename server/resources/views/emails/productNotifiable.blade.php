@@ -3,6 +3,8 @@
 
 The body of your message.
 
+<h1>{{$product}}</h1>
+
 @component('mail::button', ['url' => ''])
 Button Text
 @endcomponent

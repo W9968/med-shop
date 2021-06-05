@@ -70,11 +70,13 @@ export default _AddBlog
 
 const TextEditor = styled.div`
   .ck {
+    z-index: 1;
     color: ${({ theme }) => theme.text};
     background-color: ${({ theme }) => theme.hover};
   }
 
   .ck-content {
+    z-index: 1;
     height: 450px;
     color: ${({ theme }) => theme.text} !important;
     background-color: ${({ theme }) => theme.body} !important;

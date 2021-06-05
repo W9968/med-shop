@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -32,5 +33,11 @@ class AuthServiceProvider extends ServiceProvider
                 return 'http://localhost:3000/password/reset?token='.$token.'&email='.$notifiable->getEmailForPasswordReset();
             }
         );
+
+        // VerifyEmail::createUrlUsing(
+        //     function() {
+
+        //     }
+        // )
     }
 }

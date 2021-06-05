@@ -23,6 +23,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('mailprod', function () {
-    return new NewProductNotifications();
-});
+// Route::get('mailprod', function () {
+//     return new NewProductNotifications();
+// });
+

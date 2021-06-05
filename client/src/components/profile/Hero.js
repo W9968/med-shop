@@ -5,6 +5,7 @@ import { useAuth } from '../../global/exports'
 
 const Hero = () => {
   const { currentUser, resentVerificationMail, message } = useAuth()
+
   return (
     <>
       <Container>
@@ -50,6 +51,7 @@ const Hero = () => {
 export default Hero
 
 const Container = styled.div`
+  width: 1010px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

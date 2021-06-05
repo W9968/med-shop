@@ -24,7 +24,7 @@ const MobileDrawer = () => {
                 Profile
               </Linker>
 
-              <Linker to='/dashboard'>
+              <Linker to='/wishlist'>
                 <BiHeart className='navIcon' />
                 wish List
               </Linker>

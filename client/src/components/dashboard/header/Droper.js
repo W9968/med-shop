@@ -25,7 +25,7 @@ const Droper = () => {
 
   return (
     <>
-      <Menu placement='bottom-end'>
+      <StyledMenu placement='bottom-end'>
         <Button>
           <div
             style={{
@@ -92,7 +92,7 @@ const Droper = () => {
             <ActionButton onClick={logout}>sign out</ActionButton>
           </div>
         </List>
-      </Menu>
+      </StyledMenu>
     </>
   )
 }
@@ -100,6 +100,7 @@ const Droper = () => {
 export default Droper
 
 const List = styled(MenuList)`
+  z-index: 11;
   width: 300px;
   padding: 10px 0px;
   border-radius: 10px 0px 10px 10px;
@@ -119,6 +120,10 @@ const List = styled(MenuList)`
     font-weight: 600;
     color: ${({ theme }) => theme.text};
   }
+`
+
+const StyledMenu = styled(Menu)`
+  z-index: 11;
 `
 
 const Item = styled(MenuItem)`

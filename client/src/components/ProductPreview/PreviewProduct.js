@@ -3,7 +3,6 @@ import { useProducts, CartContext } from '../../global/exports.js'
 import ContentLoader from '../spinner/ContentLoader'
 import { useParams } from 'react-router-dom'
 import { motion as m } from 'framer-motion'
-import axios from 'axios'
 import {
   Row,
   Col,
@@ -19,6 +18,7 @@ import {
   IconBtn,
   Wishing,
 } from '../../styles/SingleProduct.element'
+import useApi from '../../hooks/useApi.js'
 
 const PreviewProduct = () => {
   // set states
@@ -41,14 +41,16 @@ const PreviewProduct = () => {
 
   // fetch return policy and one product
   useEffect(() => {
-    axios.defaults.withCredentials = true
-    axios.get('http://localhost:8000/api/returnpolicy').then((response) => {
+    useApi.get('/api/returnpolicy').then((response) => {
       if (response.status === 200) {
         setReturnState(...response.data)
       }
     })
     getPreviewetProduct(id)
 
+    useApi.get('/api/wishlists').then((res) => {
+      console.log(res.data)
+    })
     productPreview !== undefined &&
       setProduct({
         id: productPreview.id,
@@ -59,7 +61,7 @@ const PreviewProduct = () => {
         image: `http://localhost:8000/storage/products/${productPreview.images[0].file_path}`,
         returnpolicy: returnState.return_policy,
       })
-  }, [getPreviewetProduct]) // eslint-disable-line
+  }, []) // eslint-disable-line
 
   // check if product is in cart
   const isInCart = (product) => {
@@ -87,7 +89,16 @@ const PreviewProduct = () => {
                 <Price>{productPreview.price} Dt</Price>
               </span>
 
-              <IconBtn>
+              <IconBtn
+                onClick={() => {
+                  useApi
+                    .post('/api/wishlists', {
+                      product_id: productPreview.id,
+                    })
+                    .then((response) => {
+                      console.log(response)
+                    })
+                }}>
                 <m.span initial={{ display: 'flex' }} whileTap={{ scale: 0.7 }}>
                   <Wishing />
                 </m.span>

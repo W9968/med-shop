@@ -15,7 +15,7 @@ export const GlobalStyle = createGlobalStyle`
     backface-visibility:hidden;
     text-rendering: optimizeLegibility;
     color: ${({ theme }) => theme.text};
-    background-color: ${({ theme }) => theme.body};
+    background-color: ${({ theme }) => theme.accent1};
     font-family: proxima-nova, sans-serif;
     -webkit-font-smoothing: antialiased;
   }

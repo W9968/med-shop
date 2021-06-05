@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ReturnPolicyController;
 use App\Http\Controllers\Api\StockController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\WishListController;
 use App\Http\Controllers\AuditsController;
 
 use Illuminate\Http\Request;
@@ -66,9 +67,15 @@ Route::post('/blogs', [BlogController::class, 'store']);
 Route::put('/blogs/{id}', [BlogController::class, 'update']);
 Route::delete('/blogs/{id}', [BlogController::class, 'destroy']);
 
+// wishlist routes
+Route::get('/wishlists', [WishListController::class, 'index']);
+Route::post('/wishlists', [WishListController::class, 'store']);
+Route::delete('/wishlists/{id}', [WishListController::class, 'destroy']);
+
 // return policy 
 Route::get('/returnpolicy', [ReturnPolicyController::class, 'show']);
 Route::put('/returnpolicy/{id}', [ReturnPolicyController::class, 'update']);
+
 
 // get audit lgos
 Route::get('/logs', [AuditsController::class, 'showAdminLogs']);
@@ -78,10 +85,6 @@ Route::get('/logs/customer', [AuditsController::class, 'showCustomerLogs']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-
-
-
 
 // check if route is verified to pass
 Auth::routes(['verify' => true]);

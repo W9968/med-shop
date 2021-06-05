@@ -98,7 +98,7 @@ const SearchProd = () => {
 export default SearchProd
 
 const Wrapper = styled.div`
-  width: 600px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 
@@ -110,6 +110,7 @@ const Wrapper = styled.div`
 const Div = styled.div`
   display: flex;
   padding: 0px 10px;
+  border-radius: 5px;
   align-items: center;
   flex-direction: row;
   background-color: ${({ theme }) => theme.hover};
@@ -126,6 +127,7 @@ const Input = styled.input`
 
 const SearchContainer = styled(m.div)`
   top: 100%;
+  z-index: 10px;
   padding: 10px;
   display: flex;
   width: inherit;

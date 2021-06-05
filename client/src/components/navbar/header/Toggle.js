@@ -48,10 +48,10 @@ Toggle.prototype = {
 export default Toggle
 
 const Btn = styled.button`
+  display: flex;
   border: none;
   outline: none;
   background: none;
-  display: flex;
   align-items: center;
   justify-content: center;
   color: ${({ theme }) => theme.text};
@@ -59,10 +59,10 @@ const Btn = styled.button`
 
 const Sun = styled(BiSun)`
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 `
 
 const Moon = styled(BiMoon)`
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
 `

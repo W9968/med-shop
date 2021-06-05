@@ -49,4 +49,14 @@ class Product extends Model implements Auditable
     {
         return $this->hasOne(Discount::class, 'product_id', 'id');
     }
+
+    /**
+     * Get all of the comments for the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function wishlists(): HasMany
+    {
+        return $this->hasMany(WishList::class, 'product_id', 'id');
+    }
 }

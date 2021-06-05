@@ -24,6 +24,7 @@ class ProductController extends Controller
         } 
         //return Product::with('images', 'stocks', 'discounts')->crossJoin('return_policies')->get();
         return Product::with('stocks', 'discounts', 'images')->get();
+        //return  ['product' => Product::with('stocks', 'discounts', 'images')->get(), 'returnpolicy' => ReturnPolicy::all()];
     }
 
     /**
@@ -66,16 +67,7 @@ class ProductController extends Controller
                     'file_path'  => $file->hashName()
                 ]);
             }
-        }
-
-        // if ($request->discounts >= 10) {
-        //     foreach(DB::table('users')->where('role', '=', 0)->get() as $recipient )
-        //     {
-        //         Mail::to($recipient)->send(new NewProductNotifications());
-        //     }
-        // }
-
-        
+        } // a retenir.
     }
 
     /**

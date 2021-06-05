@@ -95,15 +95,19 @@ const Parag = styled.p`
 const Button = styled(NavLink)`
   display: flex;
   margin: 1rem 0rem;
+  border-radius: 4.95px;
   align-items: center;
   flex-direction: row;
   justify-content: center;
   padding: 0.8225rem 3rem;
-  color: ${({ theme }) => theme.body};
-  background-color: ${({ theme }) => theme.text};
+  transition: 300ms ease-in-out;
+  color: ${({ theme }) => theme.text};
+  border: 1px solid ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.body};
 
   &:hover {
     color: ${({ theme }) => theme.body};
+    border: 1px solid ${({ theme }) => theme.text};
     background-color: ${({ theme }) => theme.text};
   }
 `
