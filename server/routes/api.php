@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AttributeController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\DiscountController;
+use App\Http\Controllers\Api\FileUploadController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ReturnPolicyController;
 use App\Http\Controllers\Api\StockController;
@@ -42,6 +43,9 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::put('products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+
+// file uplaod route
+Route::post('/products/upload', [FileUploadController::class, 'uploadFile']);
 
 // stock routes
 Route::get('/stocks', [StockController::class, 'index']);

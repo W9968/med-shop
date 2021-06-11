@@ -15,12 +15,10 @@ const PreviewProduct = () => {
   const history = useHistory()
   const { id } = useParams()
   const { fetched, loading } = useProducts()
-  const [loader, setLoader] = useState(false)
   const { addProduct, cartItems, increase } = useContext(CartContext)
   const [product, setProduct] = useState({})
 
   const getProduct = async (id) => {
-    setLoader(true)
     return await useApi.get(`api/products/${id}`).then((response) => {
       if (response.status === 200) {
         const data = response.data
@@ -36,7 +34,6 @@ const PreviewProduct = () => {
           returnDuration: data.returnpolicy.duration,
         })
       }
-      setLoader(false)
     })
   }
 

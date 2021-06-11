@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public $files= [];
+
      /**
      * Display a listing of the resource.
      *
@@ -59,13 +61,12 @@ class ProductController extends Controller
         {
             foreach( $request->file('images') as $file)
             {
-                $file->store('public/products');
                 $product->images()->create([
                     'product_id' => $product->id,
                     'file_path'  => $file->hashName()
                 ]);
             }
-        } // a retenir.
+        }
     }
 
     /**
