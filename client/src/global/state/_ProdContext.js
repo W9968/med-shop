@@ -10,28 +10,19 @@ export function useProducts() {
 export default function _ProdContext({ children }) {
   const [fetched, setFetched] = useState([])
   const [loading, setLoading] = useState(false)
-  const [productPreview, setProductPreview] = useState()
 
-  const subscribeToProductRoute = async () => {
+  const setSimilarProdcut = async () => {
     setLoading(true)
     return await useApi.get('/api/products').then((response) => {
       if (response.status === 200) {
-        setFetched(response.data)
+        setFetched(response.data.product)
         setLoading(false)
       }
     })
   }
 
-  const getPreviewetProduct = async (id) => {
-    return await useApi.get(`/api/products/${id}`).then((response) => {
-      if (response.status === 200) {
-        setProductPreview(response.data)
-      }
-    })
-  }
-
   useEffect(() => {
-    subscribeToProductRoute()
+    setSimilarProdcut()
   }, [])
 
   return (
@@ -39,8 +30,6 @@ export default function _ProdContext({ children }) {
       value={{
         fetched,
         loading,
-        productPreview,
-        getPreviewetProduct,
       }}>
       {children}
     </ProdContext.Provider>

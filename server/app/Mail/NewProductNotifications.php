@@ -31,7 +31,8 @@ class NewProductNotifications extends Mailable
     public function build()
     {
         return $this->markdown('emails.productNotifiable')->with([
-            'product' => $this->product->name,
+            'productName' => $this->product->name,
+            'productPrice' => $this->product->price,
         ]);
     }
 }

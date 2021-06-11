@@ -18,6 +18,7 @@ import {
   // customer service
   AllActivities,
   ReturnPolicy,
+  MailableToCustomer,
   //tracker
   AdminActi,
 } from '../../../views/imports'
@@ -38,6 +39,10 @@ const _Content = ({ route }) => {
           <ProtectedRoute
             path={`${route}/recent/admin`}
             component={AdminActi}
+          />
+          <ProtectedRoute
+            path={`${route}/contactcustomer`}
+            component={MailableToCustomer}
           />
           <ProtectedRoute
             path={`${route}/activities`}

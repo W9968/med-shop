@@ -14,12 +14,12 @@ import GoCheckoutButton from '../../cart/GoCheckoutButton'
 import {
   FiShoppingBag,
   FiUser,
-  FiLogIn,
   FiUsers,
   FiHeart,
   FiBox,
   FiHome,
   FiLogOut,
+  FiMenu,
 } from 'react-icons/fi'
 
 const IconHeader = () => {
@@ -69,7 +69,7 @@ const IconHeader = () => {
             <StyledMenu placement='bottom-end'>
               <Button>
                 <Link to={path}>
-                  <FiUser />
+                  <FiMenu />
                 </Link>
               </Button>
               <ListDrop>
@@ -114,7 +114,7 @@ const IconHeader = () => {
         ) : (
           <Item>
             <Link to='/login'>
-              <FiLogIn />
+              <FiUser />
             </Link>
           </Item>
         )}

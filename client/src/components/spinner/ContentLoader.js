@@ -22,7 +22,7 @@ const Container = styled.div`
 
 const load = keyframes`
   to {
-    background-size: 100% 3px
+    background-size: 90% 3px
   }
 `
 
@@ -31,9 +31,9 @@ const Loading = styled.div`
     content: 'Loading...';
   }
 
+  font-size: 1rem;
   font-weight: 600;
-  font-size: 1.5rem;
-  padding-bottom: 8px;
+  padding-bottom: 5px;
   font-family: proxima-nova, sans-serif;
   animation: ${load} 2s linear infinite;
   background: linear-gradient(currentColor 0 0) bottom left/0% 3px no-repeat;

@@ -30,6 +30,8 @@ const _Products = () => {
     loadData('products')
   }, []) // eslint-disable-line
 
+  console.log(socket.product)
+
   return (
     <>
       <ContentHeader
@@ -42,12 +44,14 @@ const _Products = () => {
           {loading ? (
             <ContentLoader />
           ) : (
-            <DataTable
-              columns={column}
-              data={socket}
-              filename='product'
-              path='products'
-            />
+            socket.product !== undefined && (
+              <DataTable
+                columns={column}
+                data={socket.product}
+                filename='product'
+                path='products'
+              />
+            )
           )}
         </Route>
         <Route path={`${path}/add`}>

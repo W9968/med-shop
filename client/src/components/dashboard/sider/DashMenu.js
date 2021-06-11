@@ -159,6 +159,9 @@ const DashMenu = ({ size }) => {
             <Linker to='/dash/activities'>
               <Line>activities</Line>
             </Linker>
+            <Linker to='/dash/contactcustomer'>
+              <Line>Contact</Line>
+            </Linker>
           </Panel>
         </AccordionItem>
 

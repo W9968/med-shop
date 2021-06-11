@@ -34,3 +34,4 @@ export { default as Inovices } from './admin/Orders/_Inovice'
 
 export { default as AllActivities } from './admin/customerService/_AllActivities'
 export { default as ReturnPolicy } from './admin/customerService/_ReturnPolicy'
+export { default as MailableToCustomer } from './admin/customerService/_ContactConstumer'

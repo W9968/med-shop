@@ -12,10 +12,10 @@ const _Cart = () => {
     console.log(fetched)
     console.log(cartItems)
 
-    fetched.length !== 0 &&
+    fetched.product !== undefined &&
       cartItems.forEach(
         (el) =>
-          fetched.filter((key) => key.id === el.id).length === 0 &&
+          fetched.product.filter((key) => key.id === el.id).length === 0 &&
           removeProduct(el)
       )
   }, []) // eslint-disable-line

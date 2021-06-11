@@ -19,7 +19,7 @@ const SearchProd = ({ searchTitle }) => {
 
   useEffect(() => {
     useApi.get('/api/products').then((response) => {
-      response.status && setPayload(response.data)
+      response.status && setPayload(response.data.product)
     })
   }, [])
 
@@ -38,7 +38,7 @@ const SearchProd = ({ searchTitle }) => {
                 type='text'
                 autoComplete='no'
                 placeholder='search for products...'
-                onBlur={() => setSearchInput('')}
+                value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value.toLowerCase())}
               />
               <BiSearch style={{ fontSize: '1.2rem' }} />
@@ -79,11 +79,13 @@ const SearchProd = ({ searchTitle }) => {
                           key={val.id}
                           initial={{ opacity: 0, y: '-30%' }}
                           animate={{ opacity: 1, y: '0%' }}
-                          onClick={() =>
+                          onClick={() => {
                             history.push(
                               `/product/${val.id}/${val.category}/${val.name}`
                             )
-                          }>
+                            setSearchInput('')
+                            closeHandler()
+                          }}>
                           <div>
                             <img
                               width='100px'
@@ -147,8 +149,8 @@ const SearchContainer = styled(m.div)`
   padding: 10px;
   display: flex;
   width: inherit;
-  max-height: 300px;
   overflow-y: auto;
+  max-height: 300px;
   flex-direction: column;
   background-color: ${({ theme }) => theme.body};
 `

@@ -6,7 +6,8 @@ const _BeautyProduct = () => {
   const { fetched } = useProducts()
 
   console.log(
-    fetched.filter((el) => el.category.toLowerCase() === 'product beauty')
+    fetched !== undefined &&
+      fetched.filter((el) => el.category === 'product beauty')
   )
 
   return (

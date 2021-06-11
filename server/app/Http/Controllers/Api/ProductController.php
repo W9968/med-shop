@@ -22,9 +22,7 @@ class ProductController extends Controller
                 'duration' => '0'
             ]);
         } 
-        //return Product::with('images', 'stocks', 'discounts')->crossJoin('return_policies')->get();
-        return Product::with('stocks', 'discounts', 'images')->get();
-        //return  ['product' => Product::with('stocks', 'discounts', 'images')->get(), 'returnpolicy' => ReturnPolicy::all()];
+        return  ['product' => Product::with('stocks', 'discounts', 'images')->get(), 'returnpolicy' => ReturnPolicy::find(1)];
     }
 
     /**
@@ -78,7 +76,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return Product::with('images', 'stocks', 'discounts')->find($id);
+        return  ['product' => Product::with('images', 'stocks', 'discounts')->find($id), 'returnpolicy' => ReturnPolicy::find(1)];
     }
 
     /**
