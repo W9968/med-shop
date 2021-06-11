@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AttributeController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\CommentsController;
 use App\Http\Controllers\Api\DiscountController;
 use App\Http\Controllers\Api\FileUploadController;
 use App\Http\Controllers\Api\ProductController;
@@ -43,6 +44,10 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::put('products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+
+// comment on product
+Route::post('/comment', [CommentsController::class, 'store']);
+Route::put('/comment/{id}', [CommentsController::class, 'update']);
 
 // file uplaod route
 Route::post('/products/upload', [FileUploadController::class, 'uploadFile']);

@@ -3,7 +3,7 @@ export const lightTheme = {
   body: '#ffffff',
   hover: '#efefef',
 
-  correct: '#79ffe1',
+  correct: '#29bc9b',
   error: '#ff1a1a',
   accent1: '#fefefe',
   sameHover: '#424242',

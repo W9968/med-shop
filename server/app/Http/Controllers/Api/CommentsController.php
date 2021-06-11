@@ -3,19 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comments;
 use Illuminate\Http\Request;
+use Auth;
 
 class CommentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+
+    // public function __construct()
+    // {
+    //     $this->middleware(['auth']);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -25,18 +23,17 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->validate($request, array(
+            'comment' => 'required',
+            'product_id' => 'required'
+        ));
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $comment = new Comments();
+        $comment->comment = $request->comment;
+        //$comment->user_id = Auth::user()->id;
+        $comment->user_id = $request->user_id;
+        $comment->product_id = $request->product_id;
+        $comment->save();
     }
 
     /**
@@ -48,7 +45,10 @@ class CommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comment = Comments::find($id);
+        $comment->update($request->only('comment'));
+        $comment->save();
+        return $comment; 
     }
 
     /**
@@ -59,6 +59,7 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = Comments::find($id);
+        $comment->delete();
     }
 }

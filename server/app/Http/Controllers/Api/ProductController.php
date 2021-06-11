@@ -24,7 +24,7 @@ class ProductController extends Controller
                 'duration' => '0'
             ]);
         } 
-        return  ['product' => Product::with('stocks', 'discounts', 'images')->get(), 'returnpolicy' => ReturnPolicy::find(1)];
+        return  ['product' => Product::with('stocks', 'discounts', 'images', 'comments')->get(), 'returnpolicy' => ReturnPolicy::find(1)];
     }
 
     /**
@@ -61,6 +61,7 @@ class ProductController extends Controller
         {
             foreach( $request->file('images') as $file)
             {
+                $file->store('public/products');
                 $product->images()->create([
                     'product_id' => $product->id,
                     'file_path'  => $file->hashName()
@@ -77,7 +78,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return  ['product' => Product::with('images', 'stocks', 'discounts')->find($id), 'returnpolicy' => ReturnPolicy::find(1)];
+        return  ['product' => Product::with('images', 'stocks', 'discounts', 'comments')->find($id), 'returnpolicy' => ReturnPolicy::find(1)];
     }
 
     /**

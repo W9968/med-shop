@@ -15,6 +15,8 @@ class Comments extends Model
      * @var array
      */
     protected $table = "comments";
+
+    protected $fillable = ['comment'];
     
     /**
      * Get the user that owns the Comments
