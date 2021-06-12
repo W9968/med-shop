@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import {
   ContentLoader,
-  DataTable,
+  OnlyEditTable,
   ContentHeader,
   AddAttri,
   EditAttri,
@@ -17,7 +17,7 @@ const _Attributes = () => {
     () => [
       { Header: 'id', accessor: 'id' },
       { Header: 'category', accessor: 'category' },
-      { Header: 'attributes', accessor: 'attributes' },
+      { Header: 'attributes', accessor: 'sub_categ' },
     ],
     []
   )
@@ -38,7 +38,7 @@ const _Attributes = () => {
           {loading ? (
             <ContentLoader />
           ) : (
-            <DataTable
+            <OnlyEditTable
               columns={column}
               data={socket}
               filename='attributeCSV'

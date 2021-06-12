@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -13,12 +14,14 @@ class Product extends Model implements Auditable
 {
     use HasFactory, AuditableTrait;
 
+    protected $table = 'products';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name','price','description', 'tag', 'category', 'attribute'];
+    protected $fillable = ['name','price','description', 'details'];
 
     /**
      * Get all of the images for the Product
@@ -51,7 +54,7 @@ class Product extends Model implements Auditable
     }
 
     /**
-     * Get all of the comments for the Product
+     * Get all of the wishlists for the Product
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -68,5 +71,15 @@ class Product extends Model implements Auditable
     public function comments(): HasMany
     {
         return $this->hasMany(Comments::class, 'product_id', 'id');
+    }
+
+    /**
+     * The categories that belong to the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Attribute::class, 'attributes_products')->withPivot('attribute_id');
     }
 }

@@ -28,8 +28,8 @@ class AttributeController extends Controller
     {
         $request->validate([
             'category' => 'required',
-            'attributes' => 'required',
-        ]); 
+            'sub_categ' => 'required'
+        ]);
 
         return Attribute::create($request->all());
     }

@@ -17,7 +17,7 @@ class CreateDiscountsTable extends Migration
             $table->id();
             $table->integer('discount')->nullable();
             $table->timestamps();
-            $table->foreignId('product_id')->constrained('products')->onUpdata('cascade')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

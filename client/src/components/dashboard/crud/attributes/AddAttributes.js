@@ -10,8 +10,10 @@ import {
   StyledSelect,
 } from '../../../../styles/Crud.element'
 import { useCrud } from '../../../../global/exports'
+import { useHistory } from 'react-router'
 
 const AddAttributes = () => {
+  const history = useHistory()
   const { storeData } = useCrud()
   const [category, setCategory] = useState()
   const [attribute, setAttribute] = useState()
@@ -85,8 +87,8 @@ const AddAttributes = () => {
             onClick={() =>
               storeData('attributes', {
                 category: category,
-                attributes: attribute,
-              })
+                sub_categ: attribute,
+              }).then(() => history.push('/dash/attributes'))
             }>
             Add
           </Button>

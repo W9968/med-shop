@@ -16,7 +16,7 @@ class Comments extends Model
      */
     protected $table = "comments";
 
-    protected $fillable = ['comment'];
+    protected $fillable = ['user_name','comment'];
     
     /**
      * Get the user that owns the Comments

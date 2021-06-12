@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attribute;
 use App\Models\Product;
 use App\Models\ReturnPolicy;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public $files= [];
-
+    
      /**
      * Display a listing of the resource.
      *
@@ -24,7 +24,16 @@ class ProductController extends Controller
                 'duration' => '0'
             ]);
         } 
-        return  ['product' => Product::with('stocks', 'discounts', 'images', 'comments')->get(), 'returnpolicy' => ReturnPolicy::find(1)];
+
+        $collection =  Product::with('stocks', 'discounts', 'images', 'comments')->get();
+        $mappedCollection = $collection->map(function ($item){
+            return $item->setAttribute('policy',ReturnPolicy::find(1));
+        })->map(function ($item) {
+            $pivot = Product::find($item->id);
+            return $item->setAttribute('pivot', $pivot->categories);
+        });
+
+        return $mappedCollection;
     }
 
     /**
@@ -39,13 +48,12 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'description' => 'required',
-            'category' => 'required',
-            'attribute' => 'required',
+            'details' => 'required',
             'stocks' => 'required|numeric',
             //'discounts' => 'required|numeric'
         ]);
 
-        $product = Product::create($request->only('name','price','description', 'tag', 'category', 'attribute'));
+        $product = Product::create($request->only('name','price','description', 'details'));
         
         $product->stocks()->create([
             'quantity' => $request->stocks,
@@ -68,6 +76,9 @@ class ProductController extends Controller
                 ]);
             }
         }
+        $productCategId = Attribute::find($request->get('category_id'));
+        $productpivot = Product::find($product->id);
+        $productpivot->categories()->attach($productCategId);
     }
 
     /**
@@ -78,7 +89,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return  ['product' => Product::with('images', 'stocks', 'discounts', 'comments')->find($id), 'returnpolicy' => ReturnPolicy::find(1)];
+        $collection =  Product::with('stocks', 'discounts', 'images', 'comments')->find($id)->setAttribute('policy',ReturnPolicy::find(1));
+        $pivot = Product::find($id);
+        return $collection->setAttribute('pivot', $pivot->categories);
     }
 
     /**

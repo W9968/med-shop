@@ -19,9 +19,8 @@ const _Products = () => {
       { Header: 'name', accessor: 'name' },
       { Header: 'price', accessor: 'price' },
       { Header: 'stock', accessor: 'stocks.quantity' },
-      { Header: 'category', accessor: 'category' },
-      { Header: 'attributes', accessor: 'attribute' },
-      { Header: 'tag', accessor: 'tag' },
+      { Header: 'category', accessor: 'pivot[0].category' },
+      { Header: 'attribute', accessor: 'pivot[0].sub_categ' },
     ],
     []
   )
@@ -29,8 +28,6 @@ const _Products = () => {
   useEffect(() => {
     loadData('products')
   }, []) // eslint-disable-line
-
-  console.log(socket.product)
 
   return (
     <>
@@ -44,10 +41,10 @@ const _Products = () => {
           {loading ? (
             <ContentLoader />
           ) : (
-            socket.product !== undefined && (
+            socket.length !== 0 && (
               <DataTable
                 columns={column}
-                data={socket.product}
+                data={socket}
                 filename='product'
                 path='products'
               />

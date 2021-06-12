@@ -17,8 +17,9 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->text('comment');
-            $table->foreignId('user_id')->constrained('users')->onUpdata('cascade')->onDelete('cascade');
-            $table->foreignId('product_id')->constrained('products')->onUpdata('cascade')->onDelete('cascade');
+            $table->string('user_name');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -2,14 +2,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import useApi from '../../hooks/useApi.js'
 
-import { Card, Tag, Tabs } from '@geist-ui/react'
+import { Card, Tag } from '@geist-ui/react'
 import { BiHeart } from 'react-icons/bi'
 import { motion as m } from 'framer-motion'
+import { TextArea } from '../../styles/Crud.element'
 import ContentLoader from '../spinner/ContentLoader'
 import { CartContext, useProducts } from '../../global/exports.js'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Redirect } from 'react-router-dom'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
 const PreviewProduct = () => {
   const history = useHistory()
@@ -54,6 +56,8 @@ const PreviewProduct = () => {
     border: 'none',
   }
 
+  console.log(items)
+
   return (
     <>
       {loading ? (
@@ -65,112 +69,138 @@ const PreviewProduct = () => {
           {/* product */}
           <Div>
             <SimilarText>Product information</SimilarText>
-            {items.product !== undefined && (
-              <>
-                <ProductView>
-                  <Col>
-                    <Carousel showArrows={true} showThumbs={false}>
-                      {items.product.images.map((el) => {
-                        return (
-                          <Image
-                            key={el.id}
-                            src={`http://localhost:8000/storage/products/${el.file_path}`}
-                            alt={el.file_path}
-                          />
-                        )
-                      })}
-                    </Carousel>
-                    {/* */}
-                  </Col>
-                  <Col>
-                    <Category>{items.product.category}</Category>
-                    <h1 className='text'>{items.product.name}</h1>
-                    <Price>
-                      {items.product.discounts.discount === null || 0 ? (
-                        <p style={{ fontSize: '130%' }}>
-                          {items.product.price}dt
-                        </p>
-                      ) : (
-                        <p
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            fontSize: '130%',
-                          }}>
-                          <span
+            {Object.keys(items).length !== 0 ||
+              (items.product !== null && (
+                <>
+                  <ProductView>
+                    <Col>
+                      <Carousel showArrows={true} showThumbs={false}>
+                        {items.product.images.map((el) => {
+                          return (
+                            <Image
+                              key={el.id}
+                              src={`http://localhost:8000/storage/products/${el.file_path}`}
+                              alt={el.file_path}
+                            />
+                          )
+                        })}
+                      </Carousel>
+                      {/* */}
+                    </Col>
+                    <Col>
+                      <Category>{items.product.category}</Category>
+                      <h1 className='text'>{items.product.name}</h1>
+                      <Price>
+                        {items.product.discounts.discount === null || 0 ? (
+                          <p style={{ fontSize: '130%' }}>
+                            {items.product.price}dt
+                          </p>
+                        ) : (
+                          <p
                             style={{
-                              textDecoration: 'line-through',
+                              display: 'flex',
+                              alignItems: 'center',
+                              fontSize: '130%',
                             }}>
-                            {items.product.price} Dt
-                          </span>
-                          <Tag style={{ margin: '0 10px', fontSize: '1rem' }}>
-                            -{items.product.discounts.discount}%
-                          </Tag>
-                          {items.product.price -
-                            (items.product.price *
-                              items.product.discounts.discount) /
-                              100}
-                          dt
-                        </p>
+                            <span
+                              style={{
+                                textDecoration: 'line-through',
+                              }}>
+                              {items.product.price} Dt
+                            </span>
+                            <Tag style={{ margin: '0 10px', fontSize: '1rem' }}>
+                              -{items.product.discounts.discount}%
+                            </Tag>
+                            {items.product.price -
+                              (items.product.price *
+                                items.product.discounts.discount) /
+                                100}
+                            dt
+                          </p>
+                        )}
+                      </Price>
+
+                      <Description>
+                        <p style={{ fontSize: '120%' }}>Description :</p>
+                        <p>{items.product.description}</p>
+                      </Description>
+
+                      <br />
+                      <br />
+                      {items.product.stocks.quantity === 0 ? (
+                        <div className='note'>
+                          <RedDot /> Out of Stocks
+                        </div>
+                      ) : (
+                        <div className='note'>
+                          <GreenDot /> Available in stocks
+                        </div>
                       )}
-                    </Price>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          margin: '1rem 0',
+                        }}>
+                        {isInCart(items.product) && (
+                          <Button onClick={() => increase(items.product)}>
+                            Add more
+                          </Button>
+                        )}
 
-                    <Description>
-                      <p style={{ fontSize: '120%' }}>Description :</p>
-                      <p>{items.product.description}</p>
-                    </Description>
-
-                    <br />
-                    <br />
-                    {items.product.stocks.quantity === 0 ? (
-                      <div className='note'>
-                        <RedDot /> Out of Stocks
+                        {!isInCart(items.product) && (
+                          <Button onClick={() => addProduct(items.product)}>
+                            Add to cart
+                          </Button>
+                        )}
+                        <m.button className='wishlistIcon'>
+                          <m.span
+                            style={{ display: 'flex' }}
+                            whileTap={{ scale: 0.7 }}>
+                            <BiHeart style={{ fontSize: '1.7rem' }} />
+                          </m.span>
+                        </m.button>
                       </div>
-                    ) : (
-                      <div className='note'>
-                        <GreenDot /> Available in stocks
-                      </div>
-                    )}
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        margin: '1rem 0',
-                      }}>
-                      {isInCart(items.product) && (
-                        <Button onClick={() => increase(items.product)}>
-                          Add more
-                        </Button>
-                      )}
+                    </Col>
+                  </ProductView>
+                  <Tabs
+                    style={{ width: '100%', margin: '1rem 0' }}
+                    variant='enclosed'>
+                    <TabList>
+                      <StyledTabs
+                        _selected={{
+                          bg:
+                            localStorage.getItem('mode') === 'light'
+                              ? '#fff'
+                              : '#333',
+                        }}>
+                        details
+                      </StyledTabs>
+                      <StyledTabs
+                        _selected={{
+                          bg:
+                            localStorage.getItem('mode') === 'light'
+                              ? '#fff'
+                              : '#333',
+                        }}>
+                        comments
+                      </StyledTabs>
+                    </TabList>
 
-                      {!isInCart(items.product) && (
-                        <Button onClick={() => addProduct(items.product)}>
-                          Add to cart
-                        </Button>
-                      )}
-                      <m.button
-                        className='wishlistIcon'
-                        whileTap={{ scale: 0.8 }}>
-                        <BiHeart style={{ fontSize: '1.7rem' }} />
-                      </m.button>
-                    </div>
-                  </Col>
-                </ProductView>
-                <Tabs
-                  style={{ marginTop: '1rem' }}
-                  onChange={(val) => console.log(val)}
-                  initialValue='1'>
-                  <Tabs.Item label='details' value='1'>
-                    qsdsdsdsd
-                  </Tabs.Item>
-                  <Tabs.Item label='comments' value='2'>
-                    {items.product.comments.map((el) => {
-                      return el.comment
-                    })}
-                  </Tabs.Item>
-                </Tabs>
-              </>
-            )}
+                    <Panel>
+                      <TabPanel>{items.product.description}</TabPanel>
+                      <TabPanel className='comment-section'>
+                        <TextArea placeholder='place your comment here...' />
+                        <br />
+                        <Button>add comment</Button>
+                        {items.product.comments.map((el) => {
+                          return <div>{el.comment}</div>
+                        })}
+                      </TabPanel>
+                    </Panel>
+                  </Tabs>
+                </>
+              ))}
           </Div>
           {/* card */}
           <Div>
@@ -427,4 +457,31 @@ const Category = styled.p`
   text-transform: capitalize;
   color: ${({ theme }) => theme.body};
   background-color: ${({ theme }) => theme.text};
+`
+const StyledTabs = styled(Tab)`
+  border: none;
+  outline: none;
+  display: flex;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 10px;
+  font-size: 1.125rem;
+  align-items: center;
+  margin-right: 15px;
+  text-transform: capitalize;
+  font-family: proxima-nova, sans-serif;
+  color: ${({ theme }) => theme.text};
+  background: ${({ theme }) => theme.hover};
+  border-bottom: 1px solid ${({ theme }) => theme.hover};
+`
+
+const Panel = styled(TabPanels)`
+  padding: 1rem 0;
+  border-top: 1px solid ${({ theme }) => theme.hover};
+
+  .comment-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `

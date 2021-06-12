@@ -15,4 +15,6 @@ class ReturnPolicy extends Model
      * @var array
      */
     protected $fillable = ['retun_policy', 'duration'];
+
+
 }

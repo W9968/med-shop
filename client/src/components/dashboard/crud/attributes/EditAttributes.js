@@ -21,14 +21,16 @@ const EditAttributes = () => {
     showOneData('attributes', ides)
   }, [oneResponse, showOneData]) // eslint-disable-line
 
+  console.log(oneResponse)
+
   return (
     <>
       <Wrapper>
-        <InputGroup key={oneResponse.attributes}>
+        <InputGroup key={oneResponse.sub_categ}>
           <Label>Edit Attribute</Label>
           <Input
             type='text'
-            defaultValue={oneResponse.attributes}
+            defaultValue={oneResponse.sub_categ}
             onChange={(e) => setAttribute(e.target.value)}
           />
         </InputGroup>
@@ -38,7 +40,7 @@ const EditAttributes = () => {
             onClick={() => {
               updateData('attributes', oneResponse.id, {
                 category: oneResponse.category,
-                attributes: attribute,
+                sub_categ: attribute,
               })
               history.push('/dash/attributes')
             }}>

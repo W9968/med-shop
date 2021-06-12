@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
@@ -15,7 +16,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        return Product::with('stocks', 'images')->get();
+        return Product::with('stocks')->get();
     }
 
     /**
@@ -26,7 +27,7 @@ class StockController extends Controller
      */
     public function show($id)
     {
-        return Product::with('images', 'stocks')->find($id);
+        return Product::with('stocks')->find($id);
     }
 
 

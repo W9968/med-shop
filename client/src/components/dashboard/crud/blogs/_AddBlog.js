@@ -17,7 +17,7 @@ const _AddBlog = () => {
   const history = useHistory()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const { storeData, loading } = useCrud()
+  const { storeData } = useCrud()
 
   return (
     <>
@@ -54,10 +54,7 @@ const _AddBlog = () => {
             storeData('blogs', {
               title: title,
               content: content,
-            })
-            if (!loading) {
-              history.push('/dash/blogs')
-            }
+            }).then(() => history.push('/dash/blogs'))
           }}>
           post new
         </Button>

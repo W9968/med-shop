@@ -30,8 +30,8 @@ class CommentsController extends Controller
 
         $comment = new Comments();
         $comment->comment = $request->comment;
-        //$comment->user_id = Auth::user()->id;
-        $comment->user_id = $request->user_id;
+        $comment->user_id = Auth::user()->id;
+        $comment->user_name = Auth::user()->name;
         $comment->product_id = $request->product_id;
         $comment->save();
     }
