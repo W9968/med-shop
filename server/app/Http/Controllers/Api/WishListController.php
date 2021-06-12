@@ -49,7 +49,6 @@ class WishListController extends Controller
               {
                 $wishlist = new Wishlist;
 
-                //$wishlist->user_id = $request->user_id;
                 $wishlist->user_id = Auth::user()->id;
                 $wishlist->product_id = $request->product_id;
                 $wishlist->save();

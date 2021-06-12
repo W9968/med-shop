@@ -1,24 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
 import useApi from '../../hooks/useApi.js'
 
-import { Card, Tag } from '@geist-ui/react'
+import { Card, Tag, useToasts } from '@geist-ui/react'
 import { BiHeart } from 'react-icons/bi'
 import { motion as m } from 'framer-motion'
-import { TextArea } from '../../styles/Crud.element'
 import ContentLoader from '../spinner/ContentLoader'
-import { CartContext, useProducts } from '../../global/exports.js'
+import { CartContext } from '../../global/exports.js'
 import { useParams, useHistory } from 'react-router-dom'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import OneProducttabs from './OneProducttabs.js'
 
 const PreviewProduct = () => {
-  const history = useHistory()
   const { id } = useParams()
-  const { fetched, loading } = useProducts()
-  const { addProduct, cartItems, increase } = useContext(CartContext)
+  const history = useHistory()
+  const [, setToast] = useToasts()
   const [items, setITem] = useState({})
+  const [allProd, setAllProd] = useState([])
+  const [loading, setLoading] = useState(false)
+  const { addProduct, cartItems, increase } = useContext(CartContext)
 
   const getProduct = async (id) => {
     return await useApi.get(`api/products/${id}`).then((response) => {
@@ -31,10 +32,19 @@ const PreviewProduct = () => {
   const isInCart = (product) => {
     return !!cartItems.find((item) => item.id === product.id)
   }
-
   useEffect(() => {
     getProduct(id)
   }, []) // eslint-disable-line
+
+  useLayoutEffect(() => {
+    setLoading(true)
+    useApi
+      .get('api/products')
+      .then((response) => {
+        setAllProd(response.data)
+      })
+      .then(() => setLoading(false))
+  }, [])
 
   const CardStyle = {
     margin: '1.5rem 0',
@@ -43,193 +53,203 @@ const PreviewProduct = () => {
     border: 'none',
   }
 
-  console.log(fetched)
-
-  return (
-    <>
-      {loading ? (
-        <Wrapper style={{ alignContent: 'center', justifyContent: 'center' }}>
-          <ContentLoader />
-        </Wrapper>
-      ) : (
-        <Wrapper>
-          <Div>
-            <SimilarText>Product information</SimilarText>
-            {Object.keys(items).length !== 0 && (
-              <>
-                <ProductView>
-                  <Col>
-                    <Carousel showArrows={true} showThumbs={false}>
-                      {items.images.map((el) => {
-                        return (
-                          <Image
-                            key={el.id}
-                            src={`http://localhost:8000/storage/products/${el.file_path}`}
-                            alt={el.file_path}
-                          />
-                        )
-                      })}
-                    </Carousel>
-                  </Col>
-                  <Col>
-                    <Category>{items.pivot[0].category}</Category>
-                    <h1 className='text'>{items.name}</h1>
-                    <Price>
-                      {items.discounts.discount === null || 0 ? (
-                        <p style={{ fontSize: '130%' }}>{items.price}dt</p>
-                      ) : (
-                        <p
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            fontSize: '130%',
-                          }}>
-                          <span
-                            style={{
-                              textDecoration: 'line-through',
-                            }}>
-                            {items.price} Dt
-                          </span>
-                          <Tag style={{ margin: '0 10px', fontSize: '1rem' }}>
-                            -{items.discounts.discount}%
-                          </Tag>
-                          {items.price -
-                            (items.price * items.discounts.discount) / 100}
-                          dt
-                        </p>
-                      )}
-                    </Price>
-
-                    <Description>
-                      <p style={{ fontSize: '120%' }}>Description :</p>
-                      <p>{items.description}</p>
-                    </Description>
-
-                    <br />
-                    <br />
-                    {items.stocks.quantity === 0 ? (
-                      <div className='note'>
-                        <RedDot /> Out of Stocks
-                      </div>
-                    ) : (
-                      <div className='note'>
-                        <GreenDot /> Available in stocks
-                      </div>
-                    )}
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        margin: '1rem 0',
-                      }}>
-                      {isInCart(items) && (
-                        <Button onClick={() => increase(items)}>
-                          Add more
-                        </Button>
-                      )}
-
-                      {!isInCart(items) && (
-                        <Button onClick={() => addProduct(items)}>
-                          Add to cart
-                        </Button>
-                      )}
-                      <m.button className='wishlistIcon'>
-                        <m.span
-                          style={{ display: 'flex' }}
-                          whileTap={{ scale: 0.7 }}>
-                          <BiHeart style={{ fontSize: '1.7rem' }} />
-                        </m.span>
-                      </m.button>
-                    </div>
-                  </Col>
-                </ProductView>
-                <Tabs
-                  style={{ width: '100%', margin: '1rem 0' }}
-                  variant='enclosed'>
-                  <TabList>
-                    <StyledTabs
-                      _selected={{
-                        bg:
-                          localStorage.getItem('mode') === 'light'
-                            ? '#fff'
-                            : '#333',
-                      }}>
-                      details
-                    </StyledTabs>
-                    <StyledTabs
-                      _selected={{
-                        bg:
-                          localStorage.getItem('mode') === 'light'
-                            ? '#fff'
-                            : '#333',
-                      }}>
-                      comments
-                    </StyledTabs>
-                  </TabList>
-
-                  <Panel>
-                    <TabPanel>{items.description}</TabPanel>
-                    <TabPanel className='comment-section'>qsds</TabPanel>
-                  </Panel>
-                </Tabs>
-              </>
-            )}
-          </Div>
-
-          <Div>
-            <SimilarText>Similar Product</SimilarText>
-            {fetched.length !== 0 &&
-              fetched
-                .filter(
-                  (el) =>
-                    el.pivot[0].category === items.pivot[0].category &&
-                    el.id !== items.id
-                )
-                .map((val) => {
-                  return (
-                    <Card shadow style={CardStyle} key={val.id}>
-                      <Card.Content className='cardTitle'>
-                        {val.name}
-                        <m.button
-                          className='heartButton'
-                          whileTap={{ scale: 0.8 }}>
-                          <BiHeart style={{ fontSize: '1.7rem' }} />
-                        </m.button>
-                      </Card.Content>
-                      <Card.Body className='cardBody'>
-                        <img
-                          className='image'
-                          alt={val.images[0].file_path}
-                          src={`http://localhost:8000/storage/products/${val.images[0].file_path}`}
+  if (loading) {
+    return (
+      <Wrapper style={{ alignContent: 'center', justifyContent: 'center' }}>
+        <ContentLoader />
+      </Wrapper>
+    )
+  } else {
+    return (
+      <Wrapper>
+        <Div>
+          <SimilarText>Product information</SimilarText>
+          {items !== {} && Object.keys(items).length !== 0 && (
+            <>
+              <ProductView>
+                <Col>
+                  <Carousel showArrows={true} showThumbs={false}>
+                    {items.images.map((el) => {
+                      return (
+                        <Image
+                          key={el.id}
+                          src={`http://localhost:8000/storage/products/${el.file_path}`}
+                          alt={el.file_path}
                         />
-
-                        {val.description.length < 85 ? (
-                          <p>{val.description}</p>
-                        ) : (
-                          <p>{val.description.substring(0, 85)}...</p>
-                        )}
-                      </Card.Body>
-                      <Card.Footer className='cardFooter'>
-                        <p>{val.price}Dt</p>
+                      )
+                    })}
+                  </Carousel>
+                </Col>
+                <Col>
+                  <Category>{items.pivot[0].category}</Category>
+                  <h1 className='text'>{items.name}</h1>
+                  <Price>
+                    {items.discounts.discount === null || 0 ? (
+                      <p style={{ fontSize: '130%' }}>{items.price}dt</p>
+                    ) : (
+                      <p
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          fontSize: '130%',
+                        }}>
                         <span
-                          className='cardlink'
+                          style={{
+                            textDecoration: 'line-through',
+                          }}>
+                          {items.price} Dt
+                        </span>
+                        <Tag style={{ margin: '0 10px', fontSize: '1rem' }}>
+                          -{items.discounts.discount}%
+                        </Tag>
+                        {items.price -
+                          (items.price * items.discounts.discount) / 100}
+                        dt
+                      </p>
+                    )}
+                  </Price>
+
+                  <Description>
+                    <p style={{ fontSize: '120%' }}>Description :</p>
+                    <p>{items.description}</p>
+                  </Description>
+
+                  <br />
+                  <br />
+                  {items.stocks.quantity === 0 ? (
+                    <div className='note'>
+                      <RedDot /> Out of Stocks
+                    </div>
+                  ) : (
+                    <div className='note'>
+                      <GreenDot /> Available in stocks
+                    </div>
+                  )}
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      margin: '1rem 0',
+                    }}>
+                    {isInCart(items) && (
+                      <Button onClick={() => increase(items)}>Add more</Button>
+                    )}
+
+                    {!isInCart(items) && (
+                      <Button onClick={() => addProduct(items)}>
+                        Add to cart
+                      </Button>
+                    )}
+                    <m.button className='wishlistIcon'>
+                      <m.span
+                        onClick={() => {
+                          useApi
+                            .post('/api/wishlists', {
+                              product_id: items.id,
+                            })
+                            .then((response) => {
+                              if (response.status === 200) {
+                                setToast({
+                                  text: 'item already stored',
+                                  type: 'secondary',
+                                })
+                              }
+                              if (response.status === 201) {
+                                setToast({
+                                  text: 'item added to your wishlist',
+                                  type: 'success',
+                                })
+                              }
+                            })
+                        }}
+                        style={{ display: 'flex' }}
+                        whileTap={{ scale: 0.7 }}>
+                        <BiHeart style={{ fontSize: '1.7rem' }} />
+                      </m.span>
+                    </m.button>
+                  </div>
+                </Col>
+              </ProductView>
+              <OneProducttabs item={items} />
+            </>
+          )}
+        </Div>
+        <Div>
+          <SimilarText>Similar Product</SimilarText>
+          {Object.keys(items).length !== 0 &&
+            allProd
+              .filter(
+                (el) =>
+                  el.pivot[0].category === items.pivot[0].category &&
+                  el.id !== items.id
+              )
+              .map((val) => {
+                return (
+                  <Card shadow style={CardStyle} key={val.id}>
+                    <Card.Content className='cardTitle'>
+                      {val.name}
+                      <m.button
+                        className='heartButton'
+                        whileTap={{ scale: 0.8 }}>
+                        <BiHeart
+                          style={{ fontSize: '1.7rem' }}
                           onClick={() => {
-                            getProduct(val.id)
+                            useApi
+                              .post('/api/wishlists', {
+                                product_id: items.id,
+                              })
+                              .then((response) => {
+                                if (response.status === 200) {
+                                  setToast({
+                                    text: 'item already stored',
+                                    type: 'secondary',
+                                  })
+                                }
+                                if (response.status === 201) {
+                                  setToast({
+                                    text: 'item added to your wishlist',
+                                    type: 'success',
+                                  })
+                                }
+                              })
+                          }}
+                        />
+                      </m.button>
+                    </Card.Content>
+                    <Card.Body className='cardBody'>
+                      <img
+                        className='image'
+                        alt={val.images[0].file_path}
+                        src={`http://localhost:8000/storage/products/${val.images[0].file_path}`}
+                      />
+
+                      {val.description.length < 85 ? (
+                        <p>{val.description}</p>
+                      ) : (
+                        <p>{val.description.substring(0, 85)}...</p>
+                      )}
+                    </Card.Body>
+                    <Card.Footer className='cardFooter'>
+                      <p>{val.price}Dt</p>
+                      <span
+                        className='cardlink'
+                        onClick={() => {
+                          getProduct(val.id).then(() =>
                             history.push(
                               `/product/${val.id}/${val.category}/${val.name}`
                             )
-                          }}>
-                          see product
-                        </span>
-                      </Card.Footer>
-                    </Card>
-                  )
-                })}
-          </Div>
-        </Wrapper>
-      )}
-    </>
-  )
+                          )
+                        }}>
+                        see product
+                      </span>
+                    </Card.Footer>
+                  </Card>
+                )
+              })}
+        </Div>
+      </Wrapper>
+    )
+  }
 }
 
 export default PreviewProduct
@@ -317,6 +337,12 @@ const Div = styled.div`
     font-size: 110%;
     cursor: pointer;
     color: ${({ theme }) => theme.optional};
+  }
+
+  .comment-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 `
 const SimilarText = styled.h2`
@@ -421,6 +447,10 @@ const Button = styled.button`
   text-transform: capitalize;
   color: ${({ theme }) => theme.body};
   background: ${({ theme }) => theme.text};
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `
 
 const Category = styled.p`
@@ -433,31 +463,4 @@ const Category = styled.p`
   text-transform: capitalize;
   color: ${({ theme }) => theme.body};
   background-color: ${({ theme }) => theme.text};
-`
-const StyledTabs = styled(Tab)`
-  border: none;
-  outline: none;
-  display: flex;
-  cursor: pointer;
-  font-weight: 600;
-  padding: 10px;
-  font-size: 1.125rem;
-  align-items: center;
-  margin-right: 15px;
-  text-transform: capitalize;
-  font-family: proxima-nova, sans-serif;
-  color: ${({ theme }) => theme.text};
-  background: ${({ theme }) => theme.hover};
-  border-bottom: 1px solid ${({ theme }) => theme.hover};
-`
-
-const Panel = styled(TabPanels)`
-  padding: 1rem 0;
-  border-top: 1px solid ${({ theme }) => theme.hover};
-
-  .comment-section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
 `

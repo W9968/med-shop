@@ -46,6 +46,7 @@ Route::put('products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
 // comment on product
+Route::get('/comment/{id}', [CommentsController::class, 'showComment']);
 Route::post('/comment', [CommentsController::class, 'store']);
 Route::put('/comment/{id}', [CommentsController::class, 'update']);
 

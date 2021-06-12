@@ -13,12 +13,14 @@ export default function _ProdContext({ children }) {
 
   const setSimilarProdcut = async () => {
     setLoading(true)
-    return await useApi.get('/api/products').then((response) => {
-      if (response.status === 200) {
-        setFetched(response.data)
-        setLoading(false)
-      }
-    })
+    return await useApi
+      .get('/api/products')
+      .then((response) => {
+        if (response.status === 200) {
+          setFetched(response.data)
+        }
+      })
+      .then(() => setLoading(false))
   }
 
   useEffect(() => {
