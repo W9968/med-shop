@@ -19,7 +19,7 @@ const SearchProd = ({ searchTitle }) => {
 
   useEffect(() => {
     useApi.get('/api/products').then((response) => {
-      response.status && setPayload(response.data.product)
+      response.status && setPayload(response.data)
     })
   }, [])
 
@@ -55,7 +55,7 @@ const SearchProd = ({ searchTitle }) => {
                     return (
                       el.name.toLowerCase().includes(searchInput) ||
                       el.price.toString().includes(searchInput) ||
-                      el.category.toLowerCase().includes(searchInput)
+                      el.pivot[0].category.toLowerCase().includes(searchInput)
                     )
                   }
                 }).length === 0 ? (
@@ -69,7 +69,9 @@ const SearchProd = ({ searchTitle }) => {
                         return (
                           el.name.toLowerCase().includes(searchInput) ||
                           el.price.toString().includes(searchInput) ||
-                          el.category.toLowerCase().includes(searchInput)
+                          el.pivot[0].category
+                            .toLowerCase()
+                            .includes(searchInput)
                         )
                       }
                     })
@@ -81,7 +83,7 @@ const SearchProd = ({ searchTitle }) => {
                           animate={{ opacity: 1, y: '0%' }}
                           onClick={() => {
                             history.push(
-                              `/product/${val.id}/${val.category}/${val.name}`
+                              `/product/${val.id}/${val.pivot[0].category}/${val.name}`
                             )
                             setSearchInput('')
                             closeHandler()

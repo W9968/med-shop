@@ -55,7 +55,7 @@ class BlogController extends Controller
     public function update(Request $request, $id)
     {
         $blog = Blog::find($id);
-        $blog->update($request-> all());
+        $blog->update($request->all());
         return $blog; 
     }
 

@@ -21,6 +21,7 @@ export { default as ProductTabs } from './home/ProductTabs'
 export { default as SecondSection } from './home/SecondSection'
 export { default as ThirdSection } from './home/ThirdSection'
 export { default as LastSection } from './home/LastSection'
+export { default as CarouselNews } from './home/NewsCarousel'
 
 export { default as ProfileHeader } from './profile/Hero'
 

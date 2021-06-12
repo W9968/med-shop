@@ -24,43 +24,39 @@ const _EditBlog = () => {
 
   useEffect(() => {
     showOneData('blogs', ides)
-  }, [oneResponse, showOneData]) // eslint-disable-line
+  }, [oneResponse, showOneData, ides])
 
-  console.log(oneResponse)
+  console.log(content)
 
   return (
     <>
-      {Object.key(oneResponse).length !== 0 && (
-        <>
-          <InputGroup key={oneResponse.title}>
-            <Label>title</Label>
-            <Input
-              type='text'
-              placeholder='blog title'
-              defaultValue={oneResponse.title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </InputGroup>
-          <TextEditor keky={oneResponse.content}>
-            <Label>content</Label>
-            <CKEditor
-              editor={ClassicEditor}
-              data={oneResponse.content}
-              config={{
-                cloudServices: {
-                  tokenUrl:
-                    'https://81119.cke-cs.com/token/dev/db322a409e24aacfbd7277f7b49a8dcc1a4423cb3600e75993345276823d',
-                  uploadUrl: 'https://81119.cke-cs.com/easyimage/upload/',
-                },
-              }}
-              onChange={(event, editor) => {
-                const data = editor.getData()
-                setContent(data)
-              }}
-            />
-          </TextEditor>
-        </>
-      )}
+      <InputGroup key={oneResponse.title}>
+        <Label>title</Label>
+        <Input
+          type='text'
+          placeholder='blog title'
+          defaultValue={oneResponse.title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </InputGroup>
+      <TextEditor keky={oneResponse.content}>
+        <Label>content</Label>
+        <CKEditor
+          editor={ClassicEditor}
+          data={oneResponse.content}
+          config={{
+            cloudServices: {
+              tokenUrl:
+                'https://81119.cke-cs.com/token/dev/db322a409e24aacfbd7277f7b49a8dcc1a4423cb3600e75993345276823d',
+              uploadUrl: 'https://81119.cke-cs.com/easyimage/upload/',
+            },
+          }}
+          onChange={(event, editor) => {
+            const data = editor.getData()
+            setContent(data)
+          }}
+        />
+      </TextEditor>
 
       <Div>
         <Linker to='/dash/blogs'>cancel</Linker>

@@ -15,7 +15,7 @@ export default function _ProdContext({ children }) {
     setLoading(true)
     return await useApi.get('/api/products').then((response) => {
       if (response.status === 200) {
-        setFetched(response.data.product)
+        setFetched(response.data)
         setLoading(false)
       }
     })

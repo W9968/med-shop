@@ -8,7 +8,7 @@ import { motion as m } from 'framer-motion'
 import { TextArea } from '../../styles/Crud.element'
 import ContentLoader from '../spinner/ContentLoader'
 import { CartContext, useProducts } from '../../global/exports.js'
-import { useParams, useHistory, Redirect } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
@@ -23,19 +23,6 @@ const PreviewProduct = () => {
   const getProduct = async (id) => {
     return await useApi.get(`api/products/${id}`).then((response) => {
       if (response.status === 200) {
-        // setProduct({
-        //   id: data.product.id,
-        //   name: data.product.name,
-        //   price: data.product.price,
-        //   description: data.product.description,
-        //   discount: data.product.discounts.discount,
-        //   category: data.product.category,
-        //   attribute: data.product.attribute,
-        //   images: data.product.images,
-        //   stocks: data.product.stocks.quantity,
-        //   returnpolicy: data.returnpolicy.return_policy,
-        //   returnDuration: data.returnpolicy.duration,
-        // })
         setITem(response.data)
       }
     })
@@ -56,7 +43,7 @@ const PreviewProduct = () => {
     border: 'none',
   }
 
-  console.log(items)
+  console.log(fetched)
 
   return (
     <>
@@ -66,191 +53,178 @@ const PreviewProduct = () => {
         </Wrapper>
       ) : (
         <Wrapper>
-          {/* product */}
           <Div>
             <SimilarText>Product information</SimilarText>
-            {Object.keys(items).length !== 0 ||
-              (items.product !== null && (
-                <>
-                  <ProductView>
-                    <Col>
-                      <Carousel showArrows={true} showThumbs={false}>
-                        {items.product.images.map((el) => {
-                          return (
-                            <Image
-                              key={el.id}
-                              src={`http://localhost:8000/storage/products/${el.file_path}`}
-                              alt={el.file_path}
-                            />
-                          )
-                        })}
-                      </Carousel>
-                      {/* */}
-                    </Col>
-                    <Col>
-                      <Category>{items.product.category}</Category>
-                      <h1 className='text'>{items.product.name}</h1>
-                      <Price>
-                        {items.product.discounts.discount === null || 0 ? (
-                          <p style={{ fontSize: '130%' }}>
-                            {items.product.price}dt
-                          </p>
-                        ) : (
-                          <p
-                            style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              fontSize: '130%',
-                            }}>
-                            <span
-                              style={{
-                                textDecoration: 'line-through',
-                              }}>
-                              {items.product.price} Dt
-                            </span>
-                            <Tag style={{ margin: '0 10px', fontSize: '1rem' }}>
-                              -{items.product.discounts.discount}%
-                            </Tag>
-                            {items.product.price -
-                              (items.product.price *
-                                items.product.discounts.discount) /
-                                100}
-                            dt
-                          </p>
-                        )}
-                      </Price>
-
-                      <Description>
-                        <p style={{ fontSize: '120%' }}>Description :</p>
-                        <p>{items.product.description}</p>
-                      </Description>
-
-                      <br />
-                      <br />
-                      {items.product.stocks.quantity === 0 ? (
-                        <div className='note'>
-                          <RedDot /> Out of Stocks
-                        </div>
+            {Object.keys(items).length !== 0 && (
+              <>
+                <ProductView>
+                  <Col>
+                    <Carousel showArrows={true} showThumbs={false}>
+                      {items.images.map((el) => {
+                        return (
+                          <Image
+                            key={el.id}
+                            src={`http://localhost:8000/storage/products/${el.file_path}`}
+                            alt={el.file_path}
+                          />
+                        )
+                      })}
+                    </Carousel>
+                  </Col>
+                  <Col>
+                    <Category>{items.pivot[0].category}</Category>
+                    <h1 className='text'>{items.name}</h1>
+                    <Price>
+                      {items.discounts.discount === null || 0 ? (
+                        <p style={{ fontSize: '130%' }}>{items.price}dt</p>
                       ) : (
-                        <div className='note'>
-                          <GreenDot /> Available in stocks
-                        </div>
+                        <p
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            fontSize: '130%',
+                          }}>
+                          <span
+                            style={{
+                              textDecoration: 'line-through',
+                            }}>
+                            {items.price} Dt
+                          </span>
+                          <Tag style={{ margin: '0 10px', fontSize: '1rem' }}>
+                            -{items.discounts.discount}%
+                          </Tag>
+                          {items.price -
+                            (items.price * items.discounts.discount) / 100}
+                          dt
+                        </p>
                       )}
-                      <div
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          margin: '1rem 0',
-                        }}>
-                        {isInCart(items.product) && (
-                          <Button onClick={() => increase(items.product)}>
-                            Add more
-                          </Button>
-                        )}
+                    </Price>
 
-                        {!isInCart(items.product) && (
-                          <Button onClick={() => addProduct(items.product)}>
-                            Add to cart
-                          </Button>
-                        )}
-                        <m.button className='wishlistIcon'>
-                          <m.span
-                            style={{ display: 'flex' }}
-                            whileTap={{ scale: 0.7 }}>
-                            <BiHeart style={{ fontSize: '1.7rem' }} />
-                          </m.span>
-                        </m.button>
+                    <Description>
+                      <p style={{ fontSize: '120%' }}>Description :</p>
+                      <p>{items.description}</p>
+                    </Description>
+
+                    <br />
+                    <br />
+                    {items.stocks.quantity === 0 ? (
+                      <div className='note'>
+                        <RedDot /> Out of Stocks
                       </div>
-                    </Col>
-                  </ProductView>
-                  <Tabs
-                    style={{ width: '100%', margin: '1rem 0' }}
-                    variant='enclosed'>
-                    <TabList>
-                      <StyledTabs
-                        _selected={{
-                          bg:
-                            localStorage.getItem('mode') === 'light'
-                              ? '#fff'
-                              : '#333',
-                        }}>
-                        details
-                      </StyledTabs>
-                      <StyledTabs
-                        _selected={{
-                          bg:
-                            localStorage.getItem('mode') === 'light'
-                              ? '#fff'
-                              : '#333',
-                        }}>
-                        comments
-                      </StyledTabs>
-                    </TabList>
+                    ) : (
+                      <div className='note'>
+                        <GreenDot /> Available in stocks
+                      </div>
+                    )}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        margin: '1rem 0',
+                      }}>
+                      {isInCart(items) && (
+                        <Button onClick={() => increase(items)}>
+                          Add more
+                        </Button>
+                      )}
 
-                    <Panel>
-                      <TabPanel>{items.product.description}</TabPanel>
-                      <TabPanel className='comment-section'>
-                        <TextArea placeholder='place your comment here...' />
-                        <br />
-                        <Button>add comment</Button>
-                        {items.product.comments.map((el) => {
-                          return <div>{el.comment}</div>
-                        })}
-                      </TabPanel>
-                    </Panel>
-                  </Tabs>
-                </>
-              ))}
+                      {!isInCart(items) && (
+                        <Button onClick={() => addProduct(items)}>
+                          Add to cart
+                        </Button>
+                      )}
+                      <m.button className='wishlistIcon'>
+                        <m.span
+                          style={{ display: 'flex' }}
+                          whileTap={{ scale: 0.7 }}>
+                          <BiHeart style={{ fontSize: '1.7rem' }} />
+                        </m.span>
+                      </m.button>
+                    </div>
+                  </Col>
+                </ProductView>
+                <Tabs
+                  style={{ width: '100%', margin: '1rem 0' }}
+                  variant='enclosed'>
+                  <TabList>
+                    <StyledTabs
+                      _selected={{
+                        bg:
+                          localStorage.getItem('mode') === 'light'
+                            ? '#fff'
+                            : '#333',
+                      }}>
+                      details
+                    </StyledTabs>
+                    <StyledTabs
+                      _selected={{
+                        bg:
+                          localStorage.getItem('mode') === 'light'
+                            ? '#fff'
+                            : '#333',
+                      }}>
+                      comments
+                    </StyledTabs>
+                  </TabList>
+
+                  <Panel>
+                    <TabPanel>{items.description}</TabPanel>
+                    <TabPanel className='comment-section'>qsds</TabPanel>
+                  </Panel>
+                </Tabs>
+              </>
+            )}
           </Div>
-          {/* card */}
+
           <Div>
             <SimilarText>Similar Product</SimilarText>
-            {fetched
-              .filter(
-                (el) =>
-                  el.category === items.product.category &&
-                  el.id !== items.product.id
-              )
-              .map((val) => {
-                return (
-                  <Card shadow style={CardStyle} key={val.id}>
-                    <Card.Content className='cardTitle'>
-                      {val.name}
-                      <m.button
-                        className='heartButton'
-                        whileTap={{ scale: 0.8 }}>
-                        <BiHeart style={{ fontSize: '1.7rem' }} />
-                      </m.button>
-                    </Card.Content>
-                    <Card.Body className='cardBody'>
-                      <img
-                        className='image'
-                        alt={val.images[0].file_path}
-                        src={`http://localhost:8000/storage/products/${val.images[0].file_path}`}
-                      />
-
-                      {val.description.length < 85 ? (
-                        <p>{val.description}</p>
-                      ) : (
-                        <p>{val.description.substring(0, 85)}...</p>
-                      )}
-                    </Card.Body>
-                    <Card.Footer className='cardFooter'>
-                      <p>{val.price}Dt</p>
-                      <span
-                        className='cardlink'
-                        onClick={() => {
-                          getProduct(val.id)
-                          history.push(
-                            `/product/${val.id}/${val.category}/${val.name}`
-                          )
-                        }}>
-                        see product
-                      </span>
-                    </Card.Footer>
-                  </Card>
+            {fetched.length !== 0 &&
+              fetched
+                .filter(
+                  (el) =>
+                    el.pivot[0].category === items.pivot[0].category &&
+                    el.id !== items.id
                 )
-              })}
+                .map((val) => {
+                  return (
+                    <Card shadow style={CardStyle} key={val.id}>
+                      <Card.Content className='cardTitle'>
+                        {val.name}
+                        <m.button
+                          className='heartButton'
+                          whileTap={{ scale: 0.8 }}>
+                          <BiHeart style={{ fontSize: '1.7rem' }} />
+                        </m.button>
+                      </Card.Content>
+                      <Card.Body className='cardBody'>
+                        <img
+                          className='image'
+                          alt={val.images[0].file_path}
+                          src={`http://localhost:8000/storage/products/${val.images[0].file_path}`}
+                        />
+
+                        {val.description.length < 85 ? (
+                          <p>{val.description}</p>
+                        ) : (
+                          <p>{val.description.substring(0, 85)}...</p>
+                        )}
+                      </Card.Body>
+                      <Card.Footer className='cardFooter'>
+                        <p>{val.price}Dt</p>
+                        <span
+                          className='cardlink'
+                          onClick={() => {
+                            getProduct(val.id)
+                            history.push(
+                              `/product/${val.id}/${val.category}/${val.name}`
+                            )
+                          }}>
+                          see product
+                        </span>
+                      </Card.Footer>
+                    </Card>
+                  )
+                })}
           </Div>
         </Wrapper>
       )}
@@ -442,7 +416,9 @@ const Button = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 1rem 2rem;
+  padding: 13px 2rem;
+  font-size: 1.125rem;
+  text-transform: capitalize;
   color: ${({ theme }) => theme.body};
   background: ${({ theme }) => theme.text};
 `

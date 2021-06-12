@@ -6,6 +6,7 @@ import {
   SecondSection,
   ThirdSection,
   LastSection,
+  CarouselNews,
 } from '../components/imports'
 import { Wrapper } from '../styles/HomeLayout.element'
 
@@ -19,6 +20,7 @@ const Homelayout = () => {
         <SecondSection />
         <ThirdSection />
         <LastSection />
+        <CarouselNews />
       </Wrapper>
     </>
   )
