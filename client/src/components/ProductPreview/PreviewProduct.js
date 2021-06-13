@@ -273,9 +273,10 @@ const Wrapper = styled.div`
   width: 100%;
   padding: 1rem;
   display: flex;
-  padding-top: 150px;
+  padding-top: 100px;
 
   @media (max-width: 1400px) {
+    width: 100%;
     flex-direction: column;
   }
 `
@@ -360,7 +361,7 @@ const Div = styled.div`
     align-items: flex-start;
   }
 `
-const SimilarText = styled.h2`
+const SimilarText = styled.h1`
   margin-bottom: 2rem;
   color: ${({ theme }) => theme.sameHover};
 `

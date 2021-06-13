@@ -47,3 +47,7 @@ export { default as SingleProductPreview } from './ProductPreview/PreviewProduct
 export { default as SingleNewsPreview } from './newsPage/SingleNewPreview'
 
 export { default as Cart } from './cart/_Cart'
+export { default as CartInfo } from './checkout/BagInofrmation'
+export { default as BillingDetails } from './checkout/BillingInformation'
+
+export { default as UserStat } from './dashboard/charts/UserCount'

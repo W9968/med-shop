@@ -30,6 +30,10 @@ export default NewsCard
 const CardStyled = styled.div`
   width: 500px;
 
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
   .cardTitle {
     display: flex;
     font-weight: 600;

@@ -1,14 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
 import { motion as m } from 'framer-motion'
+import { useHistory } from 'react-router-dom'
 import { BiChevronRight } from 'react-icons/bi'
 import { CartContext } from '../../global/exports'
 
 const GoCheckoutButton = () => {
+  const history = useHistory()
   const { total } = React.useContext(CartContext)
   return (
     <>
-      <Button>
+      <Button onClick={() => history.push('/checkout')}>
         <Side1>
           <p style={{ fontSize: '15px', color: '#adcaff' }}>Together to pay</p>
           <p style={{ fontSize: '1.125rem', marginTop: '5px' }}>{total}Dt</p>
