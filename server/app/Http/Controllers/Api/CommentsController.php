@@ -7,7 +7,6 @@ use App\Models\Comments;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Auth;
-use Illuminate\Support\Facades\DB;
 
 class CommentsController extends Controller
 {
@@ -25,7 +24,7 @@ class CommentsController extends Controller
      */
     public function showComment($id)
     {
-        return Product::with('comments', 'images')->find($id);
+        return Product::with('comments')->find($id);
     }
 
     /**

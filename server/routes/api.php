@@ -49,6 +49,7 @@ Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 Route::get('/comment/{id}', [CommentsController::class, 'showComment']);
 Route::post('/comment', [CommentsController::class, 'store']);
 Route::put('/comment/{id}', [CommentsController::class, 'update']);
+Route::delete('/comment/{id}', [CommentsController::class,'destroy']);
 
 // file uplaod route
 Route::post('/products/upload', [FileUploadController::class, 'uploadFile']);
