@@ -24,7 +24,10 @@ const CartElements = () => {
         return (
           <Card key={key}>
             <Side>
-              <Image src={elem.image} alt={elem.image} />
+              <Image
+                src={`http://localhost:8000/storage/products/${elem.image}`}
+                alt={elem.image}
+              />
             </Side>
             <Side>
               <div>

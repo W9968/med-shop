@@ -19,12 +19,25 @@ const PreviewProduct = () => {
   const [items, setITem] = useState({})
   const [allProd, setAllProd] = useState([])
   const [loading, setLoading] = useState(false)
+  const [cartProd, setCartProd] = useState({})
   const { addProduct, cartItems, increase } = useContext(CartContext)
 
   const getProduct = async (id) => {
     return await useApi.get(`api/products/${id}`).then((response) => {
       if (response.status === 200) {
         setITem(response.data)
+        setCartProd({
+          id: response.data.id,
+          name: response.data.name,
+          price:
+            response.data.discounts.discount === null
+              ? response.data.price
+              : response.data.price -
+                (response.data.price * response.data.discounts.discount) / 100,
+          category: response.data.pivot[0].category,
+          sub_category: response.data.pivot[0].sub_categ,
+          image: response.data.images[0].file_path,
+        })
       }
     })
   }
@@ -131,12 +144,14 @@ const PreviewProduct = () => {
                       alignItems: 'center',
                       margin: '1rem 0',
                     }}>
-                    {isInCart(items) && (
-                      <Button onClick={() => increase(items)}>Add more</Button>
+                    {isInCart(cartProd) && (
+                      <Button onClick={() => increase(cartProd)}>
+                        Add more
+                      </Button>
                     )}
 
-                    {!isInCart(items) && (
-                      <Button onClick={() => addProduct(items)}>
+                    {!isInCart(cartProd) && (
+                      <Button onClick={() => addProduct(cartProd)}>
                         Add to cart
                       </Button>
                     )}

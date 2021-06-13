@@ -1,7 +1,9 @@
 import React from 'react'
 import { Cart } from '../imports'
 import styled from 'styled-components'
-import { BiMenu, BiCart } from 'react-icons/bi'
+import { BiMenu } from 'react-icons/bi'
+import { Badge } from '@geist-ui/react'
+import { FiShoppingBag } from 'react-icons/fi'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 
 import Logo from './header/Logo'
@@ -12,8 +14,11 @@ import MobileDrawer from './mobile/MobileDrawer'
 import Toggle from './header/Toggle'
 import FullWidhMenu from './header/menu/FullWidhMenu'
 import GoCheckoutButton from '../cart/GoCheckoutButton'
+import { CartContext } from '../../global/exports'
 
 const Navbar = ({ mode, modeFunc }) => {
+  const { itemCount } = React.useContext(CartContext)
+
   return (
     <>
       <Container>
@@ -30,7 +35,21 @@ const Navbar = ({ mode, modeFunc }) => {
             <Logo goTo='/' />
             <Drawable
               width={'100%'}
-              icon={<BiCart />}
+              icon={
+                <Badge.Anchor placement='bottomLeft'>
+                  <Badge
+                    size='mini'
+                    type='default'
+                    style={{
+                      color: localStorage.getItem('mode') === 'dark' && '#111',
+                      background:
+                        localStorage.getItem('mode') === 'dark' && '#fff',
+                    }}>
+                    {itemCount}
+                  </Badge>
+                  <FiShoppingBag />
+                </Badge.Anchor>
+              }
               direction='right'
               children={<Cart />}
               footer={<GoCheckoutButton />}
