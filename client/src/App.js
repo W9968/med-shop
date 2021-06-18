@@ -16,7 +16,7 @@ import {
   Register,
   SendResetMAil,
   ResetPassword,
-  PlanTicket,
+  Artisan,
   Organic,
   BeautyProduct,
   Cosmetic,
@@ -73,7 +73,7 @@ function App() {
                               component={BeautyProduct}
                             />
                             <Route path='/organic' component={Organic} />
-                            <Route path='/planticket' component={PlanTicket} />
+                            <Route path='/artisan' component={Artisan} />
                             <Route path='/checkout' component={Checkout} />
 
                             <ProtectedRoute path='/dash' component={Dash} />

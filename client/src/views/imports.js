@@ -6,7 +6,7 @@ export { default as Checkout } from './pages/_Checkout'
 export { default as WishList } from './pages/_WishList'
 
 export { default as SingleProduct } from './delta/_ProductShow'
-export { default as PlanTicket } from './delta/_PlanTicked'
+export { default as Artisan } from './delta/_Artisan'
 export { default as Organic } from './delta/_Organic'
 export { default as BeautyProduct } from './delta/_BeautyProduct'
 export { default as Cosmetic } from './delta/_CosmeticSurgery'

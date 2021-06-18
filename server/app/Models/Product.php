@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -21,7 +22,7 @@ class Product extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['name','price','description', 'details'];
+    protected $fillable = ['name','price','description', 'details', 'brand_id'];
 
     /**
      * Get all of the images for the Product
@@ -81,5 +82,15 @@ class Product extends Model implements Auditable
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Attribute::class, 'attributes_products')->withPivot('attribute_id');
+    }
+
+    /**
+     * Get the tag that owns the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tag(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 }

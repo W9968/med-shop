@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CommentsController;
 use App\Http\Controllers\Api\DiscountController;
 use App\Http\Controllers\Api\FileUploadController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ReturnPolicyController;
 use App\Http\Controllers\Api\StockController;
@@ -91,6 +92,9 @@ Route::put('/returnpolicy/{id}', [ReturnPolicyController::class, 'update']);
 // get audit lgos
 Route::get('/logs', [AuditsController::class, 'showAdminLogs']);
 Route::get('/logs/customer', [AuditsController::class, 'showCustomerLogs']);
+
+// payment routes 
+Route::post('/payment',[PaymentController::class, 'pay']);
 
 // get current user
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

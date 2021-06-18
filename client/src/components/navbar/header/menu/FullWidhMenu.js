@@ -4,11 +4,11 @@ import { NavLink } from 'react-router-dom'
 
 const FullWidhMenu = () => {
   const paths = [
-    { name: 'billets avions', path: '/planticket' },
-    { name: 'Alimentaires', path: '/organic' },
-    { name: 'produit beauté', path: '/beautyproduct' },
-    { name: 'médecine esthétique', path: '/cosmetic' },
-    { name: 'autres', path: '/others' },
+    { name: 'Artisan', path: '/artisan' },
+    { name: 'alimentary', path: '/organic' },
+    { name: 'Product beauty', path: '/beautyproduct' },
+    { name: 'cosmetic surgery', path: '/cosmetic' },
+    { name: 'other domains', path: '/others' },
   ]
 
   return (

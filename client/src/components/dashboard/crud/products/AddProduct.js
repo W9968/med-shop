@@ -40,23 +40,24 @@ const AddProduct = () => {
   const [name, setName] = useState('')
   const [price, setPrice] = useState()
   const [description, setDescription] = useState('')
-  //const [tag, setTag] = useState('')
+  const [tag, setTag] = useState('')
   const [content, setContent] = useState('')
   const [stocks, setStocks] = useState()
   const [images, setImages] = useState([])
-  //const [fetchedBrand, setFetchedBrand] = useState([])
+  const [fetchedBrand, setFetchedBrand] = useState([])
   const [att, setAtti] = useState('')
   const [attributes, setAttributes] = useState([])
 
   useEffect(() => {
-    // axios.get('http://localhost:8000/api/brands').then((res) => {
-    //   const option = res.data.map((val) => ({ value: val.tag, label: val.tag }))
-    //   setFetchedBrand(option)
-    // })
+    axios.get('http://localhost:8000/api/brands').then((res) => {
+      const option = res.data.map((val) => ({ value: val.id, label: val.tag }))
+      setFetchedBrand(option)
+    })
   }, []) // eslint-disable-line
 
   // cordinate selection
   const category = [
+    { label: 'artisans', value: 'artisans' },
     { label: 'Product Beauty', value: 'product beauty' },
     { label: 'Books', value: 'book' },
     { label: 'Cosmetic', value: 'cosmetic' },
@@ -90,9 +91,11 @@ const AddProduct = () => {
     option: (provided, state) => ({
       ...provided,
       color: localStorage.getItem('mode') === 'light' ? '#232323' : '#efefef',
-      background:
-        state.isSelected &&
-        (localStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111'),
+      background: state.isSelected
+        ? localStorage.getItem('mode') === 'light'
+          ? '#ffffff'
+          : '#111111'
+        : 'none',
       '&:hover': {
         background:
           localStorage.getItem('mode') === 'light' ? '#ffffff' : '#111111',
@@ -109,6 +112,7 @@ const AddProduct = () => {
     formData.append('details', content)
     formData.append('stocks', stocks)
     formData.append('category_id', att)
+    formData.append('brand_id', tag)
 
     for (let i = 0; i < images.length; i++) {
       formData.append('images[]', images[i].file)
@@ -144,7 +148,7 @@ const AddProduct = () => {
           <InputGroup>
             <Label>price</Label>
             <Input
-              type='number'
+              type='text'
               name='price'
               placeholder='product price'
               onChange={(e) => setPrice(e.target.value)}
@@ -157,6 +161,18 @@ const AddProduct = () => {
               name='stocks'
               placeholder='product stokcs'
               onChange={(e) => setStocks(e.target.value)}
+            />
+          </InputGroup>
+          <InputGroup>
+            <Label>tags</Label>
+            <CreatableSelect
+              name='attribute'
+              styles={CustemStyles}
+              placeholder='select my brand'
+              options={fetchedBrand}
+              onChange={(e) => {
+                setTag(e.value)
+              }}
             />
           </InputGroup>
           <InputGroup>
@@ -228,10 +244,10 @@ const AddProduct = () => {
             onupdatefiles={setImages}
             allowImagePreview
             allowImageCrop
-            allowImageResize
-            imageResizeTargetWidth='420'
-            imageResizeTargetHeight='600'
-            imageResizeMode='contain'
+            // allowImageResize
+            // imageResizeTargetWidth='420'
+            // imageResizeTargetHeight='600'
+            // imageResizeMode='contain'
             imageCropAspectRatio='3:4'
           />
           <Div>

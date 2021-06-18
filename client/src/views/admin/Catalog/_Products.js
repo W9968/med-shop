@@ -18,9 +18,10 @@ const _Products = () => {
       { Header: 'id', accessor: 'id' },
       { Header: 'name', accessor: 'name' },
       { Header: 'price', accessor: 'price' },
+      { Header: 'brand', accessor: 'tag.tag' },
       { Header: 'stock', accessor: 'stocks.quantity' },
       { Header: 'category', accessor: 'pivot[0].category' },
-      { Header: 'attribute', accessor: 'pivot[0].sub_categ' },
+      { Header: 'sub category', accessor: 'pivot[0].sub_categ' },
     ],
     []
   )

@@ -12,8 +12,8 @@ const GoCheckoutButton = () => {
     <>
       <Button onClick={() => history.push('/checkout')}>
         <Side1>
-          <p style={{ fontSize: '15px', color: '#adcaff' }}>Together to pay</p>
-          <p style={{ fontSize: '1.125rem', marginTop: '5px' }}>{total}Dt</p>
+          <p style={{ fontSize: '15px', color: '#adcaff' }}>amount to pay</p>
+          <p style={{ fontSize: '1.125rem', marginTop: '5px' }}>{total}$</p>
         </Side1>
         <Side2 whileTap={{ scale: 0.7 }}>
           <BiChevronRight style={{ fontSize: '1.5rem' }} />

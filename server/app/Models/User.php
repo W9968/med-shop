@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class User extends Authenticatable implements MustVerifyEmail,Auditable
+class User extends Authenticatable implements MustVerifyEmail, Auditable
 {
     use HasFactory, Notifiable, AuditableTrait;
 
@@ -64,6 +63,16 @@ class User extends Authenticatable implements MustVerifyEmail,Auditable
     public function comments(): HasMany
     {
         return $this->hasMany(Comments::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get all of the orders for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Orders::class, 'user_id', 'id');
     }
 
 }

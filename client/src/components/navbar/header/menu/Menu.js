@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 const Menu = () => {
   const paths = [
-    { name: 'billets avions', path: '/planticket' },
+    { name: 'artisanat', path: '/artisan' },
     { name: 'Alimentaires', path: '/organic' },
     { name: 'produit beauté', path: '/beautyproduct' },
     { name: 'médecine esthétique', path: '/cosmetic' },

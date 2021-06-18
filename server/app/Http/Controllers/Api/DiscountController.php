@@ -18,7 +18,7 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        return Product::with('discounts', 'images')->get();
+        return Product::with('discounts')->get();
     }
 
     /**
@@ -29,7 +29,7 @@ class DiscountController extends Controller
      */
     public function show($id)
     {
-        return Product::with('images', 'discounts')->find($id);
+        return Product::with('discounts')->find($id);
     }
 
     /**

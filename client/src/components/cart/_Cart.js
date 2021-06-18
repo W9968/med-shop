@@ -9,9 +9,6 @@ const _Cart = () => {
   const { cartItems, removeProduct } = useContext(CartContext)
 
   useEffect(() => {
-    console.log(fetched)
-    console.log(cartItems)
-
     fetched !== undefined &&
       cartItems.forEach(
         (el) =>

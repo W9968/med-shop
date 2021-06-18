@@ -19,6 +19,7 @@ const AddAttributes = () => {
   const [attribute, setAttribute] = useState()
 
   const option = [
+    { label: 'artisans', value: 'artisans' },
     { label: 'Product Beauty', value: 'product beauty' },
     { label: 'Books', value: 'book' },
     { label: 'Cosmetic', value: 'cosmetic' },

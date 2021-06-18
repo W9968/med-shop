@@ -98,7 +98,7 @@ const PreviewProduct = () => {
                   <h1 className='text'>{items.name}</h1>
                   <Price>
                     {items.discounts.discount === null || 0 ? (
-                      <p style={{ fontSize: '130%' }}>{items.price}dt</p>
+                      <p style={{ fontSize: '130%' }}>{items.price}$</p>
                     ) : (
                       <p
                         style={{
@@ -110,14 +110,14 @@ const PreviewProduct = () => {
                           style={{
                             textDecoration: 'line-through',
                           }}>
-                          {items.price} Dt
+                          {items.price} $
                         </span>
                         <Tag style={{ margin: '0 10px', fontSize: '1rem' }}>
                           -{items.discounts.discount}%
                         </Tag>
                         {items.price -
                           (items.price * items.discounts.discount) / 100}
-                        dt
+                        $
                       </p>
                     )}
                   </Price>
@@ -245,7 +245,7 @@ const PreviewProduct = () => {
                       )}
                     </Card.Body>
                     <Card.Footer className='cardFooter'>
-                      <p>{val.price}Dt</p>
+                      <p>{val.price}$</p>
                       <span
                         className='cardlink'
                         onClick={() => {

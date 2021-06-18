@@ -156,4 +156,8 @@ export const Message = styled.p`
   padding: 0.7rem 2rem;
   background-color: red;
   color: ${({ theme }) => theme.text};
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `

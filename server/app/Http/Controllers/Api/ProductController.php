@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attribute;
+use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ReturnPolicy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -23,15 +25,16 @@ class ProductController extends Controller
                 'return_policy' => 0,
                 'duration' => '0'
             ]);
-        } 
-
+        }
         $collection =  Product::with('stocks', 'discounts', 'images', 'comments')->get();
         $mappedCollection = $collection->map(function ($item){
             return $item->setAttribute('policy',ReturnPolicy::find(1));
         })->map(function ($item) {
             $pivot = Product::find($item->id);
             return $item->setAttribute('pivot', $pivot->categories);
-        });
+        })->map((function ($item) {
+            return $item->setAttribute('tag',Brand::find($item->brand_id));
+        }));
 
         return $mappedCollection;
     }
@@ -50,10 +53,9 @@ class ProductController extends Controller
             'description' => 'required',
             'details' => 'required',
             'stocks' => 'required|numeric',
-            //'discounts' => 'required|numeric'
         ]);
 
-        $product = Product::create($request->only('name','price','description', 'details'));
+        $product = Product::create($request->only('name','price','description', 'details', 'brand_id'));
         
         $product->stocks()->create([
             'quantity' => $request->stocks,
@@ -61,7 +63,6 @@ class ProductController extends Controller
         ]);
 
         $product->discounts()->create([
-            //'discount' => $request->discounts,
             'product_id' => $product->id
         ]);
 
@@ -76,6 +77,7 @@ class ProductController extends Controller
                 ]);
             }
         }
+
         $productCategId = Attribute::find($request->get('category_id'));
         $productpivot = Product::find($product->id);
         $productpivot->categories()->attach($productCategId);
@@ -103,7 +105,28 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $product = Product::find($id);
+
+        foreach($product->images as $oneImage)
+        {
+            unlink(storage_path('app/public/products/'.$oneImage->file_path));
+            $product->images()->delete($oneImage->id);
+        }
+
+        $product->update($request->only('name','price','description', 'details'));
+
+        if($request->hasFile('images'))
+        {
+            foreach( $request->file('images') as $file)
+            {
+                $file->store('public/products');
+                $product->images()->create([
+                    'product_id' => $product->id,
+                    'file_path'  => $file->hashName()
+                ]);
+            }
+        }
+
     }
 
     /**
