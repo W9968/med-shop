@@ -11,7 +11,7 @@ import MD5 from 'crypto-js/md5'
 
 const _PayOnDelivey = () => {
   const [, setToast] = useToasts()
-  const { total } = useContext(CartContext)
+  const { total, cartItems } = useContext(CartContext)
   const [country, setCoutry] = useState('')
   const [countrieFN, setCountriesFN] = useState('')
   const { logged, currentUser } = useAuth()
@@ -56,6 +56,7 @@ const _PayOnDelivey = () => {
         line1: billingDetails.address.line1,
         line2: billingDetails.address.line2,
         returnable: returnableVal,
+        cart: JSON.stringify(cartItems),
       })
       .then((response) => console.log(response))
       .then(() =>

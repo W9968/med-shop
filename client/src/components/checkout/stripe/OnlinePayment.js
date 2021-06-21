@@ -3,7 +3,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
 import useApi from '../../../hooks/useApi'
 import { MdPayment } from 'react-icons/md'
-import { useAuth } from '../../../global/exports'
+import { CartContext, useAuth } from '../../../global/exports'
 import CheckoutError from './prebuilt/CheckoutError'
 import { StyledSelect } from '../../../styles/Crud.element'
 import { CustemStyles } from '../../../styles/DropDown.element'
@@ -18,6 +18,7 @@ const OnlinePayment = ({ price, onSuccessfulCheckout }) => {
   const [country, setCoutry] = useState('')
   const [countrieFN, setCountriesFN] = useState('')
   const [returnableVal, setReturnableVal] = useState()
+  const { cartItems } = React.useContext(CartContext)
   const stripe = useStripe()
   const elements = useElements()
   const [, setToast] = useToasts()
@@ -49,7 +50,7 @@ const OnlinePayment = ({ price, onSuccessfulCheckout }) => {
         city: e.target.city.value,
         line1: e.target.line1.value,
         line2: e.target.line2.value,
-        country: countrieFN,
+        country: country,
         postal_code: e.target.postal_code.value,
       },
     }
@@ -81,13 +82,14 @@ const OnlinePayment = ({ price, onSuccessfulCheckout }) => {
                     transaction_id: response.data.id,
                     payment_methode: 'Card',
                     amount_to_pay: response.data.amount / 100,
-                    country: billingDetails.address.country,
+                    country: countrieFN,
                     state: billingDetails.address.city,
                     postal_code: billingDetails.address.postal_code,
                     phone_number: billingDetails.phone,
                     line1: billingDetails.address.line1,
                     line2: billingDetails.address.line2,
                     returnable: returnableVal,
+                    cart: JSON.stringify(cartItems),
                   })
                   .then(() =>
                     setToast({

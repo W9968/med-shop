@@ -11,7 +11,7 @@ import useApi from '../../../hooks/useApi'
 const _Paypal = () => {
   const paypal = React.useRef()
   const [, setToast] = useToasts()
-  const { total } = useContext(CartContext)
+  const { total, cartItems } = useContext(CartContext)
 
   const [line1, setLine1] = useState('')
   const [line2, setLine2] = useState('')
@@ -158,6 +158,7 @@ const _Paypal = () => {
                       line1: line1,
                       line2: line2,
                       returnable: returnableVal,
+                      cart: JSON.stringify(cartItems),
                     })
                     .then(() => {
                       setDisable(true)

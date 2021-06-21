@@ -4,30 +4,40 @@ import { Doughnut } from 'react-chartjs-2'
 import { Card } from '@geist-ui/react'
 import styled from 'styled-components'
 
-const UserCount = () => {
-  const [users, setUsers] = React.useState([])
+const Revenue = () => {
+  const [money, setMoney] = React.useState([])
   const [loading, setLoading] = React.useState(false)
 
   useLayoutEffect(() => {
     setLoading(true)
     useApi
-      .get('/api/customer')
+      .get('/api/factures')
       .then((response) => {
-        setUsers(response.data)
+        setMoney(response.data)
       })
       .then(() => setLoading(false))
-  }, [setUsers])
+  }, [setMoney])
 
-  const verified = users.filter((el) => el.email_verified_at !== null).length
-  const non_verified = users.filter(
-    (el) => el.email_verified_at === null
+  const Paypal = money.filter(
+    (el) => el.payment_methode.toLowerCase() === 'paypal'
+  ).length
+  const CreditCard = money.filter(
+    (el) => el.payment_methode.toLowerCase() === 'card'
+  ).length
+
+  const OnDelivery = money.filter(
+    (el) => el.payment_methode.toLowerCase() === 'on delivery'
   ).length
 
   const data = {
     datasets: [
       {
-        data: [verified, non_verified],
-        backgroundColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+        data: [Paypal, CreditCard, OnDelivery],
+        backgroundColor: [
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
         borderWidth: 0,
       },
     ],
@@ -66,14 +76,14 @@ const UserCount = () => {
               />
             </div>
             <div style={{ flex: 1, margin: '0 1rem' }}>
-              <h1>Total user</h1>
-              <h1>{users.length}</h1>
+              <h1>Total Orders</h1>
+              <h1>{money.length}</h1>
             </div>
           </Div>
           <Card.Footer>
             <Div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div className='color1' /> Verfied
+                <div className='color1' /> PayPal
               </div>
               <div
                 style={{
@@ -82,7 +92,16 @@ const UserCount = () => {
                   margin: '0 5px',
                 }}>
                 <div className='color2' />
-                Non verified
+                Credit Card
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  margin: '0 5px',
+                }}>
+                <div className='color3' />
+                On Delivery
               </div>
             </Div>
           </Card.Footer>
@@ -92,7 +111,7 @@ const UserCount = () => {
   )
 }
 
-export default UserCount
+export default Revenue
 
 const Div = styled.div`
   display: flex;
@@ -108,5 +127,11 @@ const Div = styled.div`
     width: 10px;
     height: 10px;
     background-color: rgba(255, 99, 132, 1);
+  }
+
+  .color3 {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 159, 64, 1);
   }
 `

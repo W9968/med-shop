@@ -22,8 +22,6 @@ const DashMenu = ({ size }) => {
   const OrderItem = [
     { name: 'Orders', path: '/dash/orders' },
     { name: 'Inovice', path: '/dash/inovices' },
-    { name: 'Credit Slips', path: '/' },
-    { name: 'Delivery Slips', path: '/' },
   ]
 
   const CatalogItem = [

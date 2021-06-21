@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Facture;
+use App\Models\Orders;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
-
+use Carbon\Factory;
 use Stripe;
+use Stripe\Order;
+
+use function PHPSTORM_META\map;
 
 class PaymentController extends Controller
 {
@@ -62,12 +67,36 @@ class PaymentController extends Controller
             'user_id' =>  Auth::user()->id
         ]);
 
-        return $facture;
+      
+        $cart = $request->get('cart');
+        
+        foreach(json_decode($cart) as $item )
+        {
+            $facture->orders()->create([
+                'price' => $item->price,
+                'quantity' => $item->quantity,
+                'product_id' => $item->id,
+                'facture_id' => $facture->id,
+            ]);
+        }
+        
+      
     }
 
 
     public function getAllFactures()
     {
-        return Facture::all();
+        $collection =  Facture::with('orders')->get();
+        $mappedCollection = $collection->map(function ($item){
+            return $item->setAttribute('user',User::find($item->user_id));
+        });
+        return $mappedCollection;
     }
+
+    public function getAuthedUserFactureList()
+    {
+        $user = Auth::user();
+        return Facture::where("user_id", "=", $user->id)->orderby('id', 'desc')->get();
+    }
+
 }

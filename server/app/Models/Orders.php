@@ -9,22 +9,28 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Orders extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = [
-        'stripe_id',
-        'qunatity',
-        'total_amount',
-        'email',
-        'product_id',
+        'price', 'quantity', 'product_id', 'facture_id'
     ];
 
     /**
-     * Get the user that owns the Orders
+     * Get the products that owns the Orders
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function products(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    /**
+     * Get the facture that owns the Orders
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function facture(): BelongsTo
+    {
+        return $this->belongsTo(Facture::class, 'facture_id');
     }
 }

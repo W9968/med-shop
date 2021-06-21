@@ -7,6 +7,7 @@ export { default as Nav } from './navbar/_Navbar'
 export { default as Footer } from './footer/_Footer'
 export { default as DataTable } from './datatable/_DataTable'
 export { default as OnlyEditTable } from './datatable/_OnlyEditTable'
+export { default as FactureTable } from './datatable/_FactureTable'
 export { default as CockiesBanner } from './acceptCockiesBanner/_BannerAccept'
 
 export { default as SideMenu } from './dashboard/sider/_SideMenu'
@@ -52,3 +53,4 @@ export { default as OnDelivery } from './checkout/ondelivey/_PayOnDelivey'
 export { default as Stripe } from './checkout/stripe/_Stripe'
 
 export { default as UserStat } from './dashboard/charts/UserCount'
+export { default as RevenueStat } from './dashboard/charts/Revenue'

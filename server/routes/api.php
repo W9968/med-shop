@@ -96,6 +96,7 @@ Route::get('/logs/customer', [AuditsController::class, 'showCustomerLogs']);
 // payment routes 
 Route::post('/payment',[PaymentController::class, 'creditCharge']);
 Route::post('/payement/facture',[PaymentController::class, 'paymentFacture']);
+Route::get('/factures', [PaymentController::class, 'getAllFactures']);
 
 // get current user
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

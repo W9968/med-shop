@@ -1,12 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-import { UserStat } from '../../components/imports'
+import { RevenueStat, UserStat, ContentHeader } from '../../components/imports'
 
 const _Stats = () => {
   return (
     <>
       <Wrapper>
+        <ContentHeader header='Dashboard' boolState={false} />
         <UserStat />
+        <RevenueStat />
       </Wrapper>
     </>
   )
