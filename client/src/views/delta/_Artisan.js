@@ -1,118 +1,209 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Card } from '@geist-ui/react'
-import { BiHeart } from 'react-icons/bi'
-import { motion as m } from 'framer-motion'
+import useApi from '../../hooks/useApi'
+// import { BiHeart } from 'react-icons/bi'
+// import { motion as m } from 'framer-motion'
 import Pagelayout from '../../layout/Page.layout'
 import { useProducts } from '../../global/state/_ProdContext'
-import useApi from '../../hooks/useApi'
+import { ContentLoader } from '../../components/imports'
 
-import Slider from 'antd/lib/slider'
-
-import 'antd/lib/slider/style/index.css'
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+} from '@chakra-ui/react'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
 const _Artisan = () => {
   const { fetched } = useProducts()
-  const [brand, setbrand] = React.useState([])
-  const [artisan, setArtisan] = React.useState([])
-
-  const CardStyle = {
-    margin: '1.5rem 0',
-    color: localStorage.getItem('mode') === 'dark' ? '#fff' : '#222',
-    background: localStorage.getItem('mode') === 'light' ? '#fff' : '#333',
-    border: 'none',
-  }
+  const history = useHistory()
+  const [data, setData] = useState([])
+  const [Brand, setBrands] = useState([])
+  const [subCateg, setSubCateg] = useState([])
 
   useEffect(() => {
     useApi.get('/api/attributes').then((res) => {
-      setArtisan(res.data)
+      setSubCateg(res.data.filter((el) => el.category === 'artisans'))
     })
 
     useApi.get('/api/brands').then((res) => {
-      setbrand(res.data)
+      setBrands(res.data)
     })
-  }, [])
-
-  const mark = {
-    0: '10$',
-    100: '70$',
-  }
-  console.log(fetched)
+    setData(fetched)
+  }, [setData, fetched])
 
   return (
     <>
       <Pagelayout>
-        <Div>
+        <Banner>
           <Heading>artisan</Heading>
           <Image
             src='./asset/banners/banner_artisanat.jpg'
             alt='artisan banner'
           />
-        </Div>
+        </Banner>
+        {useMediaQuery(900) && (
+          <Accordion allowToggle>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  sdfsdfs
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <Checker>
+                  <input
+                    name='r'
+                    type='Checkbox'
+                    className='Checkbox-input'
+                    onChange={(e) => e.target.checked && setData(fetched)}
+                  />
+                  <p className='checker'>all product</p>
+                </Checker>
+                {subCateg.map((el, key) => {
+                  return (
+                    <Checker key={key}>
+                      <input
+                        name='r'
+                        type='radio'
+                        className='Checkbox-input'
+                        onChange={(e) =>
+                          e.target.checked &&
+                          setData(
+                            fetched.filter(
+                              (elem) => elem.pivot[0].sub_categ === el.sub_categ
+                            )
+                          )
+                        }
+                      />
+                      <p className='checker'>{el.sub_categ}</p>
+                    </Checker>
+                  )
+                })}
 
-        <div style={{ display: 'flex', alignContent: 'flex-start' }}>
-          <FiltringDiv>
-            <h1>Filter by</h1>
-            {artisan
-              .filter((el) => el.category === 'artisans')
-              .map((el) => {
+                {Brand.map((el, key) => {
+                  return (
+                    <Checker key={key}>
+                      <input
+                        name='rs'
+                        type='Checkbox'
+                        className='Checkbox-input'
+                        onChange={(e) =>
+                          e.target.checked &&
+                          setData(
+                            fetched.filter((elem) => elem.tag.tag === el.tag)
+                          )
+                        }
+                      />
+                      <p className='checker'>{el.tag}</p>
+                    </Checker>
+                  )
+                })}
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+        )}
+
+        {fetched.length === 0 ? (
+          <ContentLoader />
+        ) : (
+          <Wrapper>
+            <Container>
+              <h1>Filter By</h1>
+              <Checker>
+                <input
+                  name='r'
+                  type='radio'
+                  className='Checkbox-input'
+                  onChange={(e) => e.target.checked && setData(fetched)}
+                />
+                <p className='checker'>all product</p>
+              </Checker>
+              {subCateg.map((el, key) => {
                 return (
-                  <p className='down'>
-                    <input type='checkbox' /> {el.sub_categ}
-                  </p>
+                  <Checker key={key}>
+                    <input
+                      name='r'
+                      type='radio'
+                      className='Checkbox-input'
+                      onChange={(e) =>
+                        e.target.checked &&
+                        setData(
+                          fetched.filter(
+                            (elem) => elem.pivot[0].sub_categ === el.sub_categ
+                          )
+                        )
+                      }
+                    />
+                    <p className='checker'>{el.sub_categ}</p>
+                  </Checker>
                 )
               })}
-            <br />
-            <Slider
-              marks={mark}
-              range={{ draggableTrack: true }}
-              defaultValue={[0, 100]}
-            />
-            <br />
-            {brand.map((el) => {
-              return (
-                <p className='down'>
-                  <input type='checkbox' /> {el.tag}
-                </p>
-              )
-            })}
-          </FiltringDiv>
-          <Wrapper>
-            {fetched.map((val) => {
-              return (
-                <Card style={CardStyle} key={val.id}>
-                  <Card.Body className='cardBody'>
-                    <img
-                      className='image'
-                      alt={val.images[0].file_path}
-                      src={`http://localhost:8000/storage/products/${val.images[0].file_path}`}
-                    />
 
-                    <div className='left-side'>
-                      <div>
-                        <h1 className='cardTitle'>{val.name}</h1>
-                        <p>{val.price}$</p>
-                        <br />
-                        <p>{val.description}</p>
-                        <br />
-                      </div>
-                      <div style={{ display: 'flex' }}>
-                        <Button>Add to cart</Button>
-                        <m.button className='wishlistIcon'>
-                          <m.span
-                            style={{ display: 'flex' }}
-                            whileTap={{ scale: 0.7 }}>
-                            <BiHeart style={{ fontSize: '1.7rem' }} />
-                          </m.span>
-                        </m.button>
-                      </div>
-                    </div>
-                  </Card.Body>
-                </Card>
-              )
-            })}
+              {Brand.map((el, key) => {
+                return (
+                  <Checker key={key}>
+                    <input
+                      name='rs'
+                      type='radio'
+                      className='Checkbox-input'
+                      onChange={(e) =>
+                        e.target.checked &&
+                        setData(data.filter((elem) => elem.tag.tag === el.tag))
+                      }
+                    />
+                    <p className='checker'>{el.tag}</p>
+                  </Checker>
+                )
+              })}
+            </Container>
+            <Container style={{ flex: 1 }}>
+              {data.length === 0
+                ? 'no data '
+                : data
+                    .filter((el) => el.pivot[0].category === 'artisans')
+                    .map((elem) => {
+                      return (
+                        <Card>
+                          <ProductImage>
+                            <img
+                              className='imageproduct'
+                              alt={elem.images[0].file_path}
+                              src={`http://localhost:8000/storage/products/${elem.images[0].file_path}`}
+                            />
+                          </ProductImage>
+                          <Inofs>
+                            <div style={{ width: '100%' }}>
+                              <h3>{elem.name}</h3>
+                              <p>{elem.price}$</p>
+
+                              {elem.description.length > 140 ? (
+                                <p className='descripton'>
+                                  {elem.description.substring(0, 140)}...
+                                </p>
+                              ) : (
+                                <p className='descripton'>{elem.description}</p>
+                              )}
+                            </div>
+                            <Button
+                              onClick={() =>
+                                history.push(
+                                  `/product/${elem.id}/${elem.pivot[0].category}/${elem.name}`
+                                )
+                              }>
+                              view product
+                            </Button>
+                          </Inofs>
+                        </Card>
+                      )
+                    })}
+            </Container>
           </Wrapper>
-        </div>
+        )}
       </Pagelayout>
     </>
   )
@@ -120,7 +211,7 @@ const _Artisan = () => {
 
 export default _Artisan
 
-const Div = styled.div`
+const Banner = styled.div`
   position: relative;
   display: flex;
   align-items: center;
@@ -132,93 +223,135 @@ const Heading = styled.h1`
   padding-left: 2rem;
   position: absolute;
   text-transform: capitalize;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    position: static;
+    padding-left: 0;
+    color: ${({ theme }) => theme.text};
+  }
 `
 
 const Image = styled.img`
   width: 100%;
   height: 350px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 
 const Wrapper = styled.div`
-  .cardTitle {
-    display: flex;
-    font-size: 1.25rem;
-    align-items: center;
-    justify-content: space-between;
-    /* margin-bottom: 1rem; */
-    text-transform: capitalize;
-  }
+  display: flex;
+  margin-top: 2rem;
+  flex-direction: row;
 
-  .left-side {
-    width: 600px;
-    display: flex;
+  @media (max-width: 900px) {
     flex-direction: column;
-    justify-content: space-between;
+  }
+`
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &:first-child {
+    width: 350px;
+
+    @media (max-width: 900px) {
+      width: 100%;
+      display: none;
+    }
+  }
+`
+
+const Checker = styled.div`
+  display: flex;
+  margin: 5px 0px;
+  flex-direction: row;
+
+  .checker {
+    margin: 0 1rem;
   }
 
-  .heartButton {
-    border: none;
-    outline: none;
-    display: flex;
-    cursor: pointer;
-    background: none;
-    color: ${({ theme }) => theme.text};
-  }
-
-  .image {
-    display: flex;
-    margin-right: 1rem;
-    width: 300px !important;
-  }
-
-  .cardBody {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .cardFooter {
-    display: flex;
+  .Checkbox {
+    font-size: 18px;
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 0.5em;
     align-items: center;
-    justify-content: space-between;
-  }
 
-  .cardlink {
-    font-size: 110%;
-    cursor: pointer;
-    color: ${({ theme }) => theme.optional};
-  }
-  .wishlistIcon {
-    display: flex;
-    border: none;
-    outline: none;
-    padding: 10px;
-    margin-left: 5px;
-    cursor: pointer;
-    color: ${({ theme }) => theme.body};
-    background: ${({ theme }) => theme.text};
+    &-input {
+      margin: 0;
+      cursor: pointer;
+      appearance: none;
+      display: block;
+      width: 18px;
+      height: 18px;
+      background-color: transparent;
+      border: 2px solid ${({ theme }) => theme.sameHover};
+      border-radius: 4px;
+      outline: none;
+
+      &:checked {
+        position: relative;
+        background-color: ${({ theme }) => theme.text};
+        border-color: transparent;
+
+        /* The checkmark */
+        &::after {
+          box-sizing: border-box;
+          content: '';
+          position: absolute;
+          width: 6px;
+          height: 10px;
+          border: 2px solid ${({ theme }) => theme.body};
+          border-top: none;
+          border-left: none;
+          transform-origin: bottom right;
+          transform: translateX(0) translateY(1px) rotate(45deg);
+        }
+      }
+    }
   }
 `
 
-const FiltringDiv = styled.div`
-  margin-top: 3rem;
-  width: 300px;
-  margin-left: 1rem;
+const Card = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2rem;
+`
 
-  .down {
-    margin: 1rem 0;
-  }
+const ProductImage = styled.div`
+  display: flex;
 
-  .ant-slider-handle,
-  .ant-slider-handle-2,
-  .ant-slider-track,
-  .ant-slider-track-1 {
-    border-color: black;
-    border-radius: 0;
-    background-color: black;
+  .imageproduct {
+    width: 290px;
+    height: 350px;
+    @media (max-width: 900px) {
+      width: 150px;
+      height: 190px;
+    }
   }
 `
+const Inofs = styled.div`
+  width: 100%;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .descripton {
+    @media (max-width: 500px) {
+      display: none;
+    }
+  }
+`
+
 const Button = styled.button`
-  width: 300px;
+  width: 250px;
   border: none;
   outline: none;
   cursor: pointer;

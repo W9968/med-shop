@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ReturnPolicy extends Model
 {
@@ -14,7 +15,6 @@ class ReturnPolicy extends Model
      *
      * @var array
      */
-    protected $fillable = ['retun_policy', 'duration'];
-
+    protected $fillable = ['duration'];
 
 }

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { motion as animate } from 'framer-motion'
 
 import DashMenu from './DashMenu'
-import SmallLogo from './SmallLogo'
+import { IconLogo } from '../../imports'
 
 const _SideMenu = () => {
   const [size, setSizing] = useState(true)
@@ -39,7 +39,7 @@ const _SideMenu = () => {
               <Link onClick={() => setSizing(false)}>MedEspoir</Link>
             ) : (
               <span onClick={() => setSizing(true)}>
-                <SmallLogo />
+                <IconLogo />
               </span>
             )}
           </Brand>

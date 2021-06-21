@@ -37,6 +37,7 @@ const PreviewProduct = () => {
           category: response.data.pivot[0].category,
           sub_category: response.data.pivot[0].sub_categ,
           image: response.data.images[0].file_path,
+          returnable_after: response.data.policy.duration,
         })
       }
     })

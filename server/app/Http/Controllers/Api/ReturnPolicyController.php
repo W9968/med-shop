@@ -15,7 +15,7 @@ class ReturnPolicyController extends Controller
      */
     public function show()
     {
-        return ReturnPolicy::all();
+        return ReturnPolicy::find(1);
     }
 
     /**
@@ -25,9 +25,9 @@ class ReturnPolicyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $returnpolicy = ReturnPolicy::find($id);
+        $returnpolicy = ReturnPolicy::find(1);
         $returnpolicy -> update($request-> all());
         return $returnpolicy; 
     }

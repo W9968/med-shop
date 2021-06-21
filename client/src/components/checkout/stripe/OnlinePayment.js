@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 
 import styled from 'styled-components'
 import useApi from '../../../hooks/useApi'
 import { MdPayment } from 'react-icons/md'
 import { useAuth } from '../../../global/exports'
 import CheckoutError from './prebuilt/CheckoutError'
-
 import { StyledSelect } from '../../../styles/Crud.element'
 import { CustemStyles } from '../../../styles/DropDown.element'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
@@ -17,11 +16,18 @@ const OnlinePayment = ({ price, onSuccessfulCheckout }) => {
   const [checkoutError, setCheckoutError] = useState()
   const [numberStart, setNumberStart] = useState('')
   const [country, setCoutry] = useState('')
-
+  const [countrieFN, setCountriesFN] = useState('')
+  const [returnableVal, setReturnableVal] = useState()
   const stripe = useStripe()
   const elements = useElements()
   const [, setToast] = useToasts()
   const { logged, currentUser } = useAuth()
+
+  useLayoutEffect(() => {
+    useApi
+      .get('/api/returnpolicy')
+      .then((res) => setReturnableVal(res.data.duration))
+  }, [])
 
   const handleCardDetailsChange = (event) => {
     event.error ? setCheckoutError(event.error.message) : setCheckoutError()
@@ -43,13 +49,13 @@ const OnlinePayment = ({ price, onSuccessfulCheckout }) => {
         city: e.target.city.value,
         line1: e.target.line1.value,
         line2: e.target.line2.value,
-        country: country,
+        country: countrieFN,
         postal_code: e.target.postal_code.value,
       },
     }
     const cardElement = elements.getElement(CardElement)
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: 'card',
       card: cardElement,
       billing_details: billingDetails,
@@ -57,22 +63,41 @@ const OnlinePayment = ({ price, onSuccessfulCheckout }) => {
 
     if (error) {
       setCheckoutError(error.message)
-      console.log('[error]', error)
+      setToast({
+        text: error.message,
+        type: 'error',
+      })
       setProcessingTo(false)
     } else {
-      console.log('[PaymentMethod]', paymentMethod)
       try {
-        const { id } = paymentMethod
-        console.log(id)
         logged
           ? await useApi
               .post('api/payment', {
-                amount: price,
-                token: id,
-                billing_details: billingDetails,
+                amount: Math.ceil(price * 0.72411175 * 100),
               })
               .then((response) => {
-                console.log(response)
+                useApi
+                  .post('/api/payement/facture', {
+                    transaction_id: response.data.id,
+                    payment_methode: 'Card',
+                    amount_to_pay: response.data.amount / 100,
+                    country: billingDetails.address.country,
+                    state: billingDetails.address.city,
+                    postal_code: billingDetails.address.postal_code,
+                    phone_number: billingDetails.phone,
+                    line1: billingDetails.address.line1,
+                    line2: billingDetails.address.line2,
+                    returnable: returnableVal,
+                  })
+                  .then(() =>
+                    setToast({
+                      text: 'your payement went through',
+                      type: 'success',
+                      actions: [
+                        { name: 'check reciep', handler: () => alert('see') },
+                      ],
+                    })
+                  )
               })
               .then(() => setProcessingTo(false))
           : setToast({
@@ -163,6 +188,7 @@ const OnlinePayment = ({ price, onSuccessfulCheckout }) => {
               options={countries}
               onChange={(e) => {
                 setCoutry(e.value)
+                setCountriesFN(e.label)
               }}
             />
           </FormFieldContainer>
@@ -177,7 +203,7 @@ const OnlinePayment = ({ price, onSuccessfulCheckout }) => {
             <Input
               name='postal_code'
               type='number'
-              placeholder='city...'
+              placeholder='postal code...'
               required
             />
           </FormFieldContainer>

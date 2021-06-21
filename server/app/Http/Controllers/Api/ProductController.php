@@ -22,7 +22,6 @@ class ProductController extends Controller
     {
         if(ReturnPolicy::all()->isEmpty()) {
             ReturnPolicy::create([
-                'return_policy' => 0,
                 'duration' => '0'
             ]);
         }

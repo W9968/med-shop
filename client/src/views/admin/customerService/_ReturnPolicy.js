@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useCrud } from '../../../global/exports'
 import { ContentHeader, ContentLoader } from '../../../components/imports'
+import useApi from '../../../hooks/useApi'
 import {
   Wrapper,
   InputGroup,
@@ -12,98 +12,85 @@ import {
 } from '../../../styles/Crud.element'
 
 const _ReturnPolicy = () => {
-  useEffect(() => {
-    loadData('returnpolicy')
-  }, []) // eslint-disable-line
+  const [update, setupdate] = useState()
+  const [enable, setEnable] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [returnable, setReturnable] = useState('')
 
-  const [period, setPeriod] = useState()
-  const { updateData, storeData, loadData, socket, loading } = useCrud()
-  const [checkes, setChecks] = useState(
-    ...socket.map((val) => val.return_policy)
-  )
+  const loadData = async () => {
+    setLoading(true)
+    await useApi
+      .get('/api/returnpolicy')
+      .then((res) => setReturnable(res.data))
+      .then(() => setLoading(false))
+  }
+
+  useEffect(() => {
+    loadData()
+  }, [])
 
   return (
     <>
       <ContentHeader header='Return policy' boolState={false} />
-      <Wrapper>
-        {socket.length === 0 ? (
-          <>
-            <InputGroup>
-              <Checkbox onChange={(e) => setChecks(e.target.checked)}>
-                <p>status: Enabled</p>
-              </Checkbox>
-            </InputGroup>
-            <InputGroup>
-              <Label>set period</Label>
-              <Input
-                type='number'
-                placeholder='set a period of time'
-                onChange={(e) => setPeriod(e.target.value)}
-              />
-            </InputGroup>
-            <Div>
-              <Button
-                onClick={() => {
-                  storeData('returnpolicy', {
-                    return_policy: checkes,
-                    duration: period,
+      {loading ? (
+        <ContentLoader />
+      ) : returnable.duration === 0 ? (
+        <Wrapper>
+          <Label>
+            <Checkbox onChange={() => setEnable(true)} />
+            <span style={{ margin: '0 1rem' }}>enable reutrn policy</span>
+          </Label>
+          {enable && (
+            <>
+              <InputGroup key={returnable.duration}>
+                <Label>update return policy</Label>
+                <Input
+                  type='number'
+                  placeholder='return periode'
+                  defaultValue={returnable.duration}
+                  onChange={(e) => setupdate(e.target.value)}
+                />
+              </InputGroup>
+              <Div>
+                <Button
+                  onClick={() => {
+                    useApi
+                      .put('/api/returnpolicy', {
+                        duration: update,
+                      })
+                      .then(() => loadData())
+                  }}>
+                  update
+                </Button>
+              </Div>
+            </>
+          )}
+        </Wrapper>
+      ) : (
+        <Wrapper>
+          <InputGroup key={returnable.duration}>
+            <Label>update return policy</Label>
+            <Input
+              type='number'
+              placeholder='return periode'
+              defaultValue={returnable.duration}
+              onChange={(e) => setupdate(e.target.value)}
+            />
+          </InputGroup>
+          <Div>
+            <Button
+              onClick={() => {
+                useApi
+                  .put('/api/returnpolicy', {
+                    duration: update,
                   })
-                }}>
-                create
-              </Button>
-            </Div>
-          </>
-        ) : loading ? (
-          <ContentLoader />
-        ) : (
-          <>
-            <InputGroup>
-              <Checkbox
-                defaultChecked={checkes}
-                onChange={(e) => setChecks(e.target.checked)}>
-                <p>status: {checkes ? 'Enabled' : 'Disabled'}</p>
-              </Checkbox>
-            </InputGroup>
-            <InputGroup>
-              <Label>set period</Label>
-              <Input
-                type='number'
-                placeholder='set a period of time'
-                defaultValue={socket.map((val) => val.duration)}
-                onChange={(e) => setPeriod(e.target.value)}
-              />
-            </InputGroup>
-            <Div>
-              <Button
-                onClick={() => {
-                  updateData('returnpolicy', 1, {
-                    return_policy: checkes,
-                    duration: period,
-                  })
-                }}>
-                update
-              </Button>
-            </Div>
-            <div style={{ margin: '1rem 0rem', padding: '1rem' }}>
-              {socket.map((value) => {
-                return value.return_policy ? (
-                  <>
-                    <p style={{ listStyle: 'none' }}>
-                      Return policy is set to <>{value.duration}</> days
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p style={{ listStyle: 'none' }}>
-                      Return policy is disabled
-                    </p>
-                  </>
-                )
-              })}
-            </div>
-          </>
-        )}
-      </Wrapper>
+                  .then(() => loadData())
+              }}>
+              update
+            </Button>
+          </Div>
+        </Wrapper>
+      )}
     </>
   )
 }

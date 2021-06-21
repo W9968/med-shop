@@ -86,7 +86,7 @@ Route::delete('/wishlists/{id}', [WishListController::class, 'destroy']);
 
 // return policy 
 Route::get('/returnpolicy', [ReturnPolicyController::class, 'show']);
-Route::put('/returnpolicy/{id}', [ReturnPolicyController::class, 'update']);
+Route::put('/returnpolicy', [ReturnPolicyController::class, 'update']);
 
 
 // get audit lgos
@@ -94,7 +94,8 @@ Route::get('/logs', [AuditsController::class, 'showAdminLogs']);
 Route::get('/logs/customer', [AuditsController::class, 'showCustomerLogs']);
 
 // payment routes 
-Route::post('/payment',[PaymentController::class, 'pay']);
+Route::post('/payment',[PaymentController::class, 'creditCharge']);
+Route::post('/payement/facture',[PaymentController::class, 'paymentFacture']);
 
 // get current user
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

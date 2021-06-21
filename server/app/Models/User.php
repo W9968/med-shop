@@ -75,4 +75,14 @@ class User extends Authenticatable implements MustVerifyEmail, Auditable
         return $this->hasMany(Orders::class, 'user_id', 'id');
     }
 
+    /**
+     * Get all of the factures for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function factures(): HasMany
+    {
+        return $this->hasMany(Facture::class, 'user_id', 'id');
+    }
+
 }

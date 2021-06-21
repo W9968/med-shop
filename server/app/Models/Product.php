@@ -93,4 +93,5 @@ class Product extends Model implements Auditable
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
+
 }
