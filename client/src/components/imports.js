@@ -53,4 +53,5 @@ export { default as OnDelivery } from './checkout/ondelivey/_PayOnDelivey'
 export { default as Stripe } from './checkout/stripe/_Stripe'
 
 export { default as UserStat } from './dashboard/charts/UserCount'
-export { default as RevenueStat } from './dashboard/charts/Revenue'
+export { default as OrderCount } from './dashboard/charts/OrderCount'
+export { default as MoneyRevenue } from './dashboard/charts/RevenueCount'

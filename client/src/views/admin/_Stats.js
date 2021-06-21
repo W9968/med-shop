@@ -1,6 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { RevenueStat, UserStat, ContentHeader } from '../../components/imports'
+import {
+  MoneyRevenue,
+  OrderCount,
+  UserStat,
+  ContentHeader,
+} from '../../components/imports'
 
 const _Stats = () => {
   return (
@@ -8,7 +13,8 @@ const _Stats = () => {
       <Wrapper>
         <ContentHeader header='Dashboard' boolState={false} />
         <UserStat />
-        <RevenueStat />
+        <OrderCount />
+        <MoneyRevenue />
       </Wrapper>
     </>
   )
