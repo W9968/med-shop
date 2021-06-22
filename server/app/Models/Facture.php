@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class Facture extends Model
+class Facture extends Model implements Auditable
 {
-    use HasFactory;
+    use HasFactory,  AuditableTrait;
     /**
      * The attributes that are mass assignable.
      *
@@ -46,5 +49,15 @@ class Facture extends Model
     public function orders(): HasMany
     {
         return $this->hasMany(Orders::class, 'facture_id', 'id');
+    }
+
+    /**
+     * Get the stateorder associated with the Facture
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function stateorder(): HasOne
+    {
+        return $this->hasOne(Status::class, 'facture_id', 'id');
     }
 }

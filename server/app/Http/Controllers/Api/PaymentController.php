@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Facture;
 use App\Models\Orders;
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
@@ -79,6 +80,10 @@ class PaymentController extends Controller
                 'facture_id' => $facture->id,
             ]);
         }
+
+        $facture->stateorder()->create([
+            'facture_id' => $facture->id
+        ]);
         
       
     }
@@ -86,11 +91,13 @@ class PaymentController extends Controller
 
     public function getAllFactures()
     {
-        $collection =  Facture::with('orders')->get();
-        $mappedCollection = $collection->map(function ($item){
-            return $item->setAttribute('user',User::find($item->user_id));
-        });
-        return $mappedCollection;
+        // $collection =  Facture::with('orders')->get();
+        // $mappedCollection = $collection->map(function ($item){
+        //     return $item->setAttribute('user',User::find($item->user_id));
+        // });
+        // return $mappedCollection;
+
+        return Facture::with('orders')->stateorder()->get();
     }
 
     public function getAuthedUserFactureList()

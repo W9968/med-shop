@@ -66,7 +66,7 @@ const UserCount = () => {
               />
             </div>
             <div style={{ flex: 1, margin: '0 1rem' }}>
-              <h1>Total user</h1>
+              <h1>Total users</h1>
               <h1>{users.length}</h1>
             </div>
           </Div>

@@ -3,29 +3,28 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class Discount extends Model implements Auditable
+class Status extends Model implements Auditable
 {
-    use HasFactory , AuditableTrait;
+    use HasFactory, AuditableTrait;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['product_id', 'file_path'];
-
+    protected $fillable = ['state', 'facture_id'];
     /**
-     * Get the product that owns the Discount
+     * Get the facture that owns the Stock
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function product(): BelongsTo
+    public function facture(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'product_id');
+        return $this->belongsTo(Facture::class, 'facture_id');
     }
 }

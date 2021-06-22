@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Route;
 
 // user routes
 Route::get('/customer', [UserController::class, 'index']);
+Route::get('/customer/buys', [UserController::class, 'showBuyings']);
 
 // attributes routes
 Route::get('/attributes', [AttributeController::class, 'index']);
